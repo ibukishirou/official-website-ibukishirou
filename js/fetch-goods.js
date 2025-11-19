@@ -23,6 +23,22 @@ function displayGoods(goodsArray) {
     const availableClass = item.available ? '' : 'sold-out';
     const soldOutOverlay = !item.available ? '<div class="sold-out-overlay">Sold Out</div>' : '';
     
+    // availableがfalseの場合はdivタグを使用（リンク無効化）
+    if (!item.available) {
+      return `
+        <div class="card goods-card ${availableClass}" style="cursor: not-allowed;">
+          <div class="goods-image-wrapper">
+            <img src="${item.thumbnail}" alt="${item.name}" class="card-image" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src='assets/img/placeholder.webp';}else{this.style.display='none';}">
+            ${soldOutOverlay}
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">${item.name}</h3>
+          </div>
+        </div>
+      `;
+    }
+    
+    // availableがtrueの場合は通常のリンク
     return `
       <a href="${item.link}" target="_blank" class="card goods-card ${availableClass}">
         <div class="goods-image-wrapper">

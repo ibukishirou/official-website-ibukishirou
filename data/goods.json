@@ -3,36 +3,36 @@
     "name": "伊吹しろうデビュー記念フルセット",
     "thumbnail": "assets/goods/20251118_matome.webp",
     "link": "https://ibukishirou.booth.pm/items/7618604",
-    "available": true
+    "available": false
   },
   {
     "name": "アクリルスタンド",
     "thumbnail": "assets/goods/20251118_akusuta.webp",
     "link": "https://ibukishirou.booth.pm/items/7625265",
-    "available": true
+    "available": false
   },
   {
     "name": "アクリルキーホルダー",
     "thumbnail": "assets/goods/20251118_akuki.webp",
     "link": "https://ibukishirou.booth.pm/items/7625274",
-    "available": true
+    "available": false
   },
   {
     "name": "ステッカー10枚セット",
     "thumbnail": "assets/goods/20251118_sticker.webp",
     "link": "https://ibukishirou.booth.pm/items/7625278",
-    "available": true
+    "available": false
   },
   {
     "name": "三連アクリルキーホルダー",
     "thumbnail": "assets/goods/20251118_3akuki.webp",
     "link": "https://ibukishirou.booth.pm/items/7625282",
-    "available": true
+    "available": false
   },
   {
     "name": "缶バッチ",
     "thumbnail": "assets/goods/20251118_kanbatti.webp",
     "link": "https://ibukishirou.booth.pm/items/7625284",
-    "available": true
+    "available": false
   }
 ]
