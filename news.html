@@ -8,8 +8,40 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。配信予定、イベント情報、新作動画の告知など最新ニュースをチェック。">
+  <meta name="keywords" content="伊吹しろう,ニュース,お知らせ,最新情報,配信予定">
+  <link rel="canonical" href="https://ibukishirou.com/news.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="News - 伊吹しろう Official Website">
+  <meta property="og:description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。">
+  <meta property="og:url" content="https://ibukishirou.com/news.html">
+  <meta property="og:image" content="https://ibukishirou.com/assets/img/header.webp">
+  <meta property="og:site_name" content="伊吹しろう Official Website">
+  <meta property="og:locale" content="ja_JP">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ibukishirou">
+  <meta name="twitter:title" content="News - 伊吹しろう Official Website">
+  <meta name="twitter:description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。">
+  <meta name="twitter:image" content="https://ibukishirou.com/assets/img/header.webp">
+  
   <title>News - 伊吹しろう Official Website</title>
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "News - 伊吹しろう Official Website",
+    "description": "VTuber 伊吹しろうの最新情報・お知らせ",
+    "url": "https://ibukishirou.com/news.html"
+  }
+  </script>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +56,7 @@
   <header></header>
 
   <!-- ニュースセクション -->
-  <section style="padding-top: 8rem;">
+  <section style="padding-top: 2rem;">
     <h2 class="section-title">News</h2>
     
     <p style="text-align: center; font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
@@ -41,6 +73,7 @@
 
   <!-- JavaScript -->
   <script src="js/components.js"></script>
+  <script src="js/breadcrumb.js"></script>
   <script src="js/main.js"></script>
   <script src="js/fetch-news.js"></script>
   <script src="js/share.js"></script>
