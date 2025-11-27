@@ -1171,39 +1171,48 @@ footer {
   transition: all 0.3s ease;
 }
 
-.share-btn:hover {
-  transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+/* ホバーエフェクト（PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+  }
 }
 
-/* YouTube遷移ボタン（ホバー時のみ色変更） */
-.share-btn.youtube:hover {
-  background: #FF0000;
-  border-color: #FF0000;
+/* YouTube遷移ボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.youtube:hover {
+    background: #FF0000;
+    border-color: #FF0000;
+  }
+
+  .share-btn.youtube:hover svg {
+    fill: #ffffff;
+  }
 }
 
-.share-btn.youtube:hover svg {
-  fill: #ffffff;
+/* X遷移ボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.twitter:hover {
+    background: #000000;
+    border-color: #000000;
+  }
+
+  .share-btn.twitter:hover svg {
+    fill: #ffffff;
+  }
 }
 
-/* X遷移ボタン（ホバー時のみ色変更） */
-.share-btn.twitter:hover {
-  background: #000000;
-  border-color: #000000;
-}
+/* シェアトグルボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.share-toggle:hover {
+    background: var(--color-secondary);
+    border-color: var(--color-secondary);
+  }
 
-.share-btn.twitter:hover svg {
-  fill: #ffffff;
-}
-
-/* シェアトグルボタン（ホバー時のみ色変更） */
-.share-btn.share-toggle:hover {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.share-btn.share-toggle:hover svg {
-  fill: #ffffff;
+  .share-btn.share-toggle:hover svg {
+    fill: #ffffff;
+  }
 }
 
 /* シェアトグルボタン（展開時に光る） */
@@ -1235,34 +1244,40 @@ footer {
   opacity: 0;
 }
 
-/* LINEシェアボタン（ホバー時のみ色変更） */
-.share-btn.line:hover {
-  background: #06C755;
-  border-color: #06C755;
+/* LINEシェアボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.line:hover {
+    background: #06C755;
+    border-color: #06C755;
+  }
+
+  .share-btn.line:hover svg {
+    fill: #ffffff;
+  }
 }
 
-.share-btn.line:hover svg {
-  fill: #ffffff;
+/* Xシェアボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.twitter-share:hover {
+    background: #000000;
+    border-color: #000000;
+  }
+
+  .share-btn.twitter-share:hover svg {
+    fill: #ffffff;
+  }
 }
 
-/* Xシェアボタン（ホバー時のみ色変更） */
-.share-btn.twitter-share:hover {
-  background: #000000;
-  border-color: #000000;
-}
+/* URLコピーボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.url-copy:hover {
+    background: var(--color-secondary);
+    border-color: var(--color-secondary);
+  }
 
-.share-btn.twitter-share:hover svg {
-  fill: #ffffff;
-}
-
-/* URLコピーボタン（ホバー時のみ色変更） */
-.share-btn.url-copy:hover {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.share-btn.url-copy:hover svg {
-  fill: #ffffff;
+  .share-btn.url-copy:hover svg {
+    fill: #ffffff;
+  }
 }
 
 @media (max-width: 768px) {
