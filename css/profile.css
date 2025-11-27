@@ -95,3 +95,16 @@
   color: var(--color-text-secondary);
   white-space: nowrap;
 }
+
+/* プロフィール名の英語部分 - SPビューで改行制御 */
+.profile-name-en {
+  white-space: nowrap;
+}
+
+/* SPビュー: 伊吹しろうの後で改行 */
+@media (max-width: 768px) {
+  .profile-name-en {
+    display: block;
+    margin-top: 0.3rem;
+  }
+}
