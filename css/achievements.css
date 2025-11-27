@@ -48,7 +48,7 @@
 .achievements-list::before {
   content: '';
   position: absolute;
-  left: calc(140px + 2rem - 1px);
+  left: calc(140px + 2rem);
   top: 0;
   bottom: 0;
   width: 2px;
@@ -109,7 +109,7 @@
   border: 3px solid var(--color-bg);
   border-radius: 50%;
   position: absolute;
-  left: calc(140px + 2rem - 9px);
+  left: calc(140px + 2rem - 8px);
   top: calc(3rem + 0.5rem);
   z-index: 10;
   box-shadow: 0 0 0 3px var(--color-secondary);
@@ -221,7 +221,7 @@
   
   /* モバイルでは左端に線を配置 */
   .achievements-list::before {
-    left: calc(1.5rem - 1px);
+    left: 1.5rem;
   }
   
   .achievement-item {
@@ -236,7 +236,7 @@
   }
   
   .achievement-point {
-    left: calc(1.5rem - 9px);
+    left: calc(1.5rem - 8px);
     top: calc(2rem + 0.5rem);
   }
   
