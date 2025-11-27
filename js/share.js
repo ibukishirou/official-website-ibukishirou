@@ -112,10 +112,10 @@
       shareMenu.style.display = 'flex';
       toggleBtn.setAttribute('aria-label', 'シェアメニューを閉じる');
       
-      // アニメーション効果
+      // アニメーション効果（右から左へスライドイン）
       const options = shareMenu.querySelectorAll('.share-option');
       options.forEach((option, index) => {
-        option.style.animation = `slideInLeft 0.3s ease forwards ${index * 0.05}s`;
+        option.style.animation = `slideInRight 0.3s ease forwards ${index * 0.05}s`;
         option.style.opacity = '0';
       });
       
@@ -137,10 +137,10 @@
     
     shareMenuExpanded = false;
     
-    // メニューを非表示
+    // メニューを非表示（左から右へスライドアウト）
     const options = shareMenu.querySelectorAll('.share-option');
     options.forEach((option, index) => {
-      option.style.animation = `slideOutRight 0.3s ease forwards ${index * 0.05}s`;
+      option.style.animation = `slideOutLeft 0.3s ease forwards ${index * 0.05}s`;
     });
     
     setTimeout(() => {
@@ -245,7 +245,7 @@
       from { opacity: 1; transform: translate(-50%, -50%); }
       to { opacity: 0; transform: translate(-50%, -40%); }
     }
-    @keyframes slideInLeft {
+    @keyframes slideInRight {
       from {
         opacity: 0;
         transform: translateX(20px);
@@ -255,14 +255,14 @@
         transform: translateX(0);
       }
     }
-    @keyframes slideOutRight {
+    @keyframes slideOutLeft {
       from {
         opacity: 1;
         transform: translateX(0);
       }
       to {
         opacity: 0;
-        transform: translateX(20px);
+        transform: translateX(-20px);
       }
     }
   `;

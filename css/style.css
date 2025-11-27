@@ -1209,9 +1209,10 @@ footer {
 /* シェアメニュー（左側に横一列表示） */
 .share-menu {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.8rem;
   margin-right: 0.8rem;
+  align-items: center;
 }
 
 /* シェアオプションボタン */
@@ -1271,6 +1272,7 @@ footer {
   }
   
   .share-menu {
+    flex-direction: row;
     gap: 0.6rem;
     margin-right: 0.6rem;
   }
