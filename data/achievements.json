@@ -1,0 +1,26 @@
+[
+  {
+    "id": "250922",
+    "title": "伊吹しろうデビュー",
+    "body": "VTuberデビューしました。",
+    "link": "https://www.youtube.com/@ibukishirou",
+    "tags": ["infomation"],
+    "release_date": "2025-09-22"
+  },
+  {
+    "id": "250922-2",
+    "title": "1st 歌ってみた「狂乱hey kids!!」公開",
+    "body": "VTuberデビューを記念して「狂乱hey kids!!」をリリースしました。",
+    "link": "https://youtu.be/ebn1HkmANqg",
+    "tags": ["music"],
+    "release_date": "2025-09-22"
+  },
+  {
+    "id": "251127",
+    "title": "公式サイトオープン",
+    "body": "伊吹しろう公式サイトを開設しました。<br>伊吹しろうのプロフィールや作品、ガイドラインなどをまとめたポータルサイトです。",
+    "link": "",
+    "tags": ["infomation"],
+    "release_date": "2025-11-27"
+  }
+]

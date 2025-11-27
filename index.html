@@ -66,7 +66,7 @@
     "url": "https://ibukishirou.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://ibukishirou.com/news.html?q={search_term_string}",
+      "target": "https://ibukishirou.com/achievements.html?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -130,17 +130,6 @@
     </div>
   </section>
 
-  <!-- 最新ニュース -->
-  <section id="latest-news">
-    <h2 class="section-title">Latest News</h2>
-    <div class="news-list" id="news-container">
-      <!-- JSで動的に読み込み -->
-    </div>
-    <div style="text-align: center; margin-top: 2rem;">
-      <a href="news.html" class="btn">もっと見る</a>
-    </div>
-  </section>
-
   <!-- SNSリンク -->
   <section id="social">
     <h2 class="section-title">Social Links</h2>
@@ -156,29 +145,8 @@
   <script src="js/components.js"></script>
   <script src="js/loading.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/fetch-news.js"></script>
   <script src="js/fetch-links.js"></script>
   <script>
-    // Homeページ用：最新3件のみ表示
-    async function loadLatestNews() {
-      try {
-        const response = await fetch('data/news.json');
-        const newsData = await response.json();
-        
-        const today = new Date();
-        const validNews = newsData.filter(item => {
-          const startDate = new Date(item.startDate);
-          const endDate = new Date(item.endDate);
-          return today >= startDate && today <= endDate;
-        });
-        
-        validNews.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-        displayNews(validNews, 3);
-      } catch (error) {
-        console.error('ニュースの読み込みに失敗しました:', error);
-      }
-    }
-    
     // Featured Worksの読み込み
     async function loadFeaturedWorks() {
       try {
@@ -211,7 +179,6 @@
       }
     }
     
-    loadLatestNews();
     loadFeaturedWorks();
   </script>
   <script src="js/share.js"></script>

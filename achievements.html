@@ -10,15 +10,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。配信予定、イベント情報、新作動画の告知など最新ニュースをチェック。">
-  <meta name="keywords" content="伊吹しろう,ニュース,お知らせ,最新情報,配信予定">
-  <link rel="canonical" href="https://ibukishirou.com/news.html">
+  <meta name="description" content="VTuber 伊吹しろうの実績・活動履歴を掲載しています。デビューから現在までの歩みをご覧いただけます。">
+  <meta name="keywords" content="伊吹しろう,実績,活動履歴,achievements,VTuber">
+  <link rel="canonical" href="https://ibukishirou.com/achievements.html">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="News - 伊吹しろう Official Website">
-  <meta property="og:description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。">
-  <meta property="og:url" content="https://ibukishirou.com/news.html">
+  <meta property="og:title" content="Achievements - 伊吹しろう Official Website">
+  <meta property="og:description" content="VTuber 伊吹しろうの実績・活動履歴を掲載しています。">
+  <meta property="og:url" content="https://ibukishirou.com/achievements.html">
   <meta property="og:image" content="https://ibukishirou.com/assets/img/header.webp">
   <meta property="og:site_name" content="伊吹しろう Official Website">
   <meta property="og:locale" content="ja_JP">
@@ -26,20 +26,20 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ibukishirou">
-  <meta name="twitter:title" content="News - 伊吹しろう Official Website">
-  <meta name="twitter:description" content="VTuber 伊吹しろうの最新情報・お知らせを掲載しています。">
+  <meta name="twitter:title" content="Achievements - 伊吹しろう Official Website">
+  <meta name="twitter:description" content="VTuber 伊吹しろうの実績・活動履歴を掲載しています。">
   <meta name="twitter:image" content="https://ibukishirou.com/assets/img/header.webp">
   
-  <title>News - 伊吹しろう Official Website</title>
+  <title>Achievements - 伊吹しろう Official Website</title>
   
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "News - 伊吹しろう Official Website",
-    "description": "VTuber 伊吹しろうの最新情報・お知らせ",
-    "url": "https://ibukishirou.com/news.html"
+    "name": "Achievements - 伊吹しろう Official Website",
+    "description": "VTuber 伊吹しろうの実績・活動履歴",
+    "url": "https://ibukishirou.com/achievements.html"
   }
   </script>
   
@@ -50,20 +50,29 @@
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/achievements.css">
 </head>
 <body>
   <!-- ヘッダー -->
   <header></header>
 
-  <!-- ニュースセクション -->
+  <!-- 実績セクション -->
   <section style="padding-top: 2rem;">
-    <h2 class="section-title">News</h2>
+    <h2 class="section-title">Achievements</h2>
     
     <p style="text-align: center; font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
-      伊吹しろうに関する最新のお知らせや更新情報をご覧いただけます。
+      伊吹しろうの実績・活動履歴をご覧いただけます。
     </p>
     
-    <div class="news-list" id="news-container">
+    <!-- フィルターボタン -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">ALL</button>
+      <button class="filter-btn" data-filter="infomation">Information</button>
+      <button class="filter-btn" data-filter="music">Music</button>
+    </div>
+    
+    <!-- 実績リスト -->
+    <div class="achievements-list" id="achievements-container">
       <!-- JSで動的に読み込み -->
     </div>
   </section>
@@ -75,7 +84,7 @@
   <script src="js/components.js"></script>
   <script src="js/breadcrumb.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/fetch-news.js"></script>
+  <script src="js/fetch-achievements.js"></script>
   <script src="js/share.js"></script>
 </body>
 </html>
