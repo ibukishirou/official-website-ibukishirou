@@ -1213,6 +1213,11 @@ footer {
   gap: 0.8rem;
   margin-right: 0.8rem;
   align-items: center;
+  order: 1;
+}
+
+.share-main-buttons {
+  order: 2;
 }
 
 /* シェアオプションボタン */
