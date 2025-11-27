@@ -1,5 +1,5 @@
 /* ============================================
-   Achievements Page Styles
+   Achievements Page Styles - 完全再設計
    ============================================ */
 
 /* フィルターボタン */
@@ -36,22 +36,22 @@
   color: var(--color-text);
 }
 
-/* 実績リスト - タイムライン風デザイン */
+/* 実績リスト - プロフェッショナルなタイムラインデザイン */
 .achievements-list {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
 }
 
-/* 左寄りの縦線（日付とコンテンツの中央） */
+/* 中央の縦線 */
 .achievements-list::before {
   content: '';
   position: absolute;
-  left: calc(140px + 2rem);
+  left: 160px;
   top: 0;
   bottom: 0;
-  width: 2px;
+  width: 3px;
   background: linear-gradient(to bottom, 
     var(--color-secondary) 0%, 
     var(--color-primary) 50%, 
@@ -60,9 +60,10 @@
 }
 
 .achievement-item {
-  display: flex;
-  gap: 2rem;
-  padding: 3rem 0;
+  display: grid;
+  grid-template-columns: 120px 80px 1fr;
+  gap: 0;
+  padding: 2.5rem 0;
   position: relative;
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards;
@@ -92,97 +93,58 @@
 /* 左側の日付 */
 .achievement-date {
   font-family: var(--font-secondary);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--color-secondary);
-  font-weight: 600;
+  font-weight: 700;
   text-align: right;
-  width: 140px;
-  flex-shrink: 0;
-  padding-top: 0.5rem;
+  padding-right: 2rem;
+  line-height: 1.4;
 }
 
-/* 中央のポイント - 縦線の中心に正確に配置 */
+/* 中央のポイント - 縦線上に配置 */
 .achievement-point {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background: var(--color-secondary);
-  border: 3px solid var(--color-bg);
+  border: 4px solid var(--color-bg);
   border-radius: 50%;
-  position: absolute;
-  left: calc(140px + 2rem - 8px);
-  top: calc(3rem + 0.5rem);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  box-shadow: 0 0 0 3px var(--color-secondary);
+  box-shadow: 0 0 0 4px rgba(210, 105, 30, 0.3);
+  margin-top: 0.15rem;
 }
 
+/* コンテンツエリア */
 .achievement-content {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  background: rgba(26, 26, 26, 0.3);
-  padding: 1.5rem;
+  background: rgba(26, 26, 26, 0.4);
+  padding: 1.75rem;
   border-radius: 8px;
   border: 1px solid var(--color-border);
   transition: var(--transition);
-  flex: 1;
   margin-left: 2rem;
 }
 
 .achievement-content:hover {
-  background: rgba(26, 26, 26, 0.5);
+  background: rgba(26, 26, 26, 0.6);
   border-color: var(--color-secondary);
-  transform: translateX(5px);
+  transform: translateX(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* タグを最後に配置するための順序調整 */
-.achievement-tags {
-  order: 3;
-}
-
-.achievement-title {
-  order: 1;
-}
-
-.achievement-body {
-  order: 2;
-}
-
-.achievement-tags {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-
-.achievement-tag {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-family: var(--font-secondary);
-  font-weight: 400;
-  letter-spacing: 0.3px;
-  opacity: 0.7;
-}
-
-.achievement-tag::before {
-  content: '#';
-  margin-right: 0.2rem;
-}
-
-.tag-music {
-  color: var(--color-text-secondary);
-}
-
-.tag-infomation {
-  color: var(--color-text-secondary);
-}
-
+/* タイトル */
 .achievement-title {
   font-family: var(--font-primary);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--color-text);
   line-height: 1.6;
   margin: 0;
+  order: 1;
 }
 
 .achievement-title a {
@@ -195,12 +157,38 @@
   color: var(--color-secondary);
 }
 
+/* 本文 */
 .achievement-body {
   font-family: var(--font-secondary);
   font-size: 0.95rem;
   color: var(--color-text-secondary);
   line-height: 1.8;
   margin: 0;
+  order: 2;
+}
+
+/* タグ */
+.achievement-tags {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  order: 3;
+}
+
+.achievement-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  opacity: 0.7;
+  color: var(--color-text-secondary);
+}
+
+.achievement-tag::before {
+  content: '#';
+  margin-right: 0.2rem;
 }
 
 /* レスポンシブ対応 */
@@ -215,20 +203,17 @@
   }
   
   .achievements-list {
-    padding: 0;
-    padding-left: 1.5rem;
+    padding: 0 1rem;
   }
   
-  /* モバイルでは左端に線を配置 */
+  /* モバイルでは左端に縦線 */
   .achievements-list::before {
-    left: 1.5rem;
+    left: 20px;
   }
   
   .achievement-item {
-    flex-direction: column;
-    gap: 0;
+    grid-template-columns: 40px 1fr;
     padding: 2rem 0;
-    padding-left: 0;
   }
   
   .achievement-date {
@@ -236,13 +221,14 @@
   }
   
   .achievement-point {
-    left: calc(1.5rem - 8px);
-    top: calc(2rem + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.15rem;
   }
   
   .achievement-content {
-    padding: 1rem;
-    margin-left: 2rem;
+    padding: 1.25rem;
+    margin-left: 1.5rem;
   }
   
   .achievement-content:hover {
@@ -257,14 +243,14 @@
     font-size: 0.9rem;
   }
   
-  /* モバイルでは日付をタイトルの前に表示 */
+  /* モバイルでは日付をコンテンツ内に表示 */
   .achievement-content::before {
     content: attr(data-date);
     font-family: var(--font-secondary);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--color-secondary);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
     display: block;
     order: 0;
   }
