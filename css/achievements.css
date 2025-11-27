@@ -31,42 +31,109 @@
 }
 
 .filter-btn.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
   color: var(--color-text);
 }
 
-/* 実績リスト */
+/* 実績リスト - タイムライン風デザイン */
 .achievements-list {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 2rem;
+  position: relative;
+}
+
+/* 中央の縦線 */
+.achievements-list::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, 
+    var(--color-secondary) 0%, 
+    var(--color-primary) 50%, 
+    var(--color-secondary) 100%);
+  transform: translateX(-50%);
 }
 
 .achievement-item {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--color-border);
+  padding: 3rem 0;
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
 }
 
-.achievement-item:last-child {
-  border-bottom: none;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* アニメーション遅延 */
+.achievement-item:nth-child(1) { animation-delay: 0.1s; }
+.achievement-item:nth-child(2) { animation-delay: 0.2s; }
+.achievement-item:nth-child(3) { animation-delay: 0.3s; }
+.achievement-item:nth-child(4) { animation-delay: 0.4s; }
+.achievement-item:nth-child(5) { animation-delay: 0.5s; }
+.achievement-item:nth-child(6) { animation-delay: 0.6s; }
+.achievement-item:nth-child(7) { animation-delay: 0.7s; }
+.achievement-item:nth-child(8) { animation-delay: 0.8s; }
+
+/* 左側の日付 */
 .achievement-date {
   font-family: var(--font-secondary);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-secondary);
-  font-weight: 500;
+  font-weight: 600;
+  text-align: right;
+  padding-right: 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
   padding-top: 0.5rem;
+}
+
+/* 中央のポイント */
+.achievement-point {
+  width: 16px;
+  height: 16px;
+  background: var(--color-secondary);
+  border: 3px solid var(--color-bg);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 3px var(--color-secondary);
+  flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 
 .achievement-content {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding-left: 2rem;
+  background: rgba(26, 26, 26, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  transition: var(--transition);
+}
+
+.achievement-content:hover {
+  background: rgba(26, 26, 26, 0.5);
+  border-color: var(--color-secondary);
+  transform: translateX(5px);
 }
 
 .achievement-tags {
@@ -137,18 +204,35 @@
   }
   
   .achievements-list {
-    padding: 0 1rem;
+    padding: 0 1rem 0 2.5rem;
+  }
+  
+  /* モバイルでは左側に線を配置 */
+  .achievements-list::before {
+    left: 0.75rem;
+    transform: none;
   }
   
   .achievement-item {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.5rem 0;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
   }
   
   .achievement-date {
-    font-size: 0.85rem;
-    padding-top: 0;
+    display: none;
+  }
+  
+  .achievement-point {
+    margin-top: 0.5rem;
+  }
+  
+  .achievement-content {
+    padding: 1rem;
+  }
+  
+  .achievement-content:hover {
+    transform: none;
   }
   
   .achievement-title {
@@ -157,5 +241,16 @@
   
   .achievement-body {
     font-size: 0.9rem;
+  }
+  
+  /* モバイルでは日付をタイトルの前に表示 */
+  .achievement-content::before {
+    content: attr(data-date);
+    font-family: var(--font-secondary);
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
   }
 }
