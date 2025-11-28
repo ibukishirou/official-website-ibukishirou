@@ -59,7 +59,7 @@
         <h3 class="contact-email-title" style="font-size: 1.3rem; color: var(--color-secondary); margin-bottom: 1.5rem; text-align: center;"><span class="contact-title-line">お問い合わせ</span><span class="contact-title-line">メールアドレス</span></h3>
         
         <div style="text-align: center;">
-          <button id="copy-email-btn" class="btn contact-email-btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer; word-break: break-all;">
+          <button id="copy-email-btn" class="btn contact-email-btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer;">
             ibukishirou.v@gmail.com
           </button>
           <p class="contact-copy-note" style="margin-top: 1rem; font-family: var(--font-secondary); color: var(--color-text-secondary); font-size: 0.9rem;"><span class="contact-copy-line">クリックでメールドレスを</span><span class="contact-copy-line">コピーできます</span></p>
@@ -169,11 +169,12 @@
       
       /* メールアドレスボタンのレスポンシブ対応 */
       .contact-email-btn {
-        max-width: 100%;
-        padding: 0.8rem 1.5rem !important;
-        font-size: 1rem !important;
-        white-space: normal;
-        overflow-wrap: break-word;
+        max-width: 95%;
+        width: auto;
+        padding: 0.8rem 1rem !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap;
+        letter-spacing: 0.02em !important;
       }
       
       /* コピーノートの改行 */
