@@ -49,20 +49,20 @@
     <h2 class="section-title">Contact</h2>
     
     <div style="max-width: 700px; margin: 0 auto;">
-      <p style="text-align: center; font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 3rem; line-height: 1.8;">
-        ビジネスに関するお問い合わせは、以下のメールアドレスよりお願いいたします。<br>
-        <strong style="color: var(--color-secondary);">企業案件・個人からの仕事のご依頼に限定</strong>しております。<br>
-        その他のメッセージにつきましては、ご遠慮いただけますようお願い申し上げます。
+      <p class="contact-intro-text" style="text-align: center; font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 3rem; line-height: 1.8;">
+        <span class="contact-intro-line">ビジネスに関するお問い合わせは、</span><span class="contact-intro-line">以下のメールドレスより</span><span class="contact-intro-line">お願いいたします。</span><br class="pc-only">
+        <span class="contact-intro-line"><strong style="color: var(--color-secondary);">企業案件・個人からのお仕事のご依頼に限定</strong></span><span class="contact-intro-line"><strong style="color: var(--color-secondary);">しております。</strong></span><br class="pc-only">
+        <span class="contact-intro-line">その他のメッセージにつきましては、</span><span class="contact-intro-line">ご遠慮ください。</span>
       </p>
       
       <div style="background: rgba(26, 26, 26, 0.8); border: 1px solid var(--color-border); border-radius: 8px; padding: 3rem; margin-bottom: 3rem;">
-        <h3 style="font-size: 1.3rem; color: var(--color-secondary); margin-bottom: 1.5rem; text-align: center;">お問い合わせメールアドレス</h3>
+        <h3 class="contact-email-title" style="font-size: 1.3rem; color: var(--color-secondary); margin-bottom: 1.5rem; text-align: center;"><span class="contact-title-line">お問い合わせ</span><span class="contact-title-line">メールアドレス</span></h3>
         
         <div style="text-align: center;">
-          <button id="copy-email-btn" class="btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer;">
+          <button id="copy-email-btn" class="btn contact-email-btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer;">
             ibukishirou.v@gmail.com
           </button>
-          <p style="margin-top: 1rem; font-family: var(--font-secondary); color: var(--color-text-secondary); font-size: 0.9rem;">クリックでメールアドレスをコピーできます</p>
+          <p class="contact-copy-note" style="margin-top: 1rem; font-family: var(--font-secondary); color: var(--color-text-secondary); font-size: 0.9rem;"><span class="contact-copy-line">クリックでメールドレスを</span><span class="contact-copy-line">コピーできます</span></p>
         </div>
       </div>
       
@@ -146,5 +146,44 @@
     }
   </script>
   <script src="js/breadcrumb.js"></script>
+  
+  <style>
+    /* SPビューでの改行調整 */
+    @media (max-width: 768px) {
+      .contact-intro-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .pc-only {
+        display: none;
+      }
+      
+      /* メールアドレスタイトルの改行 */
+      .contact-email-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      /* メールアドレスボタンのレスポンシブ対応 */
+      .contact-email-btn {
+        max-width: 95%;
+        width: auto;
+        padding: 0.8rem 1rem !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap;
+        letter-spacing: 0.02em !important;
+      }
+      
+      /* コピーノートの改行 */
+      .contact-copy-note {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </body>
 </html>

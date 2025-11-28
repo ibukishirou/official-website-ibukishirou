@@ -65,6 +65,19 @@
       font-size: 1rem;
     }
     
+    /* SPビューでの改行調整 */
+    @media (max-width: 768px) {
+      .guidelines-intro-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .pc-only {
+        display: none;
+      }
+    }
+    
     .guideline-section {
       margin-bottom: 2.5rem;
     }
@@ -81,10 +94,10 @@
     <!-- イントロダクション -->
     <div class="guidelines-intro">
       <h3>ファン活動ガイドライン</h3>
-      <p>
-        いつも応援いただき、ありがとうございます。<br>
-        以下のガイドラインは、皆様が安心して楽しく活動できるように設けております。<br>
-        内容をご確認の上、ご協力をお願いいたします。
+      <p class="guidelines-intro-text">
+        <span class="guidelines-intro-line">いつも応援いただき、</span><span class="guidelines-intro-line">ありがとうございます。</span><br class="pc-only">
+        <span class="guidelines-intro-line">以下のガイドラインは、皆様が</span><span class="guidelines-intro-line">安心して楽しく活動できるように</span><span class="guidelines-intro-line">設けております。</span><br class="pc-only">
+        <span class="guidelines-intro-line">内容をご確認の上、</span><span class="guidelines-intro-line">ご協力をお願いいたします。</span>
       </p>
     </div>
     

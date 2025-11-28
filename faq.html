@@ -58,11 +58,26 @@
     <h2 class="section-title">FAQ</h2>
     
     <div style="text-align: center; margin-bottom: 3rem; padding: 1.5rem; background: rgba(26, 26, 26, 0.5); border: 1px solid var(--color-border); border-radius: 8px; max-width: 700px; margin-left: auto; margin-right: auto;">
-      <p style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 1.8;">
-        こちらに記載のないご質問がございましたら、<br>
-        SNSや配信のコメント欄などでお気軽に質問ください。
+      <p class="faq-intro-text" style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 1.8;">
+        <span class="faq-intro-line">こちらに記載のない質問が</span><span class="faq-intro-line">ございましたら、</span><br class="pc-only">
+        <span class="faq-intro-line">SNSや配信やコメント欄などで</span><span class="faq-intro-line">お気軽に質問ください。</span>
       </p>
     </div>
+    
+    <style>
+      /* SPビューでの改行調整 */
+      @media (max-width: 768px) {
+        .faq-intro-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .pc-only {
+          display: none;
+        }
+      }
+    </style>
     
     <div class="faq-list">
       <!-- JSで動的に読み込み -->

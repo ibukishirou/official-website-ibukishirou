@@ -91,6 +91,13 @@ nav {
   color: var(--color-text);
 }
 
+/* SPビュー: ヘッダーロゴのフォントサイズを調整 */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1rem;
+  }
+}
+
 .logo img {
   height: 40px;
   width: auto;
@@ -332,19 +339,12 @@ nav {
   margin-top: 1rem;
 }
 
-.catchphrase-line1,
-.catchphrase-line2 {
-  display: inline;
-}
-
+/* SPビュー: キャッチフレーズの改行調整 */
 @media (max-width: 768px) {
-  .catchphrase-line1::after {
-    content: "\A";
-    white-space: pre;
-  }
-  
-  .catchphrase-line2 {
-    display: inline;
+  .catchphrase-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

@@ -101,10 +101,25 @@
   white-space: nowrap;
 }
 
+/* プロフィール画像 - 初期表示を確保 */
+.profile-image,
+.sanmenzu-image {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
 /* SPビュー: 伊吹しろうの後で改行 */
 @media (max-width: 768px) {
   .profile-name-en {
     display: block;
     margin-top: 0.3rem;
+  }
+  
+  /* SPビューでも画像を最初から表示 */
+  .profile-image,
+  .sanmenzu-image {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 }
