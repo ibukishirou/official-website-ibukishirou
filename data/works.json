@@ -1,9 +1,9 @@
 [
   {
-    "title": "狂乱 Hey Kids!!",
+    "title": "MAGIC",
     "category": "song",
-    "link": "https://www.youtube.com/watch?v=ebn1HkmANqg",
-    "tags": ["歌ってみた", "デビュー記念"],
+    "link": "https://www.youtube.com/watch?v=ma38CHcOcM0",
+    "tags": ["歌ってみた", "収益化記念"],
     "featured": true
   },
   {
@@ -14,10 +14,10 @@
     "featured": true
   },
   {
-    "title": "MAGIC",
+    "title": "狂乱 Hey Kids!!",
     "category": "song",
-    "link": "https://www.youtube.com/watch?v=ma38CHcOcM0",
-    "tags": ["歌ってみた", "収益化記念"],
+    "link": "https://www.youtube.com/watch?v=ebn1HkmANqg",
+    "tags": ["歌ってみた", "デビュー記念"],
     "featured": true
   }
 ]
