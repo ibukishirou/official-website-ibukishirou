@@ -61,6 +61,9 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/profile.css">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- ヘッダー -->
@@ -219,21 +222,26 @@
         if (!container) return;
         
         const snsConfig = [
-          { key: 'youtube', name: 'YouTube', icon: '▶' },
-          { key: 'x_main', name: 'X', icon: '𝕏' }
+          { key: 'youtube', name: 'YouTube', icon: 'youtube' },
+          { key: 'x_main', name: 'X', icon: 'twitter' }
         ];
         
         container.innerHTML = snsConfig.map(sns => {
           if (linksData[sns.key]) {
             return `
               <a href="${linksData[sns.key]}" target="_blank" rel="noopener noreferrer" class="profile-social-link">
-                <div class="profile-social-icon">${sns.icon}</div>
+                <div class="profile-social-icon"><i data-lucide="${sns.icon}"></i></div>
                 <div class="profile-social-name">${sns.name}</div>
               </a>
             `;
           }
           return '';
         }).join('');
+        
+        // Lucide Icons を初期化
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
       } catch (error) {
         console.error('SNSリンクの読み込みに失敗しました:', error);
       }
