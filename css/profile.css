@@ -91,12 +91,19 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .profile-social-icon svg {
   display: block;
   width: 1.2rem;
   height: 1.2rem;
+}
+
+/* X文字アイコンのサイズと中央揃え調整 */
+.profile-social-icon:has(:not(svg)) {
+  font-size: 1rem;
 }
 
 .profile-social-name {
