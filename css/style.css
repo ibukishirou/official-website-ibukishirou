@@ -606,19 +606,6 @@ section {
 .sns-icon {
   font-size: 2rem;
   color: var(--color-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sns-icon svg {
-  width: 2rem;
-  height: 2rem;
-}
-
-/* X文字アイコンのサイズ調整 */
-.sns-icon:has(:not(svg)) {
-  font-size: 1.5rem;
 }
 
 .sns-name {

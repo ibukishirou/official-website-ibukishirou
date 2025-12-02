@@ -16,8 +16,8 @@ function displaySNSLinks(links) {
   
   const snsConfig = [
     { key: 'youtube', name: 'YouTube', icon: 'youtube' },
-    { key: 'x_main', name: 'X (Main)', icon: 'x' },
-    { key: 'x_sub', name: 'X (Sub)', icon: 'x' },
+    { key: 'x_main', name: 'X (Main)', icon: 'twitter' },
+    { key: 'x_sub', name: 'X (Sub)', icon: 'twitter' },
     { key: 'tiktok', name: 'TikTok', icon: 'music' },
     { key: 'instagram', name: 'Instagram', icon: 'instagram' },
     { key: 'marshmallow', name: 'マシュマロ', icon: 'mail' },
@@ -27,14 +27,9 @@ function displaySNSLinks(links) {
   
   container.innerHTML = snsConfig.map(sns => {
     if (links[sns.key]) {
-      // Xアイコンだけ例外的に𝕏文字を使用
-      const iconHtml = sns.icon === 'x' 
-        ? '𝕏' 
-        : `<i data-lucide="${sns.icon}"></i>`;
-      
       return `
         <a href="${links[sns.key]}" target="_blank" rel="noopener noreferrer" class="sns-link">
-          <div class="sns-icon">${iconHtml}</div>
+          <div class="sns-icon"><i data-lucide="${sns.icon}"></i></div>
           <div class="sns-name">${sns.name}</div>
         </a>
       `;
