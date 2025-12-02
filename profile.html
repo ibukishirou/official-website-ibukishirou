@@ -228,9 +228,14 @@
         
         container.innerHTML = snsConfig.map(sns => {
           if (linksData[sns.key]) {
+            // Xアイコンだけ例外的に𝕏文字を使用
+            const iconHtml = sns.icon === 'x' 
+              ? '𝕏' 
+              : `<i data-lucide="${sns.icon}"></i>`;
+            
             return `
               <a href="${linksData[sns.key]}" target="_blank" rel="noopener noreferrer" class="profile-social-link">
-                <div class="profile-social-icon"><i data-lucide="${sns.icon}"></i></div>
+                <div class="profile-social-icon">${iconHtml}</div>
                 <div class="profile-social-name">${sns.name}</div>
               </a>
             `;
