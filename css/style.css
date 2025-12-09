@@ -606,6 +606,14 @@ section {
 .sns-icon {
   font-size: 2rem;
   color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.sns-icon i {
+  font-size: 2rem;
 }
 
 .sns-name {
