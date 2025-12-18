@@ -1,0 +1,26 @@
+{
+  "name": "伊吹しろう Official Website",
+  "short_name": "伊吹しろう",
+  "description": "VTuber 伊吹しろう 公式サイト。歌・トーク・ゲームを中心に活動するエンターテイナー。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "/assets/img/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
