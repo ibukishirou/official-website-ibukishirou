@@ -13,6 +13,7 @@ function getHeaderHTML() {
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
         <li><a href="goods.html">Goods</a></li>
         <li><a href="achievements.html">Achievements</a></li>
         <li><a href="guidelines.html">Guidelines</a></li>
@@ -37,6 +38,7 @@ function getFooterHTML() {
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="profile.html">Profile</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
           <li><a href="goods.html">Goods</a></li>
         </ul>
       </div>

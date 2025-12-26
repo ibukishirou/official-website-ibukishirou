@@ -1,0 +1,33 @@
+{
+  "regular": [
+    {
+      "title": "朝活",
+      "start_time": "07:30",
+      "end_time": "10:30",
+      "link": "https://www.youtube.com/@ibukishirou/streams",
+      "days": {
+        "sunday": true,
+        "monday": true,
+        "tuesday": true,
+        "wednesday": true,
+        "thursday": false,
+        "friday": true,
+        "saturday": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "title": "新年配信スペシャル",
+      "start": "2025-01-01 20:00",
+      "end": "2025-01-01 23:00",
+      "link": "https://www.youtube.com/@ibukishirou"
+    },
+    {
+      "title": "コラボ配信週間",
+      "start": "2025-01-15 19:00",
+      "end": "2025-01-21 22:00",
+      "link": "https://www.youtube.com/@ibukishirou"
+    }
+  ]
+}
