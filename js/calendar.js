@@ -13,7 +13,7 @@ maxDate.setMonth(currentDate.getMonth() + 6);
 
 // フィルター状態
 let filters = {
-  regular: true
+  regular: false
 };
 
 // ============================================
