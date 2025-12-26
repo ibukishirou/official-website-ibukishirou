@@ -263,11 +263,8 @@ function isEventOnDate(event, date) {
 function createEventElement(event) {
   if (event.type === 'regular') {
     // 定期配信
-    const eventItem = document.createElement('a');
+    const eventItem = document.createElement('div');
     eventItem.className = 'event-item regular';
-    eventItem.href = event.link;
-    eventItem.target = '_blank';
-    eventItem.rel = 'noopener noreferrer';
     
     // 時刻（上部）
     const timeDiv = document.createElement('div');
@@ -275,11 +272,15 @@ function createEventElement(event) {
     timeDiv.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)}`;
     eventItem.appendChild(timeDiv);
     
+    // タイトルとタグの行
+    const contentRow = document.createElement('div');
+    contentRow.className = 'event-content-row';
+    
     // タイトル
     const titleDiv = document.createElement('div');
     titleDiv.className = 'event-title';
     titleDiv.textContent = event.title;
-    eventItem.appendChild(titleDiv);
+    contentRow.appendChild(titleDiv);
     
     // タグ表示
     if (event.tags && event.tags.length > 0) {
@@ -291,18 +292,27 @@ function createEventElement(event) {
         tagSpan.textContent = tag;
         tagsDiv.appendChild(tagSpan);
       });
-      eventItem.appendChild(tagsDiv);
+      contentRow.appendChild(tagsDiv);
     }
+    
+    eventItem.appendChild(contentRow);
+    
+    // クリックイベント
+    eventItem.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        showEventModal(event);
+      } else {
+        window.open(event.link, '_blank');
+      }
+    });
     
     return eventItem;
     
   } else if (event.type === 'event') {
     // 特別イベント
-    const eventItem = document.createElement('a');
+    const eventItem = document.createElement('div');
     eventItem.className = 'event-item event';
-    eventItem.href = event.link;
-    eventItem.target = '_blank';
-    eventItem.rel = 'noopener noreferrer';
     eventItem.style.backgroundColor = event.color;
     eventItem.style.color = '#ffffff';
     
@@ -334,11 +344,15 @@ function createEventElement(event) {
       eventItem.appendChild(timeDiv);
     }
     
+    // タイトルとタグの行
+    const contentRow = document.createElement('div');
+    contentRow.className = 'event-content-row';
+    
     // タイトル
     const titleDiv = document.createElement('div');
     titleDiv.className = 'event-title';
     titleDiv.textContent = event.title;
-    eventItem.appendChild(titleDiv);
+    contentRow.appendChild(titleDiv);
     
     // タグ表示（開始日または単日イベントのみ）
     if ((event.isStart || !event.isMultiDay) && event.tags && event.tags.length > 0) {
@@ -350,13 +364,124 @@ function createEventElement(event) {
         tagSpan.textContent = tag;
         tagsDiv.appendChild(tagSpan);
       });
-      eventItem.appendChild(tagsDiv);
+      contentRow.appendChild(tagsDiv);
     }
+    
+    eventItem.appendChild(contentRow);
+    
+    // クリックイベント
+    eventItem.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        showEventModal(event);
+      } else {
+        window.open(event.link, '_blank');
+      }
+    });
     
     return eventItem;
   }
   
   return null;
+}
+
+// ============================================
+// モーダル表示
+// ============================================
+
+function showEventModal(event) {
+  // モーダルが既に存在する場合は削除
+  const existingModal = document.querySelector('.event-modal-overlay');
+  if (existingModal) {
+    existingModal.remove();
+  }
+  
+  // モーダルオーバーレイを作成
+  const overlay = document.createElement('div');
+  overlay.className = 'event-modal-overlay';
+  
+  // モーダル本体
+  const modal = document.createElement('div');
+  modal.className = 'event-modal';
+  
+  // 閉じるボタン
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'event-modal-close';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    setTimeout(() => overlay.remove(), 300);
+  });
+  modal.appendChild(closeBtn);
+  
+  // 時刻
+  const timeDiv = document.createElement('div');
+  timeDiv.className = 'event-modal-time';
+  
+  if (event.type === 'regular') {
+    timeDiv.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)}`;
+  } else if (event.type === 'event') {
+    const startDate = new Date(event.start);
+    const endDate = new Date(event.end);
+    
+    if (event.isMultiDay) {
+      if (event.isStart) {
+        timeDiv.textContent = `${formatTimeFromDate(startDate)}~`;
+      } else if (event.isEnd) {
+        timeDiv.textContent = `~${formatTimeFromDate(endDate)}`;
+      } else {
+        timeDiv.textContent = '終日';
+      }
+    } else {
+      timeDiv.textContent = `${formatTimeFromDate(startDate)}-${formatTimeFromDate(endDate)}`;
+    }
+  }
+  
+  modal.appendChild(timeDiv);
+  
+  // タイトル
+  const titleDiv = document.createElement('div');
+  titleDiv.className = 'event-modal-title';
+  titleDiv.textContent = event.title;
+  modal.appendChild(titleDiv);
+  
+  // タグ
+  if (event.tags && event.tags.length > 0) {
+    const tagsDiv = document.createElement('div');
+    tagsDiv.className = 'event-modal-tags';
+    event.tags.forEach(tag => {
+      const tagSpan = document.createElement('span');
+      tagSpan.className = 'event-modal-tag';
+      tagSpan.textContent = tag;
+      tagsDiv.appendChild(tagSpan);
+    });
+    modal.appendChild(tagsDiv);
+  }
+  
+  // 詳細ボタン
+  const detailBtn = document.createElement('a');
+  detailBtn.className = 'event-modal-button';
+  detailBtn.textContent = '詳細を見る';
+  detailBtn.href = event.link;
+  detailBtn.target = '_blank';
+  detailBtn.rel = 'noopener noreferrer';
+  modal.appendChild(detailBtn);
+  
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  
+  // アニメーション用に少し遅延
+  setTimeout(() => {
+    overlay.classList.add('active');
+  }, 10);
+  
+  // オーバーレイクリックで閉じる
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+      setTimeout(() => overlay.remove(), 300);
+    }
+  });
 }
 
 // ============================================
