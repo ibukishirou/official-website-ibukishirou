@@ -13,8 +13,7 @@ maxDate.setMonth(currentDate.getMonth() + 6);
 
 // フィルター状態
 let filters = {
-  regular: true,
-  events: true
+  regular: true
 };
 
 // ============================================
@@ -28,15 +27,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     calendarData = await response.json();
     
     // フィルターイベントリスナー
-    document.getElementById('filter-regular').addEventListener('change', (e) => {
-      filters.regular = e.target.checked;
-      renderCalendar(currentDate);
-    });
-    
-    document.getElementById('filter-events').addEventListener('change', (e) => {
-      filters.events = e.target.checked;
-      renderCalendar(currentDate);
-    });
+    const filterRegular = document.getElementById('filter-regular');
+    if (filterRegular) {
+      filterRegular.addEventListener('change', (e) => {
+        filters.regular = e.target.checked;
+        renderCalendar(currentDate);
+      });
+    }
     
     // ナビゲーションボタン
     document.getElementById('prev-month').addEventListener('click', () => {
@@ -130,6 +127,9 @@ function renderCalendar(date) {
   
   container.innerHTML = '';
   container.appendChild(grid);
+  
+  // 複数日イベントのバーを追加
+  addMultiDayEventBars(grid, year, month);
 }
 
 // ============================================
@@ -149,6 +149,9 @@ function createDayCell(date, isOtherMonth) {
   if (dayOfWeek === 0) cell.classList.add('sunday');
   if (dayOfWeek === 6) cell.classList.add('saturday');
   
+  // データ属性として日付を保存
+  cell.dataset.date = date.toISOString().split('T')[0];
+  
   // 日付番号
   const dayNumber = document.createElement('div');
   dayNumber.className = 'day-number';
@@ -159,10 +162,10 @@ function createDayCell(date, isOtherMonth) {
   const eventsList = document.createElement('div');
   eventsList.className = 'events-list';
   
-  // イベントを取得して表示
-  const events = getEventsForDate(date);
+  // 単日イベントを取得して表示
+  const events = getSingleDayEventsForDate(date);
   events.forEach(event => {
-    const eventElement = createEventElement(event, date);
+    const eventElement = createEventElement(event);
     if (eventElement) {
       eventsList.appendChild(eventElement);
     }
@@ -174,10 +177,10 @@ function createDayCell(date, isOtherMonth) {
 }
 
 // ============================================
-// 日付のイベント取得
+// 単日イベント取得（定期配信のみ）
 // ============================================
 
-function getEventsForDate(date) {
+function getSingleDayEventsForDate(date) {
   const events = [];
   
   if (!calendarData) return events;
@@ -199,143 +202,140 @@ function getEventsForDate(date) {
     });
   }
   
-  // イベントのチェック
-  if (calendarData.events && filters.events) {
-    calendarData.events.forEach(event => {
-      const startDate = new Date(event.start);
-      const endDate = new Date(event.end);
-      
-      // 日付のみで比較（時刻は無視）
-      const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-      const eventStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-      const eventEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-      
-      if (checkDate >= eventStartDate && checkDate <= eventEndDate) {
-        events.push({
-          type: 'event',
-          title: event.title,
-          start: event.start,
-          end: event.end,
-          link: event.link,
-          date: date,
-          isStart: checkDate.getTime() === eventStartDate.getTime(),
-          isEnd: checkDate.getTime() === eventEndDate.getTime(),
-          isMultiDay: eventStartDate.getTime() !== eventEndDate.getTime()
-        });
-      }
-    });
-  }
-  
   // 時刻順にソート
   events.sort((a, b) => {
-    const timeA = getEventStartTime(a);
-    const timeB = getEventStartTime(b);
-    return timeA.localeCompare(timeB);
+    return a.start_time.localeCompare(b.start_time);
   });
   
   return events;
 }
 
 // ============================================
-// イベント要素の作成
+// イベント要素の作成（定期配信）
 // ============================================
 
-function createEventElement(event, date) {
+function createEventElement(event) {
   if (event.type === 'regular') {
-    // 定期配信
     const eventItem = document.createElement('a');
-    eventItem.className = `event-item regular ${filters.regular ? '' : 'hidden'}`;
+    eventItem.className = 'event-item regular';
     eventItem.href = event.link;
     eventItem.target = '_blank';
     eventItem.rel = 'noopener noreferrer';
     
     const time = document.createElement('span');
     time.className = 'event-time';
-    time.textContent = `${event.start_time}-${event.end_time}`;
+    time.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)} `;
     
     eventItem.appendChild(time);
     eventItem.appendChild(document.createTextNode(event.title));
     
     return eventItem;
-    
-  } else if (event.type === 'event') {
-    // 単発イベント
-    if (event.isMultiDay) {
-      // 複数日イベント（バー表示）
-      const eventBar = document.createElement('div');
-      eventBar.className = 'event-bar';
-      
-      const eventBarContent = document.createElement('a');
-      eventBarContent.className = `event-bar-content ${filters.events ? '' : 'hidden'}`;
-      eventBarContent.href = event.link;
-      eventBarContent.target = '_blank';
-      eventBarContent.rel = 'noopener noreferrer';
-      
-      // バーの位置を決定
-      if (event.isStart && event.isEnd) {
-        eventBarContent.classList.add('single');
-      } else if (event.isStart) {
-        eventBarContent.classList.add('start');
-      } else if (event.isEnd) {
-        eventBarContent.classList.add('end');
-      } else {
-        eventBarContent.classList.add('middle');
-      }
-      
-      // 開始日のみタイトルと時刻を表示
-      if (event.isStart) {
-        const startDate = new Date(event.start);
-        const time = document.createElement('span');
-        time.className = 'event-time';
-        time.textContent = `${formatTime(startDate)} `;
-        eventBarContent.appendChild(time);
-        eventBarContent.appendChild(document.createTextNode(event.title));
-      } else {
-        eventBarContent.appendChild(document.createTextNode(''));
-      }
-      
-      eventBar.appendChild(eventBarContent);
-      return eventBar;
-      
-    } else {
-      // 単日イベント
-      const eventItem = document.createElement('a');
-      eventItem.className = `event-item event ${filters.events ? '' : 'hidden'}`;
-      eventItem.href = event.link;
-      eventItem.target = '_blank';
-      eventItem.rel = 'noopener noreferrer';
-      
-      const startDate = new Date(event.start);
-      const time = document.createElement('span');
-      time.className = 'event-time';
-      time.textContent = `${formatTime(startDate)} `;
-      
-      eventItem.appendChild(time);
-      eventItem.appendChild(document.createTextNode(event.title));
-      
-      return eventItem;
-    }
   }
   
   return null;
 }
 
 // ============================================
+// 複数日イベントのバー追加
+// ============================================
+
+function addMultiDayEventBars(grid, year, month) {
+  if (!calendarData || !calendarData.events) return;
+  
+  // グリッドから日付セルを取得（曜日ヘッダーを除く）
+  const dayCells = Array.from(grid.children).filter(cell => 
+    cell.classList.contains('calendar-day')
+  );
+  
+  // 週ごとにグループ化
+  const weeks = [];
+  for (let i = 0; i < dayCells.length; i += 7) {
+    weeks.push(dayCells.slice(i, i + 7));
+  }
+  
+  // 各イベントを処理
+  calendarData.events.forEach((event, eventIndex) => {
+    const startDate = new Date(event.start);
+    const endDate = new Date(event.end);
+    const color = event.color || '#CD5C5C'; // デフォルト色
+    
+    // 各週について処理
+    weeks.forEach((week, weekIndex) => {
+      const weekStart = new Date(week[0].dataset.date);
+      const weekEnd = new Date(week[6].dataset.date);
+      
+      // このイベントがこの週に表示されるか確認
+      if (endDate >= weekStart && startDate <= weekEnd) {
+        // バーの開始と終了を計算
+        let barStart = 0;
+        let barEnd = 6;
+        
+        for (let i = 0; i < 7; i++) {
+          const cellDate = new Date(week[i].dataset.date);
+          if (cellDate < startDate) {
+            barStart = i + 1;
+          }
+          if (cellDate > endDate) {
+            barEnd = i - 1;
+            break;
+          }
+        }
+        
+        // バーを追加
+        if (barStart <= barEnd) {
+          const isStart = startDate >= weekStart;
+          const isEnd = endDate <= weekEnd;
+          
+          // 最初のセルにバーを追加
+          const startCell = week[barStart];
+          const eventBar = document.createElement('div');
+          eventBar.className = 'event-bar';
+          eventBar.style.gridColumn = `${barStart + 1} / ${barEnd + 2}`;
+          eventBar.style.gridRow = `${weekIndex + 2}`;
+          
+          const eventBarContent = document.createElement('a');
+          eventBarContent.className = 'event-bar-content';
+          eventBarContent.href = event.link;
+          eventBarContent.target = '_blank';
+          eventBarContent.rel = 'noopener noreferrer';
+          eventBarContent.style.backgroundColor = color;
+          
+          // 開始日のみタイトルと時刻を表示
+          if (isStart) {
+            const startDateTime = new Date(event.start);
+            const time = document.createElement('span');
+            time.className = 'event-time';
+            time.textContent = `${formatTimeFromDate(startDateTime)} `;
+            eventBarContent.appendChild(time);
+            eventBarContent.appendChild(document.createTextNode(event.title));
+          }
+          
+          eventBar.appendChild(eventBarContent);
+          
+          // バーをグリッドに直接追加
+          // イベントリストの後に挿入
+          const eventsList = startCell.querySelector('.events-list');
+          if (eventsList) {
+            eventsList.appendChild(eventBar);
+          }
+        }
+      }
+    });
+  });
+}
+
+// ============================================
 // ユーティリティ関数
 // ============================================
 
-function getEventStartTime(event) {
-  if (event.type === 'regular') {
-    return event.start_time;
-  } else if (event.type === 'event') {
-    const date = new Date(event.start);
-    return formatTime(date);
-  }
-  return '00:00';
+function formatTime(timeString) {
+  // "07:30" -> "7:30" のように先頭の0を削除
+  const [hours, minutes] = timeString.split(':');
+  return `${parseInt(hours, 10)}:${minutes}`;
 }
 
-function formatTime(date) {
-  const hours = date.getHours().toString().padStart(2, '0');
+function formatTimeFromDate(date) {
+  const hours = date.getHours();
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 }

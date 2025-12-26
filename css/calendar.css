@@ -72,10 +72,6 @@
   background-color: var(--color-secondary);
 }
 
-.filter-color.events {
-  background-color: var(--color-accent);
-}
-
 /* ============================================
    カレンダーナビゲーション
    ============================================ */
@@ -135,9 +131,10 @@
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(140px, 1fr));
   gap: 0;
-  min-width: 700px;
+  min-width: 980px;
+  width: 100%;
 }
 
 /* 曜日ヘッダー */
@@ -234,15 +231,6 @@
   color: #ffffff;
 }
 
-.event-item.event {
-  background-color: var(--color-accent);
-  color: #ffffff;
-}
-
-.event-item.hidden {
-  display: none;
-}
-
 .event-time {
   font-size: 0.7rem;
   opacity: 0.9;
@@ -251,57 +239,31 @@
 
 /* 複数日イベントのバー表示 */
 .event-bar {
-  position: relative;
   height: 22px;
   margin-bottom: 0.25rem;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .event-bar-content {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background-color: var(--color-accent);
   display: flex;
   align-items: center;
-  padding: 0 0.4rem;
+  padding: 0 0.5rem;
   font-size: 0.75rem;
   color: #ffffff;
   white-space: nowrap;
   transition: var(--transition);
   cursor: pointer;
+  height: 100%;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-secondary);
 }
 
 .event-bar-content:hover {
   filter: brightness(1.2);
-}
-
-.event-bar-content.hidden {
-  display: none;
-}
-
-/* 開始日、中間日、終了日のスタイル */
-.event-bar-content.start {
-  left: 0;
-  border-radius: 4px 0 0 4px;
-}
-
-.event-bar-content.middle {
-  left: 0;
-  width: 100%;
-  border-radius: 0;
-}
-
-.event-bar-content.end {
-  right: 0;
-  border-radius: 0 4px 4px 0;
-}
-
-.event-bar-content.single {
-  left: 0;
-  right: 0;
-  border-radius: 4px;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================

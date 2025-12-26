@@ -21,19 +21,22 @@
       "title": "カウントダウン配信",
       "start": "2025-12-31 22:00",
       "end": "2026-01-01 01:00",
-      "link": "https://www.youtube.com/@ibukishirou"
+      "link": "https://www.youtube.com/@ibukishirou",
+      "color": "#CD5C5C"
     },
     {
       "title": "新年配信スペシャル",
       "start": "2026-01-01 20:00",
       "end": "2026-01-01 23:00",
-      "link": "https://www.youtube.com/@ibukishirou"
+      "link": "https://www.youtube.com/@ibukishirou",
+      "color": "#FF6B6B"
     },
     {
       "title": "コラボ配信週間",
       "start": "2026-01-15 19:00",
       "end": "2026-01-21 22:00",
-      "link": "https://www.youtube.com/@ibukishirou"
+      "link": "https://www.youtube.com/@ibukishirou",
+      "color": "#8B5A8B"
     }
   ]
 }
