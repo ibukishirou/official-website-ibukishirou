@@ -414,7 +414,7 @@ function showEventModal(event) {
   });
   modal.appendChild(closeBtn);
   
-  // 時刻
+  // 時刻（上部に表示）
   const timeDiv = document.createElement('div');
   timeDiv.className = 'event-modal-time';
   
@@ -439,11 +439,15 @@ function showEventModal(event) {
   
   modal.appendChild(timeDiv);
   
+  // タイトルとタグの行
+  const contentRow = document.createElement('div');
+  contentRow.className = 'event-modal-content-row';
+  
   // タイトル
   const titleDiv = document.createElement('div');
   titleDiv.className = 'event-modal-title';
   titleDiv.textContent = event.title;
-  modal.appendChild(titleDiv);
+  contentRow.appendChild(titleDiv);
   
   // タグ
   if (event.tags && event.tags.length > 0) {
@@ -455,8 +459,10 @@ function showEventModal(event) {
       tagSpan.textContent = tag;
       tagsDiv.appendChild(tagSpan);
     });
-    modal.appendChild(tagsDiv);
+    contentRow.appendChild(tagsDiv);
   }
+  
+  modal.appendChild(contentRow);
   
   // 詳細ボタン
   const detailBtn = document.createElement('a');
