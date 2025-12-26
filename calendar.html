@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。">
+  <meta name="keywords" content="伊吹しろう,カレンダー,スケジュール,配信予定,イベント,VTuber">
+  <link rel="canonical" href="https://ulric.jp/calendar.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="イベントカレンダー - 伊吹しろう Official Website">
+  <meta property="og:description" content="VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。">
+  <meta property="og:url" content="https://ulric.jp/calendar.html">
+  <meta property="og:image" content="https://ulric.jp/assets/img/ogp.webp">
+  <meta property="og:site_name" content="伊吹しろう Official Website">
+  <meta property="og:locale" content="ja_JP">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ibukishirou">
+  <meta name="twitter:title" content="イベントカレンダー - 伊吹しろう Official Website">
+  <meta name="twitter:description" content="VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。">
+  <meta property="twitter:image" content="https://ulric.jp/assets/img/ogp.webp">
+  
+  <title>イベントカレンダー - 伊吹しろう Official Website</title>
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "イベントカレンダー",
+    "description": "VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。",
+    "url": "https://ulric.jp/calendar.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "伊吹しろう Official Website",
+      "url": "https://ulric.jp/"
+    }
+  }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/calendar.css">
+  <link rel="stylesheet" href="css/loading.css">
+  
+  <!-- Remix Icon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ローディング画面 -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <img src="assets/img/logo_wolf.webp" alt="Loading..." class="loading-logo">
+      <p class="loading-text">
+        <span class="loading-text-pc">伊吹しろう Official Websiteへようこそ</span>
+        <span class="loading-text-sp">伊吹しろう<br>Official<br>Website<br>へようこそ</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ヘッダー -->
+  <header></header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <section id="calendar-section">
+      <h1 class="section-title">Calendar</h1>
+      
+      <!-- フィルター -->
+      <div class="calendar-filter">
+        <label class="filter-item">
+          <input type="checkbox" id="filter-regular">
+          <span class="filter-label">
+            <span class="filter-color regular"></span>
+            定期配信を表示
+          </span>
+        </label>
+      </div>
+
+      <!-- カレンダーナビゲーション -->
+      <div class="calendar-nav">
+        <button id="prev-month" class="nav-btn" aria-label="前の月">
+          <i class="ri-arrow-left-s-line"></i>
+        </button>
+        <h2 id="current-month" class="current-month"></h2>
+        <button id="next-month" class="nav-btn" aria-label="次の月">
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+
+      <!-- カレンダー本体 -->
+      <div id="calendar-container" class="calendar-container">
+        <!-- JavaScriptで動的に生成 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer></footer>
+
+  <!-- JavaScript -->
+  <script src="js/components.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/breadcrumb.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/share.js"></script>
+</body>
+</html>

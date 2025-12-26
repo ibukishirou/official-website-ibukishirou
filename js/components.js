@@ -13,8 +13,9 @@ function getHeaderHTML() {
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
-        <li><a href="goods.html">Goods</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
         <li><a href="achievements.html">Achievements</a></li>
+        <li><a href="goods.html">Goods</a></li>
         <li><a href="guidelines.html">Guidelines</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -37,13 +38,14 @@ function getFooterHTML() {
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="profile.html">Profile</a></li>
-          <li><a href="goods.html">Goods</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Information</h3>
         <ul class="footer-links">
-          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="goods.html">Goods</a></li>
           <li><a href="guidelines.html">Fan Guidelines</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>

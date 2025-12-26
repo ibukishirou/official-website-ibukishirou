@@ -1,0 +1,46 @@
+{
+  "regular": [
+    {
+      "title": "朝活",
+      "start_time": "07:30",
+      "end_time": "10:30",
+      "link": "https://www.youtube.com/@ibukishirou/streams",
+      "tags": ["配信"],
+      "days": {
+        "sunday": true,
+        "monday": true,
+        "tuesday": true,
+        "wednesday": true,
+        "thursday": false,
+        "friday": true,
+        "saturday": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "title": "カウントダウン配信",
+      "start": "2025-12-31 22:00",
+      "end": "2026-01-01 01:00",
+      "link": "https://www.youtube.com/@ibukishirou",
+      "color": "#CD5C5C",
+      "tags": ["配信"]
+    },
+    {
+      "title": "#みーとーく vol.7",
+      "start": "2026-02-22 12:00",
+      "end": "2026-02-22 18:00",
+      "link": "https://x.com/pepron_osaka",
+      "color": "#db23db",
+      "tags": ["リアイベ"]
+    },
+    {
+      "title": "AIICO V自販機",
+      "start": "2026-02-13 00:00",
+      "end": "2026-03-06 23:59",
+      "link": "https://x.com/NFT_AIICO",
+      "color": "#2954ff",
+      "tags": ["企業コラボ"]
+    }
+  ]
+}
