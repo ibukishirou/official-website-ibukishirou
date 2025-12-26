@@ -24,23 +24,23 @@
       "end": "2026-01-01 01:00",
       "link": "https://www.youtube.com/@ibukishirou",
       "color": "#CD5C5C",
-      "tags": ["特別企画", "年越し"]
+      "tags": ["配信"]
     },
     {
-      "title": "新年配信スペシャル",
-      "start": "2026-01-01 20:00",
-      "end": "2026-01-01 23:00",
-      "link": "https://www.youtube.com/@ibukishirou",
-      "color": "#FF6B6B",
-      "tags": ["特別企画"]
+      "title": "#みーとーく vol.7",
+      "start": "2026-02-22 12:00",
+      "end": "2026-02-22 18:00",
+      "link": "https://x.com/pepron_osaka",
+      "color": "#db23db",
+      "tags": ["リアイベ"]
     },
     {
-      "title": "コラボ配信週間",
-      "start": "2026-01-15 19:00",
-      "end": "2026-01-21 22:00",
-      "link": "https://www.youtube.com/@ibukishirou",
-      "color": "#8B5A8B",
-      "tags": ["コラボ"]
+      "title": "AIICO V自販機",
+      "start": "2026-02-13 00:00",
+      "end": "2026-03-06 23:59",
+      "link": "https://x.com/NFT_AIICO",
+      "color": "#2954ff",
+      "tags": ["企業コラボ"]
     }
   ]
 }
