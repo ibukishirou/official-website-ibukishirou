@@ -198,6 +198,7 @@ function getEventsForDate(date) {
           start_time: regular.start_time,
           end_time: regular.end_time,
           link: regular.link,
+          tags: regular.tags || [],
           sortTime: regular.start_time
         });
       }
@@ -221,6 +222,7 @@ function getEventsForDate(date) {
           end: event.end,
           link: event.link,
           color: event.color || '#CD5C5C',
+          tags: event.tags || [],
           isStart: dateStr === startDateStr,
           isEnd: dateStr === endDateStr,
           isMultiDay: startDateStr !== endDateStr,
@@ -267,12 +269,30 @@ function createEventElement(event) {
     eventItem.target = '_blank';
     eventItem.rel = 'noopener noreferrer';
     
+    // コンテンツ部分
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'event-content';
+    
     const time = document.createElement('span');
     time.className = 'event-time';
     time.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)} `;
     
-    eventItem.appendChild(time);
-    eventItem.appendChild(document.createTextNode(event.title));
+    contentDiv.appendChild(time);
+    contentDiv.appendChild(document.createTextNode(event.title));
+    eventItem.appendChild(contentDiv);
+    
+    // タグ表示
+    if (event.tags && event.tags.length > 0) {
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'event-tags';
+      event.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'event-tag';
+        tagSpan.textContent = `#${tag}`;
+        tagsDiv.appendChild(tagSpan);
+      });
+      eventItem.appendChild(tagsDiv);
+    }
     
     return eventItem;
     
@@ -286,16 +306,34 @@ function createEventElement(event) {
     eventItem.style.backgroundColor = event.color;
     eventItem.style.color = '#ffffff';
     
+    // コンテンツ部分
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'event-content';
+    
     // 開始日または単日イベントの場合のみ時刻を表示
     if (event.isStart || !event.isMultiDay) {
       const startDate = new Date(event.start);
       const time = document.createElement('span');
       time.className = 'event-time';
       time.textContent = `${formatTimeFromDate(startDate)} `;
-      eventItem.appendChild(time);
+      contentDiv.appendChild(time);
     }
     
-    eventItem.appendChild(document.createTextNode(event.title));
+    contentDiv.appendChild(document.createTextNode(event.title));
+    eventItem.appendChild(contentDiv);
+    
+    // タグ表示（開始日のみ）
+    if ((event.isStart || !event.isMultiDay) && event.tags && event.tags.length > 0) {
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'event-tags';
+      event.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'event-tag';
+        tagSpan.textContent = `#${tag}`;
+        tagsDiv.appendChild(tagSpan);
+      });
+      eventItem.appendChild(tagsDiv);
+    }
     
     return eventItem;
   }

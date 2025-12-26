@@ -5,6 +5,7 @@
       "start_time": "07:30",
       "end_time": "10:30",
       "link": "https://www.youtube.com/@ibukishirou/streams",
+      "tags": ["配信"],
       "days": {
         "sunday": true,
         "monday": true,
@@ -22,21 +23,24 @@
       "start": "2025-12-31 22:00",
       "end": "2026-01-01 01:00",
       "link": "https://www.youtube.com/@ibukishirou",
-      "color": "#CD5C5C"
+      "color": "#CD5C5C",
+      "tags": ["特別企画", "年越し"]
     },
     {
       "title": "新年配信スペシャル",
       "start": "2026-01-01 20:00",
       "end": "2026-01-01 23:00",
       "link": "https://www.youtube.com/@ibukishirou",
-      "color": "#FF6B6B"
+      "color": "#FF6B6B",
+      "tags": ["特別企画"]
     },
     {
       "title": "コラボ配信週間",
       "start": "2026-01-15 19:00",
       "end": "2026-01-21 22:00",
       "link": "https://www.youtube.com/@ibukishirou",
-      "color": "#8B5A8B"
+      "color": "#8B5A8B",
+      "tags": ["コラボ"]
     }
   ]
 }

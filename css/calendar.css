@@ -213,12 +213,14 @@
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   color: var(--color-text);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-height: 0;
 }
 
 .event-item:hover {
@@ -236,10 +238,31 @@
   font-weight: 500;
 }
 
+.event-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
 .event-time {
   font-size: 0.7rem;
   opacity: 0.9;
   margin-right: 0.25rem;
+}
+
+.event-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  margin-top: 0.1rem;
+}
+
+.event-tag {
+  font-size: 0.65rem;
+  opacity: 0.85;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 /* 複数日イベントのバー表示 */
@@ -277,11 +300,11 @@
 
 @media (max-width: 768px) {
   #calendar-section {
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 0.25rem;
   }
 
   .page-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 0.8rem;
   }
 
@@ -291,96 +314,26 @@
   }
 
   .current-month {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .nav-btn {
     padding: 0.5rem 0.8rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .calendar-container {
-    padding: 0.5rem;
-    overflow-x: visible;
+    padding: 0.25rem;
+    overflow-x: hidden;
+    overflow-y: visible;
     border-radius: 8px;
+    width: 100%;
   }
 
   .calendar-grid {
     min-width: unset;
     width: 100%;
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .calendar-weekday {
-    font-size: 0.75rem;
-    padding: 0.5rem 0.2rem;
-  }
-
-  .calendar-day {
-    min-height: 70px;
-    padding: 0.25rem;
-  }
-
-  .day-number {
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .event-item {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.25rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .event-time {
-    font-size: 0.55rem;
-    display: none; /* SPビューでは時刻を非表示 */
-  }
-}
-
-@media (max-width: 480px) {
-  #calendar-section {
-    padding: 1rem 0.25rem;
-  }
-
-  .page-title {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .calendar-filter {
-    margin-bottom: 1rem;
-  }
-
-  .filter-item {
-    font-size: 0.9rem;
-  }
-
-  .calendar-nav {
-    margin-bottom: 1rem;
-    padding: 0;
-  }
-
-  .current-month {
-    font-size: 1.1rem;
-  }
-
-  .nav-btn {
-    padding: 0.4rem 0.6rem;
-    font-size: 1.1rem;
-  }
-
-  .calendar-container {
-    padding: 0.25rem;
-    border-radius: 6px;
-  }
-
-  .calendar-grid {
-    min-width: unset;
-    width: 100%;
-    gap: 1px;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
   .calendar-weekday {
@@ -389,8 +342,9 @@
   }
 
   .calendar-day {
-    min-height: 60px;
+    min-height: 80px;
     padding: 0.2rem;
+    overflow: hidden;
   }
 
   .day-number {
@@ -399,12 +353,115 @@
   }
 
   .event-item {
-    font-size: 0.55rem;
-    padding: 0.1rem 0.2rem;
-    margin-bottom: 0.1rem;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.2rem;
+    gap: 0.1rem;
+    min-height: auto;
+  }
+
+  .event-content {
+    font-size: 0.6rem;
+    line-height: 1.2;
   }
 
   .event-time {
-    display: none;
+    font-size: 0.55rem;
+    margin-right: 0.15rem;
+  }
+
+  .event-tags {
+    gap: 0.15rem;
+    margin-top: 0.05rem;
+  }
+
+  .event-tag {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #calendar-section {
+    padding: 1rem 0.15rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .calendar-filter {
+    margin-bottom: 1rem;
+  }
+
+  .filter-item {
+    font-size: 0.85rem;
+  }
+
+  .calendar-nav {
+    margin-bottom: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .current-month {
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  .calendar-container {
+    padding: 0.2rem;
+    border-radius: 6px;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .calendar-grid {
+    min-width: unset;
+    width: 100%;
+    gap: 1px;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .calendar-weekday {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.05rem;
+  }
+
+  .calendar-day {
+    min-height: 75px;
+    padding: 0.15rem;
+    overflow: hidden;
+  }
+
+  .day-number {
+    font-size: 0.75rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .event-item {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.15rem;
+    gap: 0.05rem;
+  }
+
+  .event-content {
+    font-size: 0.55rem;
+    line-height: 1.1;
+  }
+
+  .event-time {
+    font-size: 0.5rem;
+    margin-right: 0.1rem;
+  }
+
+  .event-tags {
+    gap: 0.1rem;
+  }
+
+  .event-tag {
+    font-size: 0.5rem;
   }
 }
