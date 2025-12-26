@@ -8,7 +8,7 @@ Disallow: /terms.html
 Disallow: /privacy.html
 
 # Sitemap location
-Sitemap: https://ibukishirou.com/sitemap.xml
+Sitemap: https://ulric.jp/sitemap.xml
 
 # Crawl delay (optional, in seconds)
 Crawl-delay: 1
