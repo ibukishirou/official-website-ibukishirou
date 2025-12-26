@@ -354,8 +354,8 @@ function createEventElement(event) {
     titleDiv.textContent = event.title;
     contentRow.appendChild(titleDiv);
     
-    // タグ表示（開始日または単日イベントのみ）
-    if ((event.isStart || !event.isMultiDay) && event.tags && event.tags.length > 0) {
+    // タグ表示（開始日、終了日、または単日イベントで表示）
+    if ((event.isStart || event.isEnd || !event.isMultiDay) && event.tags && event.tags.length > 0) {
       const tagsDiv = document.createElement('div');
       tagsDiv.className = 'event-tags';
       event.tags.forEach(tag => {
@@ -414,26 +414,28 @@ function showEventModal(event) {
   });
   modal.appendChild(closeBtn);
   
-  // 時刻（上部に表示）
+  // 時刻（上部に表示、年月日も含める）
   const timeDiv = document.createElement('div');
   timeDiv.className = 'event-modal-time';
   
   if (event.type === 'regular') {
-    timeDiv.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)}`;
+    // 定期配信の場合は曜日から日付を取得する必要があるため、現在の日付を使用
+    const today = new Date();
+    timeDiv.textContent = `${formatDateTimeString(today)} ${formatTime(event.start_time)} ~ ${formatTime(event.end_time)}`;
   } else if (event.type === 'event') {
     const startDate = new Date(event.start);
     const endDate = new Date(event.end);
     
     if (event.isMultiDay) {
       if (event.isStart) {
-        timeDiv.textContent = `${formatTimeFromDate(startDate)}~`;
+        timeDiv.textContent = `${formatDateTimeString(startDate)} ${formatTimeFromDate(startDate)} ~`;
       } else if (event.isEnd) {
-        timeDiv.textContent = `~${formatTimeFromDate(endDate)}`;
+        timeDiv.textContent = `~ ${formatDateTimeString(endDate)} ${formatTimeFromDate(endDate)}`;
       } else {
-        timeDiv.textContent = '終日';
+        timeDiv.textContent = `${formatDateTimeString(startDate)} 終日`;
       }
     } else {
-      timeDiv.textContent = `${formatTimeFromDate(startDate)}-${formatTimeFromDate(endDate)}`;
+      timeDiv.textContent = `${formatDateTimeString(startDate)} ${formatTimeFromDate(startDate)} ~ ${formatTimeFromDate(endDate)}`;
     }
   }
   
@@ -511,6 +513,13 @@ function formatDateString(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+function formatDateTimeString(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}年${month}月${day}日`;
 }
 
 function updateNavigationButtons() {
