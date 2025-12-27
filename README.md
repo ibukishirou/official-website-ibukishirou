@@ -75,14 +75,20 @@ Pull Request作成
 <link rel="manifest" href="/site.webmanifest">
 ```
 
-2. `</body>` 直前に追加:
+2. `</body>` 直前に以下を**必ず順番通りに**追加:
 
 ```html
+<!-- JavaScript -->
 <script src="js/components.js"></script>
-<script src="js/loading.js"></script>
-<script src="js/breadcrumb.js"></script>
+<script src="js/loading.js"></script>     <!-- トップページのみ。他ページでは省略可 -->
+<script src="js/main.js"></script>         <!-- 必須: ハンバーガーメニュー制御 -->
+<script src="js/breadcrumb.js"></script>   <!-- 必須: パンくずリスト生成 -->
+<!-- ページ固有のスクリプト（calendar.js、faq.js等）はここに追加 -->
+<script src="js/share.js"></script>
 <script src="js/sw-register.js"></script>
 ```
+
+**重要**: `js/main.js` の読み込みは必須。これがないとハンバーガーメニューが動作しない。
 
 3. `sitemap.xml` に新規URLを追加
 
