@@ -20,7 +20,6 @@ URL: https://ulric.jp
 - SEO対策（OGP、構造化データ、sitemap.xml、robots.txt）
 - PWA（Service Worker、オフライン対応、ホーム画面追加、アプリインストール）
 - レスポンシブデザイン（PC/タブレット/スマートフォン）
-- イベントカレンダー（data/calendar.json）
 - パンくずリスト自動生成
 - ソーシャルシェア機能
 - ローディングアニメーション
@@ -53,7 +52,7 @@ mainブランチの最新を取得・マージ
   ↓
 プッシュ
   ↓
-Pull Request作成（main へマージ）
+Pull Request作成
 ```
 
 ### 新規HTMLページ追加時の必須対応
