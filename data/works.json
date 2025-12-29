@@ -1,5 +1,12 @@
 [
   {
+    "title": "IRIS OUT",
+    "category": "song",
+    "link": "https://youtu.be/ODUIgGx97Xk",
+    "tags": ["歌ってみた", "クリスマス"],
+    "featured": true
+  },
+  {
     "title": "MAGIC",
     "category": "song",
     "link": "https://www.youtube.com/watch?v=ma38CHcOcM0",
