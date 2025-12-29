@@ -188,8 +188,8 @@ function getEventsForDate(date) {
   if (!calendarData) return events;
   
   // 定期配信のチェック
-  if (calendarData.regular && filters.regular) {
-    calendarData.regular.forEach(regular => {
+  if (calendarData.regular && calendarData.regular.scheduled && filters.regular) {
+    calendarData.regular.scheduled.forEach(regular => {
       const dayOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][date.getDay()];
       if (regular.days[dayOfWeek]) {
         events.push({
@@ -200,6 +200,23 @@ function getEventsForDate(date) {
           link: regular.link,
           tags: regular.tags || [],
           sortTime: regular.start_time
+        });
+      }
+    });
+  }
+  
+  // 記念日のチェック（毎年表示、フィルター対象外）
+  if (calendarData.regular && calendarData.regular.celebration) {
+    calendarData.regular.celebration.forEach(celebration => {
+      const [month, day] = celebration.date.split('-').map(Number);
+      if (date.getMonth() + 1 === month && date.getDate() === day) {
+        events.push({
+          type: 'celebration',
+          title: celebration.title,
+          link: celebration.link,
+          color: '#dc143c',
+          tags: celebration.tags || [],
+          sortTime: '00:00' // 記念日は終日イベントなので一番上に表示
         });
       }
     });
@@ -261,7 +278,51 @@ function isEventOnDate(event, date) {
 // ============================================
 
 function createEventElement(event) {
-  if (event.type === 'regular') {
+  if (event.type === 'celebration') {
+    // 記念日
+    const eventItem = document.createElement('div');
+    eventItem.className = 'event-item celebration';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.color = '#ffffff';
+    
+    // タイトルとタグの行
+    const contentRow = document.createElement('div');
+    contentRow.className = 'event-content-row';
+    
+    // タイトル
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    contentRow.appendChild(titleDiv);
+    
+    // タグ表示
+    if (event.tags && event.tags.length > 0) {
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'event-tags';
+      event.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'event-tag';
+        tagSpan.textContent = tag;
+        tagsDiv.appendChild(tagSpan);
+      });
+      contentRow.appendChild(tagsDiv);
+    }
+    
+    eventItem.appendChild(contentRow);
+    
+    // クリックイベント
+    eventItem.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        showEventModal(event);
+      } else {
+        window.open(event.link, '_blank');
+      }
+    });
+    
+    return eventItem;
+    
+  } else if (event.type === 'regular') {
     // 定期配信
     const eventItem = document.createElement('div');
     eventItem.className = 'event-item regular';
@@ -418,7 +479,10 @@ function showEventModal(event) {
   const timeDiv = document.createElement('div');
   timeDiv.className = 'event-modal-time';
   
-  if (event.type === 'regular') {
+  if (event.type === 'celebration') {
+    // 記念日の場合は終日イベントとして表示
+    timeDiv.textContent = '終日';
+  } else if (event.type === 'regular') {
     // 定期配信の場合は曜日から日付を取得する必要があるため、現在の日付を使用
     const today = new Date();
     timeDiv.textContent = `${formatDateTimeString(today)} ${formatTime(event.start_time)} ~ ${formatTime(event.end_time)}`;

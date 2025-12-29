@@ -1,22 +1,38 @@
 {
-  "regular": [
-    {
-      "title": "朝活",
-      "start_time": "07:30",
-      "end_time": "10:30",
-      "link": "https://www.youtube.com/@ibukishirou/streams",
-      "tags": ["配信"],
-      "days": {
-        "sunday": true,
-        "monday": true,
-        "tuesday": true,
-        "wednesday": true,
-        "thursday": false,
-        "friday": true,
-        "saturday": true
+  "regular": {
+    "scheduled": [
+      {
+        "title": "朝活",
+        "start_time": "07:30",
+        "end_time": "10:30",
+        "link": "https://www.youtube.com/@ibukishirou/streams",
+        "tags": ["配信"],
+        "days": {
+          "sunday": true,
+          "monday": true,
+          "tuesday": true,
+          "wednesday": true,
+          "thursday": false,
+          "friday": true,
+          "saturday": true
+        }
       }
-    }
-  ],
+    ],
+    "celebration": [
+      {
+        "title": "誕生日",
+        "date": "03-22",
+        "link": "https://www.youtube.com/@ibukishirou",
+        "tags": ["記念"]
+      },
+      {
+        "title": "デビュー日",
+        "date": "09-22",
+        "link": "https://www.youtube.com/@ibukishirou",
+        "tags": ["記念"]
+      }
+    ]
+  },
   "events": [
     {
       "title": "決算配信",
