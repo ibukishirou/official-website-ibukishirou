@@ -137,6 +137,11 @@
   transition: var(--transition);
 }
 
+/* クリッカブルなコンテンツ */
+.achievement-content.clickable {
+  cursor: pointer;
+}
+
 .achievement-item:nth-child(odd) .achievement-content {
   margin-left: 55%;
 }
@@ -159,16 +164,6 @@
   color: var(--color-text);
   line-height: 1.6;
   margin: 0 0 0.75rem 0;
-}
-
-.achievement-title a {
-  color: var(--color-text);
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.achievement-title a:hover {
-  color: var(--color-secondary);
 }
 
 /* 本文 */

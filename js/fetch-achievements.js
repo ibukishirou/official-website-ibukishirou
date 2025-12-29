@@ -70,10 +70,8 @@ function displayAchievements(achievementsArray) {
         <div class="achievement-item">
           <div class="achievement-date">${formattedDate}</div>
           <div class="achievement-point"></div>
-          <div class="achievement-content" data-date="${formattedDate}">
-            <h3 class="achievement-title">
-              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
-            </h3>
+          <div class="achievement-content clickable" data-date="${formattedDate}" data-link="${item.link}">
+            <h3 class="achievement-title">${item.title}</h3>
             <p class="achievement-body">${item.body}</p>
             <div class="achievement-tags">${tagsHTML}</div>
           </div>
@@ -93,6 +91,19 @@ function displayAchievements(achievementsArray) {
       `;
     }
   }).join('');
+  
+  // クリッカブルなコンテンツにクリックイベントを追加
+  setTimeout(() => {
+    const clickableCards = document.querySelectorAll('.achievement-content.clickable');
+    clickableCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        const link = card.dataset.link;
+        if (link) {
+          window.open(link, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+  }, 100);
 }
 
 // ページ読み込み時に実行
