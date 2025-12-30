@@ -77,15 +77,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, { passive: true });
     
     calendarContainer.addEventListener('touchmove', (e) => {
-      // スワイプ中はイベント伝播を防止（ハンバーガーメニューなどが動かないように）
+      // スワイプ中のブラウザデフォルト動作を防止
       const touchCurrentX = e.changedTouches[0].screenX;
       const touchCurrentY = e.changedTouches[0].screenY;
       const horizontalDistance = Math.abs(touchCurrentX - touchStartX);
       const verticalDistance = Math.abs(touchCurrentY - touchStartY);
       
-      // 水平方向のスワイプの場合は伝播を防止
+      // 水平方向のスワイプの場合はブラウザのデフォルト動作を完全に無効化
+      // これによりブラウザの「戻る」ジェスチャーや横スクロールを防止
       if (horizontalDistance > verticalDistance && horizontalDistance > 10) {
-        e.stopPropagation();
+        e.preventDefault(); // ブラウザのスワイプジェスチャーを無効化
+        e.stopPropagation(); // イベント伝播も防止
       }
     }, { passive: false });
     
@@ -665,7 +667,7 @@ function getColorFromTags(tags) {
   
   // タグごとの色マッピング（優先度順）
   const tagColorMap = {
-    '配信': '#ff1493',      // ディープピンク
+    '配信': '#FF4500',      // オレンジレッド
     '記念': '#dc143c',      // 深紅色
     'メン限': '#FF0000',    // 赤色
     'コラボ': '#0000ff',    // 青色
