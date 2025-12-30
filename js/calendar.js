@@ -74,28 +74,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     calendarContainer.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
+      // touchstartでもpreventDefaultを呼ぶことで、より早い段階でブラウザジェスチャーをブロック
+      e.preventDefault();
+    }, { passive: false });
     
     calendarContainer.addEventListener('touchmove', (e) => {
-      // スワイプ中のブラウザデフォルト動作を防止
-      const touchCurrentX = e.changedTouches[0].screenX;
-      const touchCurrentY = e.changedTouches[0].screenY;
-      const horizontalDistance = Math.abs(touchCurrentX - touchStartX);
-      const verticalDistance = Math.abs(touchCurrentY - touchStartY);
-      
-      // 水平方向のスワイプの場合はブラウザのデフォルト動作を完全に無効化
-      // これによりブラウザの「戻る」ジェスチャーや横スクロールを防止
-      if (horizontalDistance > verticalDistance && horizontalDistance > 10) {
-        e.preventDefault(); // ブラウザのスワイプジェスチャーを無効化
-        e.stopPropagation(); // イベント伝播も防止
-      }
+      // 常にpreventDefaultを呼び、ブラウザのデフォルト動作を完全にブロック
+      // touch-action: pan-y と併用することで二重の保護
+      e.preventDefault();
+      e.stopPropagation();
     }, { passive: false });
     
     calendarContainer.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
+      e.preventDefault();
       handleSwipe();
-    }, { passive: true });
+    }, { passive: false });
     
     // 初回レンダリング
     renderCalendar(currentDate);
