@@ -142,15 +142,39 @@ function handleSwipe() {
 function animateCalendarTransition(direction) {
   const container = document.getElementById('calendar-container');
   
+  // fixed要素（ハンバーガーメニューとソーシャルリンク）を取得
+  const hamburger = document.querySelector('.hamburger');
+  const socialLinks = document.querySelectorAll('.share-btn');
+  
+  // フェードアウト開始
+  if (hamburger) hamburger.classList.add('fade-out-during-swipe');
+  socialLinks.forEach(link => link.classList.add('fade-out-during-swipe'));
+  
   if (direction === 'left') {
     container.classList.add('swipe-left');
   } else if (direction === 'right') {
     container.classList.add('swipe-right');
   }
   
-  // アニメーション終了後にクラスを削除
+  // アニメーション終了後にクラスを削除してフェードイン
   setTimeout(() => {
     container.classList.remove('swipe-left', 'swipe-right');
+    
+    // フェードアウトクラスを削除してフェードイン
+    if (hamburger) {
+      hamburger.classList.remove('fade-out-during-swipe');
+      hamburger.classList.add('fade-in-after-swipe');
+    }
+    socialLinks.forEach(link => {
+      link.classList.remove('fade-out-during-swipe');
+      link.classList.add('fade-in-after-swipe');
+    });
+    
+    // フェードイン完了後にクラスを削除
+    setTimeout(() => {
+      if (hamburger) hamburger.classList.remove('fade-in-after-swipe');
+      socialLinks.forEach(link => link.classList.remove('fade-in-after-swipe'));
+    }, 150);
   }, 300);
 }
 
