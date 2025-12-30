@@ -111,12 +111,11 @@ function handleSwipe() {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + 1);
     if (newDate <= maxDate) {
-      animateCalendarTransition('left');
-      setTimeout(() => {
+      animateCalendarTransition('left', () => {
         currentDate = newDate;
         renderCalendar(currentDate);
         updateNavigationButtons();
-      }, 150);
+      });
     }
   }
   
@@ -125,12 +124,11 @@ function handleSwipe() {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() - 1);
     if (newDate >= minDate) {
-      animateCalendarTransition('right');
-      setTimeout(() => {
+      animateCalendarTransition('right', () => {
         currentDate = newDate;
         renderCalendar(currentDate);
         updateNavigationButtons();
-      }, 150);
+      });
     }
   }
 }
@@ -139,7 +137,7 @@ function handleSwipe() {
 // カレンダー切り替えアニメーション
 // ============================================
 
-function animateCalendarTransition(direction) {
+function animateCalendarTransition(direction, onComplete) {
   const container = document.getElementById('calendar-container');
   
   // fixed要素（ハンバーガーメニューとソーシャルリンク）を取得
@@ -156,26 +154,34 @@ function animateCalendarTransition(direction) {
     container.classList.add('swipe-right');
   }
   
-  // アニメーション終了後にクラスを削除してフェードイン
+  // 150ms後にカレンダーを切り替え
   setTimeout(() => {
     container.classList.remove('swipe-left', 'swipe-right');
     
-    // フェードアウトクラスを削除してフェードイン
-    if (hamburger) {
-      hamburger.classList.remove('fade-out-during-swipe');
-      hamburger.classList.add('fade-in-after-swipe');
+    // カレンダーレンダリングを実行
+    if (onComplete) {
+      onComplete();
     }
-    socialLinks.forEach(link => {
-      link.classList.remove('fade-out-during-swipe');
-      link.classList.add('fade-in-after-swipe');
-    });
     
-    // フェードイン完了後にクラスを削除
+    // レンダリング完了を待ってからフェードイン（200ms余裕を持たせる）
     setTimeout(() => {
-      if (hamburger) hamburger.classList.remove('fade-in-after-swipe');
-      socialLinks.forEach(link => link.classList.remove('fade-in-after-swipe'));
-    }, 150);
-  }, 300);
+      // フェードアウトクラスを削除してフェードイン
+      if (hamburger) {
+        hamburger.classList.remove('fade-out-during-swipe');
+        hamburger.classList.add('fade-in-after-swipe');
+      }
+      socialLinks.forEach(link => {
+        link.classList.remove('fade-out-during-swipe');
+        link.classList.add('fade-in-after-swipe');
+      });
+      
+      // フェードイン完了後にクラスを削除
+      setTimeout(() => {
+        if (hamburger) hamburger.classList.remove('fade-in-after-swipe');
+        socialLinks.forEach(link => link.classList.remove('fade-in-after-swipe'));
+      }, 150);
+    }, 200);
+  }, 150);
 }
 
 // ============================================
