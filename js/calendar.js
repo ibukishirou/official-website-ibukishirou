@@ -74,23 +74,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     calendarContainer.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
-      // touchstartでもpreventDefaultを呼ぶことで、より早い段階でブラウザジェスチャーをブロック
-      e.preventDefault();
-    }, { passive: false });
-    
-    calendarContainer.addEventListener('touchmove', (e) => {
-      // 常にpreventDefaultを呼び、ブラウザのデフォルト動作を完全にブロック
-      // touch-action: pan-y と併用することで二重の保護
-      e.preventDefault();
-      e.stopPropagation();
-    }, { passive: false });
+    }, { passive: true });
     
     calendarContainer.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
-      e.preventDefault();
       handleSwipe();
-    }, { passive: false });
+    }, { passive: true });
     
     // 初回レンダリング
     renderCalendar(currentDate);

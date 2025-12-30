@@ -128,12 +128,6 @@
   padding: 1.5rem;
   overflow-x: auto;
   transition: transform 0.3s ease-out, opacity 0.15s ease-out;
-  /* 全てのタッチジェスチャーを完全にブロック（カレンダー月移動はJSで制御） */
-  touch-action: none;
-  -webkit-overflow-scrolling: touch;
-  /* カレンダーコンテナ自体を独立したレイヤーに分離 */
-  will-change: transform;
-  isolation: isolate;
 }
 
 /* スワイプアニメーション */

@@ -71,12 +71,6 @@ header {
   backdrop-filter: blur(10px);
   z-index: 1000;
   border-bottom: 1px solid var(--color-border);
-  /* レイアウト崩れ防止のための追加プロパティ */
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 nav {
@@ -134,12 +128,6 @@ nav {
   gap: 5px;
   cursor: pointer;
   z-index: 1001;
-  /* レイアウト崩れ防止のための追加プロパティ */
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .hamburger span {
@@ -1182,12 +1170,6 @@ footer {
   transition: all 0.3s ease;
   text-decoration: none;
   backdrop-filter: blur(10px);
-  /* レイアウト崩れ防止のための追加プロパティ */
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .share-btn svg {
