@@ -365,10 +365,9 @@
 
 .event-modal-content-row {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
 }
 
 .event-modal-title {
@@ -376,14 +375,12 @@
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.4;
-  flex-shrink: 0;
 }
 
 .event-modal-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  flex-shrink: 0;
 }
 
 .event-modal-tag {
