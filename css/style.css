@@ -1384,3 +1384,17 @@ footer {
     gap: 0.3rem;
   }
 }
+
+/* ============================================
+   カレンダースワイプ時のフェードアニメーション
+   ============================================ */
+
+.fade-out-during-swipe {
+  opacity: 0 !important;
+  transition: opacity 0.15s ease-out !important;
+}
+
+.fade-in-after-swipe {
+  opacity: 1 !important;
+  transition: opacity 0.15s ease-in !important;
+}
