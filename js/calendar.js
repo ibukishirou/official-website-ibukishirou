@@ -17,6 +17,16 @@ let filters = {
 };
 
 // ============================================
+// スワイプ機能のための変数
+// ============================================
+
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+const swipeThreshold = 50; // スワイプと認識する最小距離（ピクセル）
+
+// ============================================
 // 初期化
 // ============================================
 
@@ -58,6 +68,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
     
+    // スワイプイベントリスナー（SPビュー用）
+    const calendarContainer = document.getElementById('calendar-container');
+    
+    calendarContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    calendarContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
+    
     // 初回レンダリング
     renderCalendar(currentDate);
     updateNavigationButtons();
@@ -68,6 +92,67 @@ document.addEventListener('DOMContentLoaded', async () => {
       '<p style="text-align: center; color: var(--color-text-secondary);">カレンダーデータの読み込みに失敗しました。</p>';
   }
 });
+
+// ============================================
+// スワイプ処理
+// ============================================
+
+function handleSwipe() {
+  const horizontalDistance = touchEndX - touchStartX;
+  const verticalDistance = Math.abs(touchEndY - touchStartY);
+  
+  // 垂直方向の動きが大きい場合はスワイプとして処理しない（スクロール優先）
+  if (verticalDistance > Math.abs(horizontalDistance)) {
+    return;
+  }
+  
+  // 左スワイプ（次の月へ）
+  if (horizontalDistance < -swipeThreshold) {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    if (newDate <= maxDate) {
+      animateCalendarTransition('left');
+      setTimeout(() => {
+        currentDate = newDate;
+        renderCalendar(currentDate);
+        updateNavigationButtons();
+      }, 150);
+    }
+  }
+  
+  // 右スワイプ（前の月へ）
+  if (horizontalDistance > swipeThreshold) {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() - 1);
+    if (newDate >= minDate) {
+      animateCalendarTransition('right');
+      setTimeout(() => {
+        currentDate = newDate;
+        renderCalendar(currentDate);
+        updateNavigationButtons();
+      }, 150);
+    }
+  }
+}
+
+// ============================================
+// カレンダー切り替えアニメーション
+// ============================================
+
+function animateCalendarTransition(direction) {
+  const container = document.getElementById('calendar-container');
+  
+  if (direction === 'left') {
+    container.classList.add('swipe-left');
+  } else if (direction === 'right') {
+    container.classList.add('swipe-right');
+  }
+  
+  // アニメーション終了後にクラスを削除
+  setTimeout(() => {
+    container.classList.remove('swipe-left', 'swipe-right');
+  }, 300);
+}
 
 // ============================================
 // カレンダーレンダリング
@@ -214,7 +299,7 @@ function getEventsForDate(date) {
           type: 'celebration',
           title: celebration.title,
           link: celebration.link,
-          color: '#dc143c',
+          color: getColorFromTags(celebration.tags),
           tags: celebration.tags || [],
           sortTime: '00:00' // 記念日は終日イベントなので一番上に表示
         });
@@ -238,7 +323,7 @@ function getEventsForDate(date) {
           start: event.start,
           end: event.end,
           link: event.link,
-          color: event.color || '#CD5C5C',
+          color: getColorFromTags(event.tags),
           tags: event.tags || [],
           isStart: dateStr === startDateStr,
           isEnd: dateStr === endDateStr,
@@ -491,14 +576,10 @@ function showEventModal(event) {
     const endDate = new Date(event.end);
     
     if (event.isMultiDay) {
-      if (event.isStart) {
-        timeDiv.textContent = `${formatDateTimeString(startDate)} ${formatTimeFromDate(startDate)} ~`;
-      } else if (event.isEnd) {
-        timeDiv.textContent = `~ ${formatDateTimeString(endDate)} ${formatTimeFromDate(endDate)}`;
-      } else {
-        timeDiv.textContent = `${formatDateTimeString(startDate)} 終日`;
-      }
+      // 複数日予定の場合は常に「開始日時 ~ 終了日時」形式で表示
+      timeDiv.textContent = `${formatDateTimeString(startDate)} ${formatTimeFromDate(startDate)} ~ ${formatDateTimeString(endDate)} ${formatTimeFromDate(endDate)}`;
     } else {
+      // 1日で終わる予定は現在の仕様のまま
       timeDiv.textContent = `${formatDateTimeString(startDate)} ${formatTimeFromDate(startDate)} ~ ${formatTimeFromDate(endDate)}`;
     }
   }
@@ -537,6 +618,10 @@ function showEventModal(event) {
   detailBtn.href = event.link;
   detailBtn.target = '_blank';
   detailBtn.rel = 'noopener noreferrer';
+  // 予定の色を背景色として適用
+  if (event.color) {
+    detailBtn.style.backgroundColor = event.color;
+  }
   modal.appendChild(detailBtn);
   
   overlay.appendChild(modal);
@@ -554,6 +639,38 @@ function showEventModal(event) {
       setTimeout(() => overlay.remove(), 300);
     }
   });
+}
+
+// ============================================
+// タグから色を取得
+// ============================================
+
+function getColorFromTags(tags) {
+  if (!tags || tags.length === 0) {
+    return '#CD5C5C'; // デフォルト色
+  }
+  
+  // タグごとの色マッピング（優先度順）
+  const tagColorMap = {
+    '配信': '#FFB6C1',      // 薄い桃色
+    '記念': '#dc143c',      // 深紅色
+    'メン限': '#FF0000',    // 赤色
+    'コラボ': '#4169E1',    // 藍色
+    'マダミス': '#4169E1',  // 藍色
+    'TRPG': '#4169E1',      // 藍色
+    'リアイベ': '#7FFF00',  // 新緑色
+    '企業コラボ': '#7FFF00' // 新緑色
+  };
+  
+  // 最初にマッチしたタグの色を返す
+  for (const tag of tags) {
+    if (tagColorMap[tag]) {
+      return tagColorMap[tag];
+    }
+  }
+  
+  // マッチしない場合はデフォルト色
+  return '#CD5C5C';
 }
 
 // ============================================

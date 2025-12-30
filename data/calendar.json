@@ -39,7 +39,6 @@
       "start": "2025-12-28 15:00",
       "end": "2025-12-28 17:00",
       "link": "https://www.youtube.com/live/LxVJDu-vCco",
-      "color": "#dc143c",
       "tags": ["メン限"]
     },
     {
@@ -47,7 +46,6 @@
       "start": "2025-12-31 23:00",
       "end": "2026-01-01 01:00",
       "link": "https://youtube.com/live/9n4wtSL5k6M",
-      "color": "#CD5C5C",
       "tags": ["配信"]
     },
     {
@@ -55,7 +53,6 @@
       "start": "2026-01-24 12:30",
       "end": "2026-01-24 22:00",
       "link": "https://x.com/NFT_AIICO",
-      "color": "#2954ff",
       "tags": ["配信", "マダミス"]
     },
     {
@@ -63,7 +60,6 @@
       "start": "2026-02-22 12:00",
       "end": "2026-02-22 18:00",
       "link": "https://x.com/pepron_osaka",
-      "color": "#db23db",
       "tags": ["リアイベ"]
     },
     {
@@ -71,7 +67,6 @@
       "start": "2026-02-13 00:00",
       "end": "2026-03-06 23:59",
       "link": "https://x.com/NFT_AIICO",
-      "color": "#2954ff",
       "tags": ["企業コラボ"]
     }
   ]
