@@ -211,15 +211,39 @@
     loadFeaturedWorks();
   </script>
   <script>
-    // Featured Worksの自動スクロール機能
+    // Featured Worksのシームレスな無限スクロール機能
     (function() {
-      let scrollInterval = null;
       let isScrolling = false;
       let isPaused = false;
       const scrollSpeed = 0.5; // ピクセル/フレーム（ゆっくり）
+      let container = null;
+      let originalWidth = 0;
+      
+      function cloneContent() {
+        container = document.getElementById('featured-works-container');
+        if (!container) return;
+        
+        // オリジナルのコンテンツを取得
+        const originalContent = Array.from(container.children);
+        if (originalContent.length === 0) return;
+        
+        // オリジナルの幅を記録
+        originalWidth = container.scrollWidth;
+        
+        // コンテンツを複製して追加（シームレスなループのため）
+        originalContent.forEach(item => {
+          const clone = item.cloneNode(true);
+          container.appendChild(clone);
+        });
+        
+        // さらにもう一度複製（スムーズな切り替えのため）
+        originalContent.forEach(item => {
+          const clone = item.cloneNode(true);
+          container.appendChild(clone);
+        });
+      }
       
       function startAutoScroll() {
-        const container = document.getElementById('featured-works-container');
         if (!container || isScrolling) return;
         
         isScrolling = true;
@@ -229,8 +253,8 @@
           if (!isPaused && container) {
             container.scrollLeft += scrollSpeed;
             
-            // 最後まで到達したら最初に戻る
-            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+            // オリジナルコンテンツの幅を超えたら、最初に戻る（シームレスに）
+            if (container.scrollLeft >= originalWidth) {
               container.scrollLeft = 0;
             }
           }
@@ -258,11 +282,11 @@
       
       // DOMが読み込まれたら自動スクロール開始
       function initAutoScroll() {
-        const container = document.getElementById('featured-works-container');
+        container = document.getElementById('featured-works-container');
         if (!container) return;
         
-        // 長押しでストップ、離して再開
-        let pressTimer = null;
+        // コンテンツを複製
+        cloneContent();
         
         // マウスイベント（PC）
         container.addEventListener('mousedown', (e) => {
@@ -270,10 +294,6 @@
         });
         
         container.addEventListener('mouseup', (e) => {
-          resumeAutoScroll();
-        });
-        
-        container.addEventListener('mouseleave', (e) => {
           resumeAutoScroll();
         });
         
