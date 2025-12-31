@@ -137,9 +137,23 @@
     <p class="catchphrase-text"><span class="catchphrase-line1">気づけば君の</span><span class="catchphrase-line2">毎日に、</span><span class="catchphrase-line3">俺がいる。</span></p>
   </section>
 
+  <!-- 自己紹介動画セクション -->
+  <section id="introduction">
+    <h2 class="section-title">Introduction</h2>
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube.com/embed/ubOOb-J1Jeg"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
   <!-- 代表作セクション -->
   <section id="featured-works">
-    <h2 class="section-title">Featured Works</h2>
+    <h2 class="section-title">Songs</h2>
     <div class="card-grid" id="featured-works-container">
       <!-- JSで動的に読み込み -->
     </div>
@@ -195,6 +209,103 @@
     }
     
     loadFeaturedWorks();
+  </script>
+  <script>
+    // Featured Worksの自動スクロール機能
+    (function() {
+      let scrollInterval = null;
+      let isScrolling = false;
+      let isPaused = false;
+      const scrollSpeed = 0.5; // ピクセル/フレーム（ゆっくり）
+      
+      function startAutoScroll() {
+        const container = document.getElementById('featured-works-container');
+        if (!container || isScrolling) return;
+        
+        isScrolling = true;
+        isPaused = false;
+        
+        function scroll() {
+          if (!isPaused && container) {
+            container.scrollLeft += scrollSpeed;
+            
+            // 最後まで到達したら最初に戻る
+            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+              container.scrollLeft = 0;
+            }
+          }
+          
+          if (isScrolling) {
+            requestAnimationFrame(scroll);
+          }
+        }
+        
+        requestAnimationFrame(scroll);
+      }
+      
+      function stopAutoScroll() {
+        isScrolling = false;
+        isPaused = false;
+      }
+      
+      function pauseAutoScroll() {
+        isPaused = true;
+      }
+      
+      function resumeAutoScroll() {
+        isPaused = false;
+      }
+      
+      // DOMが読み込まれたら自動スクロール開始
+      function initAutoScroll() {
+        const container = document.getElementById('featured-works-container');
+        if (!container) return;
+        
+        // 長押しでストップ、離して再開
+        let pressTimer = null;
+        
+        // マウスイベント（PC）
+        container.addEventListener('mousedown', (e) => {
+          pauseAutoScroll();
+        });
+        
+        container.addEventListener('mouseup', (e) => {
+          resumeAutoScroll();
+        });
+        
+        container.addEventListener('mouseleave', (e) => {
+          resumeAutoScroll();
+        });
+        
+        // タッチイベント（スマホ/タブレット）
+        container.addEventListener('touchstart', (e) => {
+          pauseAutoScroll();
+        }, { passive: true });
+        
+        container.addEventListener('touchend', (e) => {
+          resumeAutoScroll();
+        }, { passive: true });
+        
+        container.addEventListener('touchcancel', (e) => {
+          resumeAutoScroll();
+        }, { passive: true });
+        
+        // ホバー時にもストップ（PC）
+        container.addEventListener('mouseenter', (e) => {
+          pauseAutoScroll();
+        });
+        
+        container.addEventListener('mouseleave', (e) => {
+          resumeAutoScroll();
+        });
+        
+        // 自動スクロール開始
+        startAutoScroll();
+      }
+      
+      // ページ読み込み後に実行（Featured Worksが読み込まれた後）
+      setTimeout(initAutoScroll, 1000);
+    })();
   </script>
   <script src="js/share.js"></script>
   <script src="js/sw-register.js"></script>

@@ -98,16 +98,29 @@
   justify-content: center;
 }
 
-.nav-btn:hover {
-  background-color: #FF8C00;
-  border-color: #FF8C00;
-  transform: scale(1.05);
+/* PCのみホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .nav-btn:hover {
+    background-color: #FF8C00;
+    border-color: #FF8C00;
+    transform: scale(1.05);
+  }
 }
 
 .nav-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
   transform: none;
+}
+
+/* SPビューでアクティブ状態が残らないように */
+@media (max-width: 768px) {
+  .nav-btn:active {
+    background-color: #FF8C00;
+    border-color: #FF8C00;
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+  }
 }
 
 .current-month {
@@ -233,12 +246,16 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   min-height: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.event-item:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.15);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+/* PCのみホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .event-item:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .event-item.regular {
@@ -409,11 +426,10 @@
   cursor: pointer;
   font-family: var(--font-secondary);
   transition: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.event-modal-button:active {
-  opacity: 0.9;
-}
+/* アクティブ状態のスタイルを削除（別ページで開くため不要） */
 
 /* 複数日イベントのバー表示 */
 .event-bar {
