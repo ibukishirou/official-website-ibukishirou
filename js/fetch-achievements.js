@@ -22,15 +22,70 @@ async function loadAchievements() {
 function setupFilterButtons() {
   const filterButtons = document.querySelectorAll('.filter-btn');
   
+  // タグごとの色定義
+  const filterColors = {
+    'infomation': 'rgb(255, 69, 0)',
+    'music': 'rgb(130, 130, 255)',
+    'video': 'rgb(34, 139, 34)',
+    'all': '#D2691E' // var(--color-secondary)の実際の値
+  };
+  
+  // ホバー時の背景色（透明度を追加）
+  const getHoverColor = (filter) => {
+    const colors = {
+      'infomation': 'rgba(255, 69, 0, 0.2)',
+      'music': 'rgba(130, 130, 255, 0.2)',
+      'video': 'rgba(34, 139, 34, 0.2)',
+      'all': 'rgba(210, 105, 30, 0.2)'
+    };
+    return colors[filter] || 'rgba(210, 105, 30, 0.2)';
+  };
+  
+  // 初期状態でALLボタンをアクティブに設定
+  const allButton = document.querySelector('.filter-btn[data-filter="all"]');
+  if (allButton) {
+    allButton.style.backgroundColor = filterColors['all'];
+    allButton.style.borderColor = filterColors['all'];
+  }
+  
   filterButtons.forEach(button => {
+    const filter = button.dataset.filter;
+    
+    // ホバーイベント
+    button.addEventListener('mouseenter', () => {
+      if (!button.classList.contains('active')) {
+        button.style.backgroundColor = getHoverColor(filter);
+        button.style.borderColor = filterColors[filter];
+        button.style.color = 'var(--color-text)';
+      }
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      if (!button.classList.contains('active')) {
+        button.style.backgroundColor = '';
+        button.style.borderColor = '';
+        button.style.color = '';
+      }
+    });
+    
+    // クリックイベント
     button.addEventListener('click', () => {
       // アクティブボタンの切り替え
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = '';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      });
       button.classList.add('active');
       
       // フィルタリング
-      const filter = button.dataset.filter;
       currentFilter = filter;
+      
+      // アクティブボタンの色を設定
+      const color = filterColors[filter];
+      button.style.backgroundColor = color;
+      button.style.borderColor = color;
       
       if (filter === 'all') {
         displayAchievements(achievementsData);
@@ -57,10 +112,22 @@ function displayAchievements(achievementsArray) {
     const date = new Date(item.release_date);
     const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
     
-    // タグのHTML生成（#付きのライトなテキスト表示）
+    // タグのHTML生成（色分け対応）
     const tagsHTML = item.tags.map(tag => {
-      const tagClass = tag === 'music' ? 'tag-music' : 'tag-infomation';
-      const tagLabel = tag === 'music' ? 'music' : 'information';
+      let tagClass = 'tag-infomation';
+      let tagLabel = 'information';
+      
+      if (tag === 'music') {
+        tagClass = 'tag-music';
+        tagLabel = 'music';
+      } else if (tag === 'video') {
+        tagClass = 'tag-video';
+        tagLabel = 'video';
+      } else if (tag === 'infomation') {
+        tagClass = 'tag-infomation';
+        tagLabel = 'information';
+      }
+      
       return `<span class="achievement-tag ${tagClass}">${tagLabel}</span>`;
     }).join('');
     
@@ -70,7 +137,7 @@ function displayAchievements(achievementsArray) {
         <div class="achievement-item">
           <div class="achievement-date">${formattedDate}</div>
           <div class="achievement-point"></div>
-          <div class="achievement-content clickable" data-date="${formattedDate}" data-link="${item.link}">
+          <div class="achievement-content clickable" data-link="${item.link}">
             <h3 class="achievement-title">${item.title}</h3>
             <p class="achievement-body">${item.body}</p>
             <div class="achievement-tags">${tagsHTML}</div>
@@ -82,7 +149,7 @@ function displayAchievements(achievementsArray) {
         <div class="achievement-item">
           <div class="achievement-date">${formattedDate}</div>
           <div class="achievement-point"></div>
-          <div class="achievement-content" data-date="${formattedDate}">
+          <div class="achievement-content">
             <h3 class="achievement-title">${item.title}</h3>
             <p class="achievement-body">${item.body}</p>
             <div class="achievement-tags">${tagsHTML}</div>
