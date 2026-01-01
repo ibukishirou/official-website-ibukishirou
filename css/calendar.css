@@ -101,8 +101,8 @@
 /* PCのみホバー効果を適用 */
 @media (hover: hover) and (pointer: fine) {
   .nav-btn:hover {
-    background-color: #FF8C00;
-    border-color: #FF8C00;
+    background-color: #FF4500;
+    border-color: #FF4500;
     transform: scale(1.05);
   }
 }
@@ -116,8 +116,8 @@
 /* SPビューでアクティブ状態が残らないように */
 @media (max-width: 768px) {
   .nav-btn:active {
-    background-color: #FF8C00;
-    border-color: #FF8C00;
+    background-color: #FF4500;
+    border-color: #FF4500;
     transform: scale(0.98);
     transition: all 0.1s ease;
   }
@@ -415,7 +415,7 @@
 .event-modal-button {
   display: inline-block;
   padding: 0.75rem 2rem;
-  background-color: #FF8C00;
+  background-color: #FF4500;
   color: #ffffff;
   text-decoration: none;
   border-radius: 8px;
