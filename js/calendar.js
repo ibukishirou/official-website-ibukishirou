@@ -467,20 +467,21 @@ function createEventElement(event) {
     return eventItem;
     
   } else if (event.type === 'exclusion') {
-    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示
-    const eventBar = document.createElement('div');
-    eventBar.className = 'event-bar';
+    // 除外日（〇〇休み） - 通常イベントと同じスタイル
+    const eventItem = document.createElement('div');
+    eventItem.className = 'event-item';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.cursor = 'default';
     
-    const eventBarContent = document.createElement('div');
-    eventBarContent.className = 'event-bar-content';
-    eventBarContent.style.backgroundColor = event.color;
-    eventBarContent.style.cursor = 'default';
-    eventBarContent.textContent = event.title;
+    // タイトルのみ表示
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    eventItem.appendChild(titleDiv);
     
     // クリックイベントなし（何も起こらない）
     
-    eventBar.appendChild(eventBarContent);
-    return eventBar;
+    return eventItem;
     
   } else if (event.type === 'regular') {
     // 定期配信

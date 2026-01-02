@@ -444,34 +444,6 @@
   }
 }
 
-/* 複数日イベントのバー表示 */
-.event-bar {
-  margin-bottom: 0.25rem;
-  border-radius: 6px;
-  overflow: visible;
-  min-height: 0;
-}
-
-.event-bar-content {
-  display: flex;
-  align-items: center;
-  padding: 0.4rem 0.5rem;
-  font-size: 0.75rem;
-  color: #ffffff;
-  white-space: nowrap;
-  transition: var(--transition);
-  cursor: pointer;
-  border-radius: 6px;
-  text-decoration: none;
-  font-family: var(--font-secondary);
-}
-
-.event-bar-content:hover {
-  filter: brightness(1.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 /* ============================================
    レスポンシブ対応
    ============================================ */
@@ -603,22 +575,6 @@
     display: none;
   }
 
-  /* イベントバー（複数日イベント・除外日）もevent-itemと同様に高さ自動 */
-  .event-bar {
-    height: auto;
-    min-height: 18px;
-    margin-bottom: 0.2rem;
-  }
-
-  .event-bar-content {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.3rem;
-    min-height: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   /* モーダル調整 */
   .event-modal {
     padding: 1.5rem;
@@ -740,22 +696,6 @@
 
   .event-tag {
     display: none;
-  }
-
-  /* イベントバー（複数日イベント・除外日）もevent-itemと同様に高さ自動 */
-  .event-bar {
-    height: auto;
-    min-height: 16px;
-    margin-bottom: 0.15rem;
-  }
-
-  .event-bar-content {
-    font-size: 0.6rem;
-    padding: 0.2rem 0.25rem;
-    min-height: 16px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   /* モーダル調整 */
