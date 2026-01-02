@@ -81,7 +81,11 @@
       <i class="ri-search-line faq-search-icon"></i>
     </div>
     
-    <div style="text-align: center; margin-bottom: 3rem; padding: 1.5rem; background: rgba(26, 26, 26, 0.5); border: 1px solid var(--color-border); border-radius: 8px; max-width: 700px; margin-left: auto; margin-right: auto;">
+    <div class="faq-list">
+      <!-- JSで動的に読み込み -->
+    </div>
+    
+    <div class="faq-footer-message">
       <p class="faq-intro-text" style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 1.8;">
         <span class="faq-intro-line">こちらに記載のない質問が</span><span class="faq-intro-line">ございましたら、</span><br class="pc-only">
         <span class="faq-intro-line">SNSや配信やコメント欄などで</span><span class="faq-intro-line">お気軽に質問ください。</span>
@@ -91,9 +95,10 @@
     <style>
       /* FAQ検索ボックス */
       .faq-search-container {
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto 2rem;
         position: relative;
+        padding: 0 1.5rem;
       }
       
       .faq-search-input {
@@ -101,12 +106,13 @@
         padding: 1rem 3rem 1rem 1.5rem;
         font-size: 1rem;
         font-family: var(--font-secondary);
-        background: rgba(26, 26, 26, 0.6);
-        border: 2px solid var(--color-border);
+        background: rgba(26, 26, 26, 0.5);
+        border: 1px solid var(--color-border);
         border-radius: 8px;
         color: var(--color-text);
         transition: var(--transition);
         outline: none;
+        box-sizing: border-box;
       }
       
       .faq-search-input:focus {
@@ -144,10 +150,23 @@
         display: none;
       }
       
+      /* フッターメッセージ */
+      .faq-footer-message {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 1.5rem;
+        background: rgba(26, 26, 26, 0.5);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
       /* SPビューでの改行調整 */
       @media (max-width: 960px) {
         .faq-search-container {
-          padding: 0 1rem;
+          padding: 0 1.5rem;
         }
         
         .faq-search-input {
@@ -156,8 +175,12 @@
         }
         
         .faq-search-icon {
-          right: 1rem;
           font-size: 1.3rem;
+        }
+        
+        .faq-footer-message {
+          margin-left: 1.5rem;
+          margin-right: 1.5rem;
         }
         
         .faq-intro-text {
@@ -171,10 +194,6 @@
         }
       }
     </style>
-    
-    <div class="faq-list">
-      <!-- JSで動的に読み込み -->
-    </div>
   </section>
 
   <!-- フッター -->
