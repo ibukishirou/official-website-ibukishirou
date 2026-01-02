@@ -444,35 +444,6 @@
   }
 }
 
-/* 複数日イベントのバー表示 */
-.event-bar {
-  height: 22px;
-  margin-bottom: 0.25rem;
-  border-radius: 4px;
-  overflow: visible;
-}
-
-.event-bar-content {
-  display: flex;
-  align-items: center;
-  padding: 0 0.5rem;
-  font-size: 0.75rem;
-  color: #ffffff;
-  white-space: nowrap;
-  transition: var(--transition);
-  cursor: pointer;
-  height: 100%;
-  border-radius: 4px;
-  text-decoration: none;
-  font-family: var(--font-secondary);
-}
-
-.event-bar-content:hover {
-  filter: brightness(1.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 /* ============================================
    レスポンシブ対応
    ============================================ */
