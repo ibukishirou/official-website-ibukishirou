@@ -156,9 +156,8 @@
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(140px, 1fr));
+  grid-template-columns: repeat(7, minmax(120px, 1fr));
   gap: 0;
-  min-width: 980px;
   width: 100%;
 }
 
@@ -477,6 +476,49 @@
 /* ============================================
    レスポンシブ対応
    ============================================ */
+
+/* 960px～1090pxの範囲でカレンダーの幅を調整 */
+@media (min-width: 961px) and (max-width: 1090px) {
+  .calendar-container {
+    padding: 1rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
+  }
+
+  .calendar-weekday {
+    font-size: 0.85rem;
+    padding: 0.8rem 0.3rem;
+  }
+
+  .calendar-day {
+    min-height: 100px;
+    padding: 0.4rem;
+  }
+
+  .day-number {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .event-item {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .event-time {
+    font-size: 0.6rem;
+  }
+
+  .event-title {
+    font-size: 0.7rem;
+  }
+
+  .event-tag {
+    font-size: 0.55rem;
+  }
+}
 
 @media (max-width: 960px) {
   #calendar-section {
