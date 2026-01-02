@@ -181,7 +181,7 @@
 }
 
 /* SPビュー: 伊吹しろうの後で改行 */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .profile-name-en {
     display: block;
     margin-top: 0.3rem;

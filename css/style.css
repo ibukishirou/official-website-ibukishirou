@@ -92,7 +92,7 @@ nav {
 }
 
 /* SPビュー: ヘッダーロゴのフォントサイズを調整 */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .logo {
     font-size: 1rem;
   }
@@ -218,7 +218,7 @@ nav {
 }
 
 /* スマホビュー対応: 横幅が狭い場合は動画の横幅に合わせる */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .hero-bg-video {
     width: 100%;
     height: auto;
@@ -362,7 +362,7 @@ nav {
 }
 
 /* SPビュー: キャッチフレーズの改行調整 */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .catchphrase-text {
     display: flex;
     flex-direction: column;
@@ -436,7 +436,7 @@ section {
   min-width: 350px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   #featured-works .featured-work-item {
     flex: 0 0 280px;
     min-width: 280px;
@@ -1111,7 +1111,7 @@ footer {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   nav {
     padding: 1rem;
   }
@@ -1367,7 +1367,7 @@ footer {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .share-buttons {
     bottom: 1rem;
     right: 1rem;
@@ -1449,7 +1449,7 @@ footer {
 }
 
 /* Responsive breadcrumb */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .breadcrumb {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
