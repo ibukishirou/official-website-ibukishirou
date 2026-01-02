@@ -303,10 +303,28 @@ function getEventsForDate(date) {
   if (!calendarData) return events;
   
   // 定期配信のチェック
-  if (calendarData.regular && calendarData.regular.scheduled && filters.regular) {
+  if (calendarData.regular && calendarData.regular.scheduled) {
     calendarData.regular.scheduled.forEach(regular => {
       const dayOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][date.getDay()];
-      if (regular.days[dayOfWeek]) {
+      const dateStr = formatDateString(date);
+      
+      // 除外日のチェック
+      const isExcluded = regular.exclusion_dates && regular.exclusion_dates.includes(dateStr);
+      
+      if (isExcluded) {
+        // 除外日には「〇〇お休み」イベントを追加（常に表示、フィルター無視）
+        events.push({
+          type: 'exclusion',
+          title: `${regular.title}お休み`,
+          start_time: regular.start_time,
+          end_time: regular.end_time,
+          link: null,
+          tags: [],
+          sortTime: regular.start_time,
+          color: '#808080' // グレー色
+        });
+      } else if (regular.days[dayOfWeek] && filters.regular) {
+        // 通常の定期配信（フィルターがONの場合のみ表示）
         events.push({
           type: 'regular',
           title: regular.title,
@@ -434,6 +452,25 @@ function createEventElement(event) {
         window.open(event.link, '_blank');
       }
     });
+    
+    return eventItem;
+    
+  } else if (event.type === 'exclusion') {
+    // 除外日（〇〇お休み）
+    const eventItem = document.createElement('div');
+    eventItem.className = 'event-item exclusion';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.color = '#ffffff';
+    eventItem.style.cursor = 'default';
+    
+    // タイトルのみ表示
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    titleDiv.style.padding = '0.4rem 0.5rem';
+    eventItem.appendChild(titleDiv);
+    
+    // クリックイベントなし（何も起こらない）
     
     return eventItem;
     
