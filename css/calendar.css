@@ -452,11 +452,6 @@
   overflow: visible;
 }
 
-/* 除外日専用のバー（PCビューで太く） */
-.event-bar-exclusion {
-  height: 28px;
-}
-
 .event-bar-content {
   display: flex;
   align-items: center;
@@ -609,19 +604,17 @@
     display: none;
   }
 
-  /* イベントバー（複数日イベント・除外日）の調整 */
+  /* イベントバー（複数日イベント・除外日）もevent-itemと同様に高さ自動 */
   .event-bar {
-    height: 18px;
+    height: auto;
+    min-height: 18px;
     margin-bottom: 0.2rem;
-  }
-
-  .event-bar-exclusion {
-    height: 20px;
   }
 
   .event-bar-content {
     font-size: 0.65rem;
-    padding: 0 0.3rem;
+    padding: 0.25rem 0.3rem;
+    min-height: 18px;
   }
 
   /* モーダル調整 */
@@ -747,19 +740,17 @@
     display: none;
   }
 
-  /* イベントバー（複数日イベント・除外日）の調整 */
+  /* イベントバー（複数日イベント・除外日）もevent-itemと同様に高さ自動 */
   .event-bar {
-    height: 16px;
+    height: auto;
+    min-height: 16px;
     margin-bottom: 0.15rem;
-  }
-
-  .event-bar-exclusion {
-    height: 18px;
   }
 
   .event-bar-content {
     font-size: 0.6rem;
-    padding: 0 0.25rem;
+    padding: 0.2rem 0.25rem;
+    min-height: 16px;
   }
 
   /* モーダル調整 */

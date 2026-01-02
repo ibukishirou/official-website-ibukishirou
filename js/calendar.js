@@ -467,9 +467,9 @@ function createEventElement(event) {
     return eventItem;
     
   } else if (event.type === 'exclusion') {
-    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示（高さを太く）
+    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示
     const eventBar = document.createElement('div');
-    eventBar.className = 'event-bar event-bar-exclusion';
+    eventBar.className = 'event-bar';
     
     const eventBarContent = document.createElement('div');
     eventBarContent.className = 'event-bar-content';
