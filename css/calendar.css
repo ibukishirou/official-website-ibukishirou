@@ -615,6 +615,9 @@
     font-size: 0.65rem;
     padding: 0.25rem 0.3rem;
     min-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* モーダル調整 */
@@ -751,6 +754,9 @@
     font-size: 0.6rem;
     padding: 0.2rem 0.25rem;
     min-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* モーダル調整 */

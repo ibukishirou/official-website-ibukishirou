@@ -312,10 +312,10 @@ function getEventsForDate(date) {
       const isExcluded = regular.exclusion_dates && regular.exclusion_dates.includes(dateStr);
       
       if (isExcluded) {
-        // 除外日には「〇〇お休み」イベントを追加（常に表示、フィルター無視）
+        // 除外日には「〇〇休み」イベントを追加（常に表示、フィルター無視）
         events.push({
           type: 'exclusion',
-          title: `${regular.title}お休み`,
+          title: `${regular.title}休み`,
           start_time: regular.start_time,
           end_time: regular.end_time,
           link: null,
