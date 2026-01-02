@@ -1,56 +1,74 @@
+// グローバル変数としてFAQデータを保持
+let allFaqData = [];
+
 // FAQ JSONデータの読み込みと表示
 async function loadFAQ() {
   try {
     const response = await fetch('data/faq.json');
-    const faqData = await response.json();
+    allFaqData = await response.json();
     
-    const faqList = document.querySelector('.faq-list');
-    if (!faqList) return;
+    renderFAQItems(allFaqData);
     
-    faqList.innerHTML = '';
-    
-    faqData.forEach((item, index) => {
-      const faqItem = document.createElement('div');
-      faqItem.className = 'faq-item';
-      
-      // テンプレート部分を検出・分離
-      let answerContent = item.answer;
-      const templateMatch = item.answer.match(/(■ イラスト内容.*)/s);
-      
-      if (templateMatch) {
-        const templateText = templateMatch[1];
-        const beforeTemplate = item.answer.substring(0, item.answer.indexOf(templateMatch[1]));
-        
-        answerContent = `
-          ${beforeTemplate}
-          <div class="template-box">
-            <button class="copy-template-btn" onclick="copyTemplate(this)">コピー</button>
-            <pre>${templateText}</pre>
-          </div>
-        `;
-      }
-      
-      faqItem.innerHTML = `
-        <div class="faq-question">
-          <h3>${item.question}</h3>
-          <span class="faq-icon">▼</span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-content">
-            ${answerContent}
-          </div>
-        </div>
-      `;
-      
-      faqList.appendChild(faqItem);
-    });
-    
-    // アコーディオン機能を初期化
-    initFAQAccordion();
+    // 検索機能を初期化
+    initFAQSearch();
     
   } catch (error) {
     console.error('FAQデータの読み込みに失敗しました:', error);
   }
+}
+
+// FAQアイテムを描画
+function renderFAQItems(faqData) {
+  const faqList = document.querySelector('.faq-list');
+  if (!faqList) return;
+  
+  faqList.innerHTML = '';
+  
+  if (faqData.length === 0) {
+    faqList.innerHTML = '<div class="faq-no-results">検索条件に一致する質問が見つかりませんでした。</div>';
+    return;
+  }
+  
+  faqData.forEach((item, index) => {
+    const faqItem = document.createElement('div');
+    faqItem.className = 'faq-item';
+    faqItem.dataset.question = item.question;
+    faqItem.dataset.answer = item.answer;
+    
+    // テンプレート部分を検出・分離
+    let answerContent = item.answer;
+    const templateMatch = item.answer.match(/(■ イラスト内容.*)/s);
+    
+    if (templateMatch) {
+      const templateText = templateMatch[1];
+      const beforeTemplate = item.answer.substring(0, item.answer.indexOf(templateMatch[1]));
+      
+      answerContent = `
+        ${beforeTemplate}
+        <div class="template-box">
+          <button class="copy-template-btn" onclick="copyTemplate(this)">コピー</button>
+          <pre>${templateText}</pre>
+        </div>
+      `;
+    }
+    
+    faqItem.innerHTML = `
+      <div class="faq-question">
+        <h3>${item.question}</h3>
+        <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          ${answerContent}
+        </div>
+      </div>
+    `;
+    
+    faqList.appendChild(faqItem);
+  });
+  
+  // アコーディオン機能を初期化
+  initFAQAccordion();
 }
 
 // FAQ アコーディオン機能（開閉どちらも0.5秒のアニメーション）
@@ -179,6 +197,32 @@ function showCopyNotification() {
       notification.remove();
     }, 300);
   }, 2000);
+}
+
+// FAQ検索機能を初期化
+function initFAQSearch() {
+  const searchInput = document.getElementById('faq-search-input');
+  if (!searchInput) return;
+  
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      // 検索ボックスが空の場合は全て表示
+      renderFAQItems(allFaqData);
+    } else {
+      // 検索条件に一致するFAQをフィルタリング
+      const filteredData = allFaqData.filter(item => {
+        const question = item.question.toLowerCase();
+        const answer = item.answer.toLowerCase();
+        
+        // タイトル（question）または本文（answer）に部分一致
+        return question.includes(searchTerm) || answer.includes(searchTerm);
+      });
+      
+      renderFAQItems(filteredData);
+    }
+  });
 }
 
 // ページ読み込み時に実行

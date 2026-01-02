@@ -69,6 +69,18 @@
   <section style="padding-top: 2rem;">
     <h2 class="section-title">FAQ</h2>
     
+    <!-- 検索ボックス -->
+    <div class="faq-search-container">
+      <input 
+        type="text" 
+        id="faq-search-input" 
+        class="faq-search-input" 
+        placeholder="質問を検索..."
+        autocomplete="off"
+      >
+      <i class="ri-search-line faq-search-icon"></i>
+    </div>
+    
     <div style="text-align: center; margin-bottom: 3rem; padding: 1.5rem; background: rgba(26, 26, 26, 0.5); border: 1px solid var(--color-border); border-radius: 8px; max-width: 700px; margin-left: auto; margin-right: auto;">
       <p class="faq-intro-text" style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 1.8;">
         <span class="faq-intro-line">こちらに記載のない質問が</span><span class="faq-intro-line">ございましたら、</span><br class="pc-only">
@@ -77,8 +89,77 @@
     </div>
     
     <style>
+      /* FAQ検索ボックス */
+      .faq-search-container {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        position: relative;
+      }
+      
+      .faq-search-input {
+        width: 100%;
+        padding: 1rem 3rem 1rem 1.5rem;
+        font-size: 1rem;
+        font-family: var(--font-secondary);
+        background: rgba(26, 26, 26, 0.6);
+        border: 2px solid var(--color-border);
+        border-radius: 8px;
+        color: var(--color-text);
+        transition: var(--transition);
+        outline: none;
+      }
+      
+      .faq-search-input:focus {
+        border-color: var(--color-secondary);
+        background: rgba(26, 26, 26, 0.8);
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+      }
+      
+      .faq-search-input::placeholder {
+        color: var(--color-text-secondary);
+        opacity: 0.6;
+      }
+      
+      .faq-search-icon {
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        color: var(--color-text-secondary);
+        pointer-events: none;
+      }
+      
+      /* 検索結果なしメッセージ */
+      .faq-no-results {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        color: var(--color-text-secondary);
+        font-family: var(--font-secondary);
+        font-size: 1.1rem;
+      }
+      
+      /* 非表示のFAQアイテム */
+      .faq-item.hidden {
+        display: none;
+      }
+      
       /* SPビューでの改行調整 */
-      @media (max-width: 768px) {
+      @media (max-width: 960px) {
+        .faq-search-container {
+          padding: 0 1rem;
+        }
+        
+        .faq-search-input {
+          padding: 0.875rem 2.75rem 0.875rem 1.25rem;
+          font-size: 0.95rem;
+        }
+        
+        .faq-search-icon {
+          right: 1rem;
+          font-size: 1.3rem;
+        }
+        
         .faq-intro-text {
           display: flex;
           flex-direction: column;
