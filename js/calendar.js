@@ -321,6 +321,7 @@ function getEventsForDate(date) {
           link: null,
           tags: [],
           sortTime: '00:00:00', // 一番上に表示
+          sortPriority: 0, // 最優先
           color: '#808080' // グレー色
         });
       } else if (regular.days[dayOfWeek] && filters.regular) {
@@ -332,7 +333,8 @@ function getEventsForDate(date) {
           end_time: regular.end_time,
           link: regular.link,
           tags: regular.tags || [],
-          sortTime: regular.start_time
+          sortTime: regular.start_time,
+          sortPriority: 2
         });
       }
     });
@@ -349,7 +351,8 @@ function getEventsForDate(date) {
           link: celebration.link,
           color: getColorFromTags(celebration.tags),
           tags: celebration.tags || [],
-          sortTime: '00:00' // 記念日は終日イベントなので一番上に表示
+          sortTime: '00:00', // 記念日は終日イベントなので一番上に表示
+          sortPriority: 1
         });
       }
     });
@@ -376,14 +379,22 @@ function getEventsForDate(date) {
           isStart: dateStr === startDateStr,
           isEnd: dateStr === endDateStr,
           isMultiDay: startDateStr !== endDateStr,
-          sortTime: formatTimeFromDate(startDate)
+          sortTime: formatTimeFromDate(startDate),
+          sortPriority: 3
         });
       }
     });
   }
   
-  // 時刻順にソート
+  // 優先度と時刻順にソート
   events.sort((a, b) => {
+    // まず優先度で比較
+    const priorityA = a.sortPriority !== undefined ? a.sortPriority : 999;
+    const priorityB = b.sortPriority !== undefined ? b.sortPriority : 999;
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+    // 優先度が同じ場合は時刻で比較
     return a.sortTime.localeCompare(b.sortTime);
   });
   
@@ -456,9 +467,10 @@ function createEventElement(event) {
     return eventItem;
     
   } else if (event.type === 'exclusion') {
-    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示
+    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示（高さを太く）
     const eventBar = document.createElement('div');
     eventBar.className = 'event-bar';
+    eventBar.style.height = '28px'; // 通常の22pxより太く
     
     const eventBarContent = document.createElement('div');
     eventBarContent.className = 'event-bar-content';
