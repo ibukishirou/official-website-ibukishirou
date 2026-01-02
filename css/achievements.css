@@ -172,7 +172,7 @@
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 1080px) {
+@media (max-width: 960px) {
   .filter-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

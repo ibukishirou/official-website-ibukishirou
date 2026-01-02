@@ -63,7 +63,7 @@
   display: inline;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 960px) {
   .loading-logo {
     width: 120px;
     height: 120px;
