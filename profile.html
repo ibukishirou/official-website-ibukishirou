@@ -121,9 +121,26 @@
           <p style="font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 1rem; line-height: 1.8;">
             本当にそうか確かめにきてね！配信で待ってるよ！<br>
           </p>
-          <!-- Social Links -->
-          <div class="profile-social-links" id="profile-social-links">
-            <!-- JSで動的に読み込み -->
+          
+          <!-- Voice Section & Social Links Container -->
+          <div class="profile-links-container">
+            <!-- Voice Player -->
+            <div class="profile-voice-section">
+              <button class="voice-button" data-voice="1" aria-label="ボイス1を再生">
+                <i class="ri-volume-up-line"></i>
+              </button>
+              <button class="voice-button" data-voice="2" aria-label="ボイス2を再生">
+                <i class="ri-volume-up-line"></i>
+              </button>
+              <button class="voice-button" data-voice="3" aria-label="ボイス3を再生">
+                <i class="ri-volume-up-line"></i>
+              </button>
+            </div>
+            
+            <!-- Social Links -->
+            <div class="profile-social-links" id="profile-social-links">
+              <!-- JSで動的に読み込み -->
+            </div>
           </div>
         </div>
         
@@ -255,6 +272,51 @@
     }
     
     loadProfileSocialLinks();
+    
+    // ボイス再生機能
+    const voiceButtons = document.querySelectorAll('.voice-button');
+    const voicePaths = {
+      '1': 'assets/audio/voice01.mp3',
+      '2': 'assets/audio/voice02.mp3',
+      '3': 'assets/audio/voice03.mp3'
+    };
+    let currentAudio = null;
+    
+    voiceButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const voiceNum = this.getAttribute('data-voice');
+        const voicePath = voicePaths[voiceNum];
+        
+        // 既に再生中の音声があれば停止
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          // すべてのボタンからactiveクラスを削除
+          voiceButtons.forEach(btn => btn.classList.remove('active'));
+        }
+        
+        // 同じボタンをクリックした場合は停止のみ
+        if (currentAudio && currentAudio.src.includes(voicePath)) {
+          currentAudio = null;
+          return;
+        }
+        
+        // 新しい音声を再生
+        currentAudio = new Audio(voicePath);
+        this.classList.add('active');
+        
+        currentAudio.play().catch(error => {
+          console.error('ボイスの再生に失敗しました:', error);
+          this.classList.remove('active');
+        });
+        
+        // 再生終了時にactiveクラスを削除
+        currentAudio.addEventListener('ended', () => {
+          this.classList.remove('active');
+          currentAudio = null;
+        });
+      });
+    });
   </script>
   <script src="js/sw-register.js"></script>
 </body>

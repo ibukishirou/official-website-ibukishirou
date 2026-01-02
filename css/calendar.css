@@ -114,7 +114,7 @@
 }
 
 /* SPビューでアクティブ状態が残らないように */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .nav-btn:active {
     background-color: #FF4500;
     border-color: #FF4500;
@@ -437,7 +437,7 @@
 }
 
 /* SPビューでアクティブ状態が残らないように */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .event-modal-button:active {
     opacity: 0.9;
     transform: scale(0.98);
@@ -478,7 +478,7 @@
    レスポンシブ対応
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   #calendar-section {
     padding: 1.5rem 0.25rem;
   }

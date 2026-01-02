@@ -2,7 +2,7 @@
 // Service Worker - 伊吹しろう Official Website
 // ============================================
 
-const CACHE_VERSION = 'v1.0.5';
+const CACHE_VERSION = 'v1.0.6';
 const CACHE_NAME = `ibukishirou-${CACHE_VERSION}`;
 
 // キャッシュするリソース
@@ -21,6 +21,8 @@ const STATIC_ASSETS = [
   '/css/style.css',
   '/css/calendar.css',
   '/css/loading.css',
+  '/css/profile.css',
+  '/css/achievements.css',
   '/js/main.js',
   '/js/components.js',
   '/js/calendar.js',
@@ -35,6 +37,9 @@ const STATIC_ASSETS = [
   '/assets/img/logo_wolf.webp',
   '/assets/img/icon-192x192.png',
   '/assets/img/icon-512x512.png',
+  '/assets/audio/voice01.mp3',
+  '/assets/audio/voice02.mp3',
+  '/assets/audio/voice03.mp3',
   '/site.webmanifest'
 ];
 
