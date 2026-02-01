@@ -78,7 +78,7 @@ function displayAchievements(itemsByYear, sortedYears) {
             <div class="achievement-card-date">${formattedDate}</div>
             <h5 class="achievement-card-title">${escapeHtml(item.title)}</h5>
             <p class="achievement-card-description">${escapeHtml(item.description)}</p>
-            <div class="achievement-card-client">${escapeHtml(item.client)}</div>
+            <div class="achievement-card-client">${escapeHtml(item.client)} 様</div>
           </div>
         `;
       });

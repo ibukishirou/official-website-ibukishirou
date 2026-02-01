@@ -1,26 +1,30 @@
 [
   {
-    "category": "イベント",
-    "items": [
-      {
-        "date": "2025-02-22",
-        "title": "#みーとーくvol.7",
-        "description": "推しとの1on1トーク、2Shotチェキ撮影が楽しめるイベント",
-        "client": "株式会社ペペロンチーノ",
-        "url": "https://livepocket.jp/e/t_pb3"
-      }
-    ]
+    "date": "2026-02-22",
+    "title": "#みーとーくvol.7",
+    "description": "推しとの1on1トーク、2Shotチェキ撮影が楽しめるリアルイベント",
+    "client": "株式会社ペペロンチーノ",
+    "url": "https://livepocket.jp/e/t_pb3"
   },
   {
-    "category": "グッズ",
-    "items": [
-      {
-        "date": "2025-02-13",
-        "title": "AIICO自販機『TOKENSPOT』 冬の思い出コレクション",
-        "description": "デジタルグッズ自動販売機 全5種ボイス販売",
-        "client": "24karat株式会社",
-        "url": "https://x.com/NFT_AIICO"
-      }
-    ]
+    "date": "2026-02-13",
+    "title": "AIICO自販機『TOKENSPOT』 冬の思い出コレクション",
+    "description": "デジタルグッズ自動販売機 全5種ボイス販売",
+    "client": "24karat株式会社",
+    "url": "https://x.com/NFT_AIICO"
+  },
+  {
+    "date": "2026-01-25",
+    "title": "缶バッチ vol.2",
+    "description": "伊吹しろう公式グッズ 全6種缶バッチ販売",
+    "client": "",
+    "url": "https://ibukishirou.booth.pm/items/7896055"
+  },
+  {
+    "date": "2025-09-22",
+    "title": "デビュー記念グッズ",
+    "description": "伊吹しろう公式グッズ アクスタ・アクキー・ステッカーなど サイン色紙プレゼント",
+    "client": "",
+    "url": "https://ibukishirou.booth.pm/items/7618604"
   }
 ]
