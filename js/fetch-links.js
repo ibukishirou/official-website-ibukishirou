@@ -1,7 +1,7 @@
 // SNSリンク読み込みJS
 async function loadSNSLinks() {
   try {
-    const response = await fetch('data/links.json');
+    const response = await fetch('/data/links.json');
     const linksData = await response.json();
     
     displaySNSLinks(linksData);

@@ -1,7 +1,7 @@
 // ガイドラインデータの読み込みと表示
 async function loadGuidelines() {
   try {
-    const response = await fetch('data/guidelines.json');
+    const response = await fetch('/data/guidelines.json');
     const guidelinesData = await response.json();
     
     const container = document.getElementById('guidelines-container');

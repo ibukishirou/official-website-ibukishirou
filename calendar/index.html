@@ -24,13 +24,13 @@
   <!-- SEO Meta Tags -->
   <meta name="description" content="VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。">
   <meta name="keywords" content="伊吹しろう,カレンダー,スケジュール,配信予定,イベント,VTuber">
-  <link rel="canonical" href="https://ulric.jp/calendar.html">
+  <link rel="canonical" href="https://ulric.jp/calendar">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="イベントカレンダー - 伊吹しろう Official Website">
   <meta property="og:description" content="VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。">
-  <meta property="og:url" content="https://ulric.jp/calendar.html">
+  <meta property="og:url" content="https://ulric.jp/calendar">
   <meta property="og:image" content="https://ulric.jp/assets/img/ogp.webp">
   <meta property="og:site_name" content="伊吹しろう Official Website">
   <meta property="og:locale" content="ja_JP">
@@ -51,7 +51,7 @@
     "@type": "WebPage",
     "name": "イベントカレンダー",
     "description": "VTuber 伊吹しろうのイベントカレンダー。配信スケジュール、コラボイベント、特別企画などをチェック。",
-    "url": "https://ulric.jp/calendar.html",
+    "url": "https://ulric.jp/calendar",
     "isPartOf": {
       "@type": "WebSite",
       "name": "伊吹しろう Official Website",
@@ -66,18 +66,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/calendar.css">
-  <link rel="stylesheet" href="css/loading.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/calendar.css">
+  <link rel="stylesheet" href="/css/loading.css">
   
   <!-- Remix Icon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="/js/remove-trailing-slash.js"></script>
 </head>
 <body>
   <!-- ローディング画面 -->
   <div id="loading-screen">
     <div class="loading-content">
-      <img src="assets/img/logo_wolf.webp" alt="Loading..." class="loading-logo">
+      <img src="/assets/img/logo_wolf.webp" alt="Loading..." class="loading-logo">
       <p class="loading-text">
         <span class="loading-text-pc">伊吹しろう Official Websiteへようこそ</span>
         <span class="loading-text-sp">伊吹しろう<br>Official<br>Website<br>へようこそ</span>
@@ -126,12 +127,12 @@
   <footer></footer>
 
   <!-- JavaScript -->
-  <script src="js/components.js"></script>
-  <script src="js/loading.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/breadcrumb.js"></script>
-  <script src="js/calendar.js"></script>
-  <script src="js/share.js"></script>
-  <script src="js/sw-register.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/loading.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/breadcrumb.js"></script>
+  <script src="/js/calendar.js"></script>
+  <script src="/js/share.js"></script>
+  <script src="/js/sw-register.js"></script>
 </body>
 </html>

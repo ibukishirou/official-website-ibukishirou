@@ -24,13 +24,13 @@
   <!-- SEO Meta Tags -->
   <meta name="description" content="VTuber 伊吹しろうへのビジネスに関するお問い合わせ。企業案件・コラボレーション・スポンサーのご依頼はこちらから。">
   <meta name="keywords" content="伊吹しろう,お問い合わせ,コンタクト,企業案件,コラボ">
-  <link rel="canonical" href="https://ulric.jp/contact.html">
+  <link rel="canonical" href="https://ulric.jp/contact">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact - 伊吹しろう Official Website">
   <meta property="og:description" content="VTuber 伊吹しろうへのビジネスに関するお問い合わせ。企業案件・コラボレーションのご依頼はこちらから。">
-  <meta property="og:url" content="https://ulric.jp/contact.html">
+  <meta property="og:url" content="https://ulric.jp/contact">
   <meta property="og:image" content="https://ulric.jp/assets/img/ogp.webp">
   <meta property="og:site_name" content="伊吹しろう Official Website">
   <meta property="og:locale" content="ja_JP">
@@ -50,7 +50,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/remove-trailing-slash.js"></script>
 </head>
 <body>
   <!-- ヘッダー -->
@@ -82,8 +83,8 @@
         <h3 style="font-size: 1.1rem; color: var(--color-secondary); margin-bottom: 1rem;">お問い合わせについて</h3>
         <ul style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 2; font-size: 0.95rem;">
           <li><strong>対象：</strong>企業案件、コラボレーション、取材、その他ビジネスに関するご依頼のみ</li>
-          <li>ファン活動に関するルールは<a href="guidelines.html" style="color: var(--color-secondary);">ファンガイドライン</a>をご参照ください。</li>
-          <li>よくあるご質問については<a href="faq.html" style="color: var(--color-secondary);">FAQ</a>をご確認ください。</li>
+          <li>ファン活動に関するルールは<a href="/guidelines" style="color: var(--color-secondary);">ファンガイドライン</a>をご参照ください。</li>
+          <li>よくあるご質問については<a href="/faq" style="color: var(--color-secondary);">FAQ</a>をご確認ください。</li>
           <li>メールの内容によっては、回答にお時間をいただく場合がございます。</li>
           <li>内容によってはご対応できかねる場合もございます。予めご了承ください。</li>
         </ul>
@@ -95,9 +96,9 @@
   <footer></footer>
 
   <!-- JavaScript -->
-  <script src="js/components.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/share.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/share.js"></script>
   <script>
     // メールアドレスコピー機能
     document.addEventListener('DOMContentLoaded', () => {
@@ -157,7 +158,7 @@
       }, 2500);
     }
   </script>
-  <script src="js/breadcrumb.js"></script>
+  <script src="/js/breadcrumb.js"></script>
   
   <style>
     /* SPビューでの改行調整 */
@@ -197,6 +198,6 @@
       }
     }
   </style>
-  <script src="js/sw-register.js"></script>
+  <script src="/js/sw-register.js"></script>
 </body>
 </html>

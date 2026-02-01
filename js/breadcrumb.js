@@ -10,23 +10,26 @@
   const pageMap = {
     '/': { title: 'Home', icon: '🏠' },
     '/index.html': { title: 'Home', icon: '🏠' },
-    '/profile.html': { title: 'Profile', icon: '👤' },
-    '/calendar.html': { title: 'Calendar', icon: '📅' },
-    '/achievements.html': { title: 'Achievements', icon: '🏆' },
-    '/goods.html': { title: 'Goods', icon: '🛍️' },
-    '/guidelines.html': { title: 'Guidelines', icon: '📋' },
-    '/faq.html': { title: 'FAQ', icon: '❓' },
-    '/contact.html': { title: 'Contact', icon: '📧' },
-    '/terms.html': { title: 'Terms of Service', icon: '📜' },
-    '/privacy.html': { title: 'Privacy Policy', icon: '🔒' }
+    '/profile': { title: 'Profile', icon: '👤' },
+    '/calendar': { title: 'Calendar', icon: '📅' },
+    '/achievements': { title: 'Achievements', icon: '🏆' },
+    '/goods': { title: 'Goods', icon: '🛍️' },
+    '/guidelines': { title: 'Guidelines', icon: '📋' },
+    '/faq': { title: 'FAQ', icon: '❓' },
+    '/contact': { title: 'Contact', icon: '📧' },
+    '/terms': { title: 'Terms of Service', icon: '📜' },
+    '/privacy': { title: 'Privacy Policy', icon: '🔒' }
   };
 
   /**
    * パンくずリストを生成
    */
   function generateBreadcrumb() {
-    // 現在のパスを取得
-    const currentPath = window.location.pathname;
+    // 現在のパスを取得（末尾スラッシュを除去）
+    let currentPath = window.location.pathname;
+    if (currentPath !== '/' && currentPath.endsWith('/')) {
+      currentPath = currentPath.slice(0, -1);
+    }
     
     // ホームページの場合はパンくずリストを表示しない
     if (currentPath === '/' || currentPath === '/index.html') {

@@ -4,7 +4,7 @@ let allFaqData = [];
 // FAQ JSONデータの読み込みと表示
 async function loadFAQ() {
   try {
-    const response = await fetch('data/faq.json');
+    const response = await fetch('/data/faq.json');
     allFaqData = await response.json();
     
     renderFAQItems(allFaqData);

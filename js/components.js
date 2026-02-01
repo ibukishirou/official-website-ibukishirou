@@ -6,19 +6,19 @@
 function getHeaderHTML() {
   return `
     <nav>
-      <a href="index.html" class="logo" style="text-decoration: none;">
-        <img src="assets/img/logo_wolf.webp" alt="伊吹しろう ロゴ">
+      <a href="/" class="logo" style="text-decoration: none;">
+        <img src="/assets/img/logo_wolf.webp" alt="伊吹しろう ロゴ">
         <span>伊吹しろう Official Website</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="achievements.html">Achievements</a></li>
-        <li><a href="goods.html">Goods</a></li>
-        <li><a href="guidelines.html">Guidelines</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/goods">Goods</a></li>
+        <li><a href="/guidelines">Guidelines</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="hamburger">
         <span></span>
@@ -36,26 +36,26 @@ function getFooterHTML() {
       <div class="footer-section">
         <h3>Navigation</h3>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/calendar">Calendar</a></li>
+          <li><a href="/achievements">Achievements</a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Information</h3>
         <ul class="footer-links">
-          <li><a href="goods.html">Goods</a></li>
-          <li><a href="guidelines.html">Fan Guidelines</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/goods">Goods</a></li>
+          <li><a href="/guidelines">Fan Guidelines</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Legal</h3>
         <ul class="footer-links">
-          <li><a href="terms.html">利用規約</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="/terms">利用規約</a></li>
+          <li><a href="/privacy">プライバシーポリシー</a></li>
         </ul>
       </div>
     </div>

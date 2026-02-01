@@ -1,7 +1,7 @@
 // グッズ読み込みJS
 async function loadGoods() {
   try {
-    const response = await fetch('data/goods.json');
+    const response = await fetch('/data/goods.json');
     const goodsData = await response.json();
     
     displayGoods(goodsData);

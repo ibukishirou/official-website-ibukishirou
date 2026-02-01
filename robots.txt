@@ -4,8 +4,8 @@ User-agent: *
 Allow: /
 
 # Disallow crawling of certain pages
-Disallow: /terms.html
-Disallow: /privacy.html
+Disallow: /terms
+Disallow: /privacy
 
 # Sitemap location
 Sitemap: https://ulric.jp/sitemap.xml

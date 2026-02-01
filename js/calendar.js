@@ -33,7 +33,7 @@ const swipeThreshold = 50; // スワイプと認識する最小距離（ピク�
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // カレンダーデータを読み込み
-    const response = await fetch('data/calendar.json');
+    const response = await fetch('/data/calendar.json');
     calendarData = await response.json();
     
     console.log('Calendar data loaded:', calendarData);

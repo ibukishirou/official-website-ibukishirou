@@ -22,15 +22,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="VTuber 伊吹しろうの公式グッズ・ショップ。現在販売中のグッズをご紹介します。BOOTHにて購入可能。">
-  <meta name="keywords" content="伊吹しろう,グッズ,BOOTH,公式グッズ,ショップ">
-  <link rel="canonical" href="https://ulric.jp/goods.html">
+  <meta name="description" content="VTuber 伊吹しろうの実績を掲載しています。これまでに参加したイベントやお仕事の実績をご覧いただけます。">
+  <meta name="keywords" content="伊吹しろう,実績,イベント,案件,achievements,VTuber">
+  <link rel="canonical" href="https://ulric.jp/achievements">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Goods - 伊吹しろう Official Website">
-  <meta property="og:description" content="VTuber 伊吹しろうの公式グッズ・ショップ。現在販売中のグッズをご紹介します。">
-  <meta property="og:url" content="https://ulric.jp/goods.html">
+  <meta property="og:title" content="Achievement - 伊吹しろう Official Website">
+  <meta property="og:description" content="VTuber 伊吹しろうの実績。これまでに参加したイベントやお仕事の実績を掲載しています。">
+  <meta property="og:url" content="https://ulric.jp/achievements">
   <meta property="og:image" content="https://ulric.jp/assets/img/ogp.webp">
   <meta property="og:site_name" content="伊吹しろう Official Website">
   <meta property="og:locale" content="ja_JP">
@@ -38,24 +38,20 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ibukishirou">
-  <meta name="twitter:title" content="Goods - 伊吹しろう Official Website">
-  <meta name="twitter:description" content="VTuber 伊吹しろうの公式グッズ・ショップ。現在販売中のグッズをご紹介します。">
+  <meta name="twitter:title" content="Achievement - 伊吹しろう Official Website">
+  <meta name="twitter:description" content="VTuber 伊吹しろうの実績。これまでに参加したイベントやお仕事の実績を掲載しています。">
   <meta name="twitter:image" content="https://ulric.jp/assets/img/ogp.webp">
   
-  <title>Goods - 伊吹しろう Official Website</title>
+  <title>Achievement - 伊吹しろう Official Website</title>
   
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "伊吹しろう Official Goods",
-    "description": "VTuber 伊吹しろうの公式グッズショップ",
-    "url": "https://ulric.jp/goods.html",
-    "brand": {
-      "@type": "Brand",
-      "name": "伊吹しろう"
-    }
+    "@type": "CollectionPage",
+    "name": "Achievement - 伊吹しろう Official Website",
+    "description": "VTuber 伊吹しろうの実績。これまでに参加したイベントやお仕事の実績",
+    "url": "https://ulric.jp/achievements"
   }
   </script>
   
@@ -65,22 +61,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/achievements.css">
+  <script src="/js/remove-trailing-slash.js"></script>
 </head>
 <body>
   <!-- ヘッダー -->
   <header></header>
 
-  <!-- グッズセクション -->
+  <!-- 実績セクション -->
   <section style="padding-top: 2rem;">
-    <h2 class="section-title">Goods</h2>
+    <h2 class="section-title">Achievement</h2>
     
-    <div class="card-grid" id="goods-container">
+    <!-- 実績リスト -->
+    <div id="achievements-container">
       <!-- JSで動的に読み込み -->
-    </div>
-    
-    <div style="text-align: center; margin-top: 3rem;">
-      <a href="https://ibukishirou.booth.pm/" target="_blank" rel="noopener noreferrer" class="btn">BOOTHショップへ</a>
     </div>
   </section>
 
@@ -88,11 +83,11 @@
   <footer></footer>
 
   <!-- JavaScript -->
-  <script src="js/components.js"></script>
-  <script src="js/breadcrumb.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/fetch-goods.js"></script>
-  <script src="js/share.js"></script>
-  <script src="js/sw-register.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/breadcrumb.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/fetch-achievements.js"></script>
+  <script src="/js/share.js"></script>
+  <script src="/js/sw-register.js"></script>
 </body>
 </html>

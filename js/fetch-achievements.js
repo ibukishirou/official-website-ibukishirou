@@ -1,7 +1,7 @@
 // 実績読み込みJS（年別表示）
 async function loadAchievements() {
   try {
-    const response = await fetch('data/achievements.json');
+    const response = await fetch('/data/achievements.json');
     const data = await response.json();
     
     // 日付順にソート（新しい順）

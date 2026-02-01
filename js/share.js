@@ -6,7 +6,7 @@
   // links.jsonをロード
   async function loadLinks() {
     try {
-      const response = await fetch('data/links.json');
+      const response = await fetch('/data/links.json');
       linksData = await response.json();
     } catch (error) {
       console.error('Failed to load links.json:', error);
