@@ -1,0 +1,296 @@
+/* ============================================
+   ヒーローセクション
+   ============================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.hero-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77777778vh; /* 16:9 aspect ratio */
+  height: 100vh;
+  min-width: 100%;
+  min-height: 56.25vw; /* 16:9 aspect ratio */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text);
+  animation: bounce 2s infinite;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* ============================================
+   キャッチフレーズセクション
+   ============================================ */
+
+#catchphrase {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-dark) 100%);
+}
+
+.catchphrase-subtitle {
+  font-family: var(--font-secondary);
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.catchphrase-company {
+  font-family: var(--font-secondary);
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.catchphrase-description {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.catchphrase-text {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-top: 2rem;
+  font-family: var(--font-primary);
+}
+
+.catchphrase-line1,
+.catchphrase-line2,
+.catchphrase-line3 {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .catchphrase-text {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================
+   自己紹介動画セクション
+   ============================================ */
+
+#introduction {
+  padding: 5rem 2rem;
+  background: var(--color-dark);
+}
+
+.video-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(26, 26, 26, 0.8);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ============================================
+   代表作セクション
+   ============================================ */
+
+#featured-works {
+  padding: 5rem 2rem;
+  background: var(--color-bg);
+}
+
+.card-grid {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: auto;
+  padding: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.card-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-work-item {
+  flex: 0 0 350px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.featured-work-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-secondary);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.thumbnail-link {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.featured-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.featured-work-item:hover .featured-thumbnail {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.5;
+  font-family: var(--font-secondary);
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(139, 0, 0, 0.2);
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+  color: var(--color-secondary);
+  font-family: var(--font-secondary);
+}
+
+/* ============================================
+   SNSリンクセクション
+   ============================================ */
+
+#social {
+  padding: 5rem 2rem;
+  background: var(--color-dark);
+}
+
+.sns-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sns-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+}
+
+.sns-link i {
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.sns-link:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-secondary);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .sns-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .sns-link {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+  
+  .sns-link i {
+    font-size: 1.25rem;
+  }
+}
