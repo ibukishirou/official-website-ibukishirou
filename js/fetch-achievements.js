@@ -1,34 +1,20 @@
-// 実績読み込みJS（年別・カテゴリ別表示）
+// 実績読み込みJS（年別表示）
 async function loadAchievements() {
   try {
     const response = await fetch('data/achievements.json');
     const data = await response.json();
     
-    // 全アイテムを抽出して日付順にソート
-    const allItems = [];
-    data.forEach(categoryData => {
-      categoryData.items.forEach(item => {
-        allItems.push({
-          ...item,
-          category: categoryData.category
-        });
-      });
-    });
-    
     // 日付順にソート（新しい順）
-    allItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+    data.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     // 年別にグループ化
     const itemsByYear = {};
-    allItems.forEach(item => {
+    data.forEach(item => {
       const year = new Date(item.date).getFullYear();
       if (!itemsByYear[year]) {
-        itemsByYear[year] = {};
+        itemsByYear[year] = [];
       }
-      if (!itemsByYear[year][item.category]) {
-        itemsByYear[year][item.category] = [];
-      }
-      itemsByYear[year][item.category].push(item);
+      itemsByYear[year].push(item);
     });
     
     // 年を降順でソート
@@ -59,34 +45,29 @@ function displayAchievements(itemsByYear, sortedYears) {
   sortedYears.forEach(year => {
     html += `<div class="year-section">`;
     html += `<h3 class="year-title">${year}年</h3>`;
+    html += `<div class="achievement-cards">`;
     
-    const categories = itemsByYear[year];
-    
-    // カテゴリごとにセクションを生成
-    Object.keys(categories).forEach(category => {
-      html += `<div class="category-section">`;
-      html += `<h4 class="category-title">${category}</h4>`;
-      html += `<div class="achievement-cards">`;
+    // カード生成
+    itemsByYear[year].forEach(item => {
+      const date = new Date(item.date);
+      const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
       
-      // カード生成
-      categories[category].forEach(item => {
-        const date = new Date(item.date);
-        const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
-        
-        html += `
-          <div class="achievement-card" onclick="window.open('${item.url}', '_blank', 'noopener,noreferrer')">
-            <div class="achievement-card-date">${formattedDate}</div>
-            <h5 class="achievement-card-title">${escapeHtml(item.title)}</h5>
-            <p class="achievement-card-description">${escapeHtml(item.description)}</p>
-            <div class="achievement-card-client">${escapeHtml(item.client)} 様</div>
-          </div>
-        `;
-      });
+      // client表示ルール: 空文字なら「伊吹しろう オリジナル」、値があれば「{client} 様」
+      const clientDisplay = item.client === '' || !item.client 
+        ? '伊吹しろう オリジナル' 
+        : `${escapeHtml(item.client)} 様`;
       
-      html += `</div>`; // achievement-cards
-      html += `</div>`; // category-section
+      html += `
+        <div class="achievement-card" onclick="window.open('${item.url}', '_blank', 'noopener,noreferrer')">
+          <div class="achievement-card-date">${formattedDate}</div>
+          <h5 class="achievement-card-title">${escapeHtml(item.title)}</h5>
+          <p class="achievement-card-description">${escapeHtml(item.description)}</p>
+          <div class="achievement-card-client">${clientDisplay}</div>
+        </div>
+      `;
     });
     
+    html += `</div>`; // achievement-cards
     html += `</div>`; // year-section
   });
   
