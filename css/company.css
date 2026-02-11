@@ -89,11 +89,14 @@
   font-size: 1.05rem;
   line-height: 2;
   color: var(--color-text);
-  text-align: justify;
-  text-justify: inter-character;
+  text-align: center;
 }
 
 .about-content p {
+  margin-bottom: 1.5rem;
+}
+
+.about-content p:last-child {
   margin-bottom: 0;
 }
 
@@ -213,12 +216,11 @@
   font-size: 1.05rem;
   line-height: 2;
   color: var(--color-text);
-  text-align: justify;
-  text-justify: inter-character;
+  text-align: center;
 }
 
-.message-content > p {
-  margin-bottom: 0;
+.message-content p {
+  margin-bottom: 1.5rem;
 }
 
 .message-signature {
