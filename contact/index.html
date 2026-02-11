@@ -73,7 +73,7 @@
         
         <div style="text-align: center;">
           <button id="copy-email-btn" class="btn contact-email-btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer;">
-            ibukishirou.v@gmail.com
+            contact@ulric.jp
           </button>
           <p class="contact-copy-note" style="margin-top: 1rem; font-family: var(--font-secondary); color: var(--color-text-secondary); font-size: 0.9rem;"><span class="contact-copy-line">クリックでメールドレスを</span><span class="contact-copy-line">コピーできます</span></p>
         </div>
@@ -106,7 +106,7 @@
       if (copyEmailBtn) {
         copyEmailBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          const email = 'ibukishirou.v@gmail.com';
+          const email = 'contact@ulric.jp';
           
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(email).then(() => {
