@@ -89,44 +89,76 @@
   font-size: 1.05rem;
   line-height: 2;
   color: var(--color-text);
-  text-align: center;
+  text-align: justify;
+  text-justify: inter-character;
 }
 
 .about-content p {
-  margin-bottom: 1.5rem;
-}
-
-.about-content p:last-child {
   margin-bottom: 0;
 }
 
 /* Business セクション */
-.business-content {
-  max-width: 900px;
-  margin: 0 auto;
+.business-subtitle {
   text-align: center;
-  font-family: var(--font-secondary);
-}
-
-.business-main {
   font-size: 1.1rem;
   font-weight: 500;
+  font-family: var(--font-secondary);
   color: var(--color-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   line-height: 1.8;
 }
 
-.business-detail {
-  font-size: 1rem;
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.business-card {
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid var(--color-border);
+  padding: 2.5rem 2rem;
+  transition: var(--transition);
+}
+
+.business-card:hover {
+  border-color: var(--color-secondary);
+}
+
+.business-number {
+  font-size: 2rem;
+  font-weight: 300;
+  font-family: var(--font-primary);
+  color: var(--color-secondary);
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.business-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-secondary);
   color: var(--color-text);
-  margin-bottom: 2rem;
-  line-height: 1.8;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.business-card-desc {
+  font-size: 0.95rem;
+  font-family: var(--font-secondary);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
 }
 
 .business-note {
+  text-align: center;
   font-size: 0.9rem;
+  font-family: var(--font-secondary);
   color: var(--color-text-secondary);
-  margin-top: 2rem;
 }
 
 /* Overview セクション */
@@ -181,11 +213,12 @@
   font-size: 1.05rem;
   line-height: 2;
   color: var(--color-text);
-  text-align: center;
+  text-align: justify;
+  text-justify: inter-character;
 }
 
-.message-content p {
-  margin-bottom: 1.5rem;
+.message-content > p {
+  margin-bottom: 0;
 }
 
 .message-signature {
@@ -280,16 +313,17 @@
     font-size: 1rem;
   }
 
-  .business-content {
-    font-size: 0.95rem;
+  .business-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
-  .business-main {
-    font-size: 1rem;
+  .business-card {
+    padding: 2rem 1.5rem;
   }
   
-  .business-detail {
-    font-size: 0.95rem;
+  .business-number {
+    font-size: 1.5rem;
   }
 
   .overview-table th,
