@@ -56,6 +56,8 @@ function getFooterHTML() {
         <ul class="footer-links">
           <li><a href="/terms">利用規約</a></li>
           <li><a href="/privacy">プライバシーポリシー</a></li>
+          <li><a href="/company">会社情報</a></li>
+          <li><a href="/commercial">特定商取引法</a></li>
         </ul>
       </div>
     </div>

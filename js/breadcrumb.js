@@ -18,7 +18,9 @@
     '/faq': { title: 'FAQ', icon: '❓' },
     '/contact': { title: 'Contact', icon: '📧' },
     '/terms': { title: 'Terms of Service', icon: '📜' },
-    '/privacy': { title: 'Privacy Policy', icon: '🔒' }
+    '/privacy': { title: 'Privacy Policy', icon: '🔒' },
+    '/company': { title: 'Company', icon: '🏢' },
+    '/commercial': { title: 'Commercial Transaction Act', icon: '📄' }
   };
 
   /**

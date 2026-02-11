@@ -84,4 +84,20 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- Company Information -->
+  <url>
+    <loc>https://ulric.jp/company</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Commercial Transaction Act -->
+  <url>
+    <loc>https://ulric.jp/commercial</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
