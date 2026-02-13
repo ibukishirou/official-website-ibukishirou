@@ -209,6 +209,13 @@
   color: var(--color-accent);
 }
 
+/* 所在地セルのみ左揃え */
+.overview-table .address-cell {
+  text-align: left;
+  display: inline-block;
+  text-align: left;
+}
+
 /* Message セクション */
 .message-content {
   max-width: 900px;
