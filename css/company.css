@@ -209,9 +209,12 @@
   color: var(--color-accent);
 }
 
-/* 所在地セルのみ左揃え */
+/* 所在地セルのみ左揃え（ブロック自体は中央揃え、内部テキストは左揃え） */
 .overview-table .address-cell {
-  text-align: left;
+  text-align: center;
+}
+
+.overview-table .address-cell .address-block {
   display: inline-block;
   text-align: left;
 }
