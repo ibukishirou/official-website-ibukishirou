@@ -209,6 +209,16 @@
   color: var(--color-accent);
 }
 
+/* 所在地セルのみ左揃え（ブロック自体は中央揃え、内部テキストは左揃え） */
+.overview-table .address-cell {
+  text-align: center;
+}
+
+.overview-table .address-cell .address-block {
+  display: inline-block;
+  text-align: left;
+}
+
 /* Message セクション */
 .message-content {
   max-width: 900px;
@@ -242,32 +252,51 @@
 }
 
 .cta-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 }
 
 .cta-card {
-  display: inline-block;
-  padding: 0.8rem 2rem;
+  display: block;
+  padding: 2.5rem 2rem;
   text-decoration: none;
-  border-bottom: 1px solid var(--color-border);
+  background: rgba(26, 26, 26, 0.25);
+  border: 1px solid var(--color-border);
+  transition: var(--transition);
+  position: relative;
+}
+
+/* リンクカードとしての視覚的差別化 */
+.cta-card::after {
+  content: '→';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: var(--color-border);
   transition: var(--transition);
 }
 
 .cta-card:hover {
+  border-color: var(--color-secondary);
+  background: rgba(26, 26, 26, 0.35);
+  transform: translateY(-2px);
+}
+
+.cta-card:hover::after {
   color: var(--color-secondary);
-  border-bottom-color: var(--color-secondary);
+  transform: translateX(4px);
 }
 
 .cta-card h3 {
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   font-family: var(--font-secondary);
   color: var(--color-text);
+  margin-bottom: 1rem;
   transition: var(--transition);
 }
 
@@ -276,7 +305,11 @@
 }
 
 .cta-card p {
-  display: none;
+  font-size: 0.95rem;
+  font-family: var(--font-secondary);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
 }
 
 .cta-arrow {
@@ -345,6 +378,19 @@
   }
 
   .cta-grid {
-    gap: 0.8rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .cta-card {
+    padding: 1.5rem;
+  }
+  
+  .cta-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .cta-card p {
+    font-size: 0.9rem;
   }
 }
