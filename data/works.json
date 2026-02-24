@@ -1,5 +1,12 @@
 [
   {
+    "title": "ダーリン",
+    "category": "song",
+    "link": "https://youtu.be/PSwZ_H2S2TE",
+    "tags": ["歌ってみた", "初の病み系"],
+    "featured": true
+  },
+  {
     "title": "こちら、幸福安心委員会です。",
     "category": "song",
     "link": "https://youtu.be/hdtqbB3EnQM",
