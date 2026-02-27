@@ -62,7 +62,7 @@ function getFooterHTML() {
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 伊吹しろう Official Website. All Rights Reserved.</p>
+      <p>&copy; 2026 合同会社ULRIC All Rights Reserved.</p>
     </div>
   `;
 }
