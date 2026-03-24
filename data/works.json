@@ -1,5 +1,12 @@
 [
   {
+    "title": "パンダヒーロー",
+    "category": "song",
+    "link": "https://youtu.be/9iabNN3S3Tg",
+    "tags": ["歌ってみた", "誕生日"],
+    "featured": true
+  },
+  {
     "title": "ダーリン",
     "category": "song",
     "link": "https://youtu.be/PSwZ_H2S2TE",
