@@ -412,6 +412,12 @@ section {
   margin-top: 2rem;
 }
 
+/* Featured Works セクション */
+#featured-works {
+  position: relative;
+  z-index: 10;
+}
+
 /* Featured Works専用: 横スクロールレイアウト */
 #featured-works .card-grid {
   display: flex;
@@ -419,12 +425,12 @@ section {
   grid-template-columns: unset;
   gap: 2rem;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
-  padding-bottom: 1rem;
+  padding: 1rem 0 2rem 0;
 }
 
 #featured-works .card-grid::-webkit-scrollbar {
@@ -598,15 +604,13 @@ section {
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 アスペクト比 */
-  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
   background: #000;
 }
 
 .video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
 }
@@ -1476,4 +1480,208 @@ footer {
 .fade-in-after-swipe {
   opacity: 1 !important;
   transition: opacity 0.15s ease-in !important;
+}
+
+/* ============================================
+   Live Schedule セクション
+   ============================================ */
+
+#live-schedule {
+  padding: 5rem 2rem;
+  background-color: var(--color-bg);
+  position: relative;
+  z-index: 10;
+}
+
+#live-schedule-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.live-schedule-card {
+  display: block;
+  background: rgba(26, 26, 26, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.live-schedule-card:hover {
+  border-color: var(--color-secondary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(139, 0, 0, 0.3);
+}
+
+.live-thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  overflow: hidden;
+  background-color: #000;
+}
+
+.live-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.now-on-air-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.live-info {
+  padding: 1.5rem;
+}
+
+.live-title {
+  font-family: var(--font-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.live-datetime {
+  font-family: var(--font-secondary);
+  font-size: 1.1rem;
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.live-datetime i {
+  font-size: 1.2rem;
+}
+
+/* 配信予定なしの表示 */
+.no-schedule {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.no-schedule-text {
+  font-family: var(--font-secondary);
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.channel-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(26, 26, 26, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.channel-link-button:hover {
+  border-color: var(--color-secondary);
+  background-color: rgba(26, 26, 26, 0.8);
+  color: var(--color-secondary);
+}
+
+.channel-link-button i {
+  font-size: 1.2rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  #live-schedule {
+    padding: 3rem 1rem;
+  }
+
+  .live-title {
+    font-size: 1rem;
+  }
+
+  .live-datetime {
+    font-size: 0.95rem;
+  }
+
+  .now-on-air-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .live-info {
+    padding: 1rem;
+  }
+
+  .no-schedule {
+    padding: 2rem 1rem;
+  }
+
+  .no-schedule-text {
+    font-size: 1rem;
+  }
+
+  .channel-link-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* ============================================
+   フェードインアニメーション
+   ============================================ */
+
+/* デバッグ用: fade-in を一時的に無効化 */
+.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 各アイテムに遅延を追加する場合 */
+/* デバッグ用: fade-in を一時的に無効化 */
+.featured-work-item.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.featured-work-item.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
 }
