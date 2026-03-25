@@ -138,6 +138,14 @@
     <p class="catchphrase-text"><span class="catchphrase-line1">気づけば君の毎日に、</span><span class="catchphrase-line3">俺がいる。</span></p>
   </section>
 
+  <!-- Live Schedule セクション -->
+  <section id="live-schedule">
+    <h2 class="section-title">Next Stream</h2>
+    <div id="live-schedule-container">
+      <!-- JSで動的に読み込み -->
+    </div>
+  </section>
+
   <!-- 自己紹介動画セクション -->
   <section id="introduction">
     <h2 class="section-title">Introduction</h2>
@@ -172,65 +180,15 @@
   <footer></footer>
 
   <!-- JavaScript -->
+  <script src="js/config.js"></script>
   <script src="js/components.js"></script>
   <script src="/js/loading.js"></script>
+  <script src="js/live-schedule.js"></script>
   <script src="js/main.js"></script>
   <script src="js/fetch-links.js"></script>
   <script>
-    // YouTube動画IDを抽出
-    function extractYouTubeVideoId(url) {
-      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^&?\/\s]+)/);
-      return match ? match[1] : '';
-    }
-    
-    // Featured Worksの読み込み完了を待ってからスクロールを開始
-    async function loadFeaturedWorks() {
-      try {
-        const response = await fetch('data/works.json');
-        const worksData = await response.json();
-        const featuredWorks = worksData.filter(item => item.featured === true);
-        
-        const container = document.getElementById('featured-works-container');
-        if (!container) return;
-        
-        container.innerHTML = featuredWorks.map(item => {
-          const videoId = extractYouTubeVideoId(item.link);
-          const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-          return `
-            <a href="${item.link}" target="_blank" class="featured-work-item" rel="noopener noreferrer">
-              <div class="thumbnail-link">
-                <img src="${thumbnailUrl}" alt="${item.title}" class="featured-thumbnail" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">${item.title}</h3>
-                <div class="card-tags">
-                  ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                </div>
-              </div>
-            </a>
-          `;
-        }).join('');
-        
-        // コンテンツ読み込み完了後、画像の読み込みを待つ
-        const images = container.querySelectorAll('img');
-        await Promise.all(Array.from(images).map(img => {
-          if (img.complete) return Promise.resolve();
-          return new Promise(resolve => {
-            img.onload = resolve;
-            img.onerror = resolve;
-          });
-        }));
-        
-        // 自動スクロール開始
-        initAutoScroll();
-        
-      } catch (error) {
-        console.error('Featured Worksの読み込みに失敗しました:', error);
-      }
-    }
-    
     // Featured Worksのスクロール機能（スクロール→停止3秒→アニメーションで先頭に戻る→繰り返し）
-    function initAutoScroll() {
+    window.initAutoScroll = function initAutoScroll() {
       const container = document.getElementById('featured-works-container');
       if (!container) {
         console.error('❌ Container not found');
@@ -315,10 +273,9 @@
         // スクロール開始
         requestAnimationFrame(scroll);
       }, 100); // 100msの遅延で初期化
-    }
-    
-    loadFeaturedWorks();
+    };
   </script>
+  <script src="js/fetch-songs.js"></script>
   <script src="js/share.js"></script>
   <script src="js/sw-register.js"></script>
 </body>
