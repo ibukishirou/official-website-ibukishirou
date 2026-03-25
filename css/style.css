@@ -1517,7 +1517,7 @@ footer {
 
 .calendar-date {
   font-family: var(--font-primary);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.1em;
