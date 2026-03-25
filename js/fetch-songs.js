@@ -11,11 +11,19 @@
    * @param {Array} videos - 動画情報の配列
    */
   function renderSongs(videos) {
+    console.log('[renderSongs] 呼び出されました, videos.length:', videos.length);
     const container = document.getElementById('featured-works-container');
-    if (!container) return;
+    
+    if (!container) {
+      console.error('[renderSongs] featured-works-container が見つかりません');
+      return;
+    }
+    
+    console.log('[renderSongs] コンテナ要素:', container);
 
     // 逆順に並び替え（最新が先頭）
     const reversedVideos = [...videos].reverse();
+    console.log('[renderSongs] 逆順ソート完了, reversedVideos.length:', reversedVideos.length);
 
     container.innerHTML = reversedVideos.map((video, index) => {
       const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
@@ -31,13 +39,19 @@
         </a>
       `;
     }).join('');
+    
+    console.log('[renderSongs] HTML生成完了, container.innerHTML.length:', container.innerHTML.length);
+    console.log('[renderSongs] 生成されたアイテム数:', container.querySelectorAll('.featured-work-item').length);
 
     // 画像読み込み完了後、フェードイン開始＆自動スクロール開始
     waitForImagesToLoad(container).then(() => {
+      console.log('[renderSongs] 画像読み込み完了');
       // フェードインアニメーション発火
       setTimeout(() => {
         const items = container.querySelectorAll('.featured-work-item');
+        console.log('[renderSongs] フェードイン開始, items.length:', items.length);
         items.forEach(item => item.classList.add('show'));
+        console.log('[renderSongs] フェードイン完了');
       }, 50);
       
       // 自動スクロール開始
@@ -83,9 +97,18 @@
    */
   async function fetchSongs() {
     try {
-      console.log('Songs API呼び出し開始', API_CONFIG);
+      console.log('[fetch-songs.js] 実行開始');
+      
+      // API_CONFIG の存在チェック
+      if (typeof API_CONFIG === 'undefined' || !API_CONFIG) {
+        console.error('[fetch-songs.js] API_CONFIG が読み込まれていません');
+        renderError();
+        return;
+      }
+      
+      console.log('[fetch-songs.js] API_CONFIG:', API_CONFIG);
       const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PLAYLIST}/${API_CONFIG.PLAYLIST_ID}`;
-      console.log('API URL:', url);
+      console.log('[fetch-songs.js] API URL:', url);
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -93,18 +116,21 @@
       }
       
       const result = await response.json();
-      console.log('Songs API レスポンス:', result);
+      console.log('[fetch-songs.js] API レスポンス:', result);
       
       if (result.data && result.data.length > 0) {
-        console.log(`${result.data.length}件の動画を取得しました`);
+        console.log(`[fetch-songs.js] ${result.data.length}件の動画を取得しました`);
+        console.log('[fetch-songs.js] renderSongs() を呼び出します');
         renderSongs(result.data);
+        console.log('[fetch-songs.js] renderSongs() 完了');
       } else {
-        console.warn('動画データが空です');
+        console.warn('[fetch-songs.js] 動画データが空です, result:', result);
         renderError();
       }
       
     } catch (error) {
-      console.error('Songs取得エラー:', error);
+      console.error('[fetch-songs.js] Songs取得エラー:', error);
+      console.error('[fetch-songs.js] エラースタック:', error.stack);
       renderError();
     }
   }
@@ -112,10 +138,19 @@
   // グローバルに公開（index.htmlから呼び出すため）
   window.loadFeaturedWorks = fetchSongs;
 
-  // DOMContentLoaded後に実行
+  // 実行タイミングの改善
+  console.log('[fetch-songs.js] スクリプト読み込み完了, readyState:', document.readyState);
+  
+  // ページ読み込み完了を確実に待つ
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fetchSongs);
+    console.log('[fetch-songs.js] DOMContentLoaded を待機中...');
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[fetch-songs.js] DOMContentLoaded イベント発火');
+      fetchSongs();
+    });
   } else {
+    console.log('[fetch-songs.js] DOM already loaded, 即座に実行');
+    // DOMがすでに読み込まれている場合は即座に実行
     fetchSongs();
   }
 })();
