@@ -1662,9 +1662,10 @@ footer {
    フェードインアニメーション
    ============================================ */
 
+/* デバッグ用: fade-in を一時的に無効化 */
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -1674,9 +1675,10 @@ footer {
 }
 
 /* 各アイテムに遅延を追加する場合 */
+/* デバッグ用: fade-in を一時的に無効化 */
 .featured-work-item.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .featured-work-item.fade-in.show {

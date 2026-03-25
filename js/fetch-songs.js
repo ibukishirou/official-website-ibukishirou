@@ -138,16 +138,6 @@
   // グローバルに公開（index.htmlから呼び出すため）
   window.loadFeaturedWorks = fetchSongs;
 
-  // デバッグ用: スクリプトが読み込まれたことを即座に表示
-  console.log('[fetch-songs.js] ==================== スクリプト読み込み開始 ====================');
-  const testContainer = document.getElementById('featured-works-container');
-  if (testContainer) {
-    testContainer.innerHTML = '<p style="color: yellow; padding: 2rem; text-align: center;">⚠️ fetch-songs.js が読み込まれました。データ取得中...</p>';
-    console.log('[fetch-songs.js] テストメッセージを表示しました');
-  } else {
-    console.error('[fetch-songs.js] featured-works-container が見つかりません（スクリプト読み込み時）');
-  }
-  
   // 実行タイミングの改善
   console.log('[fetch-songs.js] スクリプト読み込み完了, readyState:', document.readyState);
   
