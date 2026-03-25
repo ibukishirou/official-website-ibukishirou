@@ -1513,12 +1513,11 @@ footer {
   justify-content: space-between;
   background: linear-gradient(135deg, rgba(139, 0, 0, 0.15), rgba(26, 26, 26, 0.4));
   border-bottom: 2px solid var(--color-border);
-  padding: 1.5rem 2rem;
 }
 
 .calendar-date {
   font-family: var(--font-primary);
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.1em;
@@ -1671,11 +1670,11 @@ footer {
   }
 
   .calendar-header {
-    padding: 1rem 1rem;
+    padding: 0rem;
   }
 
   .calendar-date {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
 
   .calendar-nav-arrow {
