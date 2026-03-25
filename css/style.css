@@ -1494,55 +1494,117 @@ footer {
 }
 
 #live-schedule-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.live-schedule-card {
-  display: block;
-  background: rgba(26, 26, 26, 0.5);
+/* カレンダーラッパー */
+.calendar-wrapper {
+  background: rgba(26, 26, 26, 0.3);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
+}
+
+/* 日付ヘッダー */
+.calendar-header {
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(26, 26, 26, 0.5));
+  border-bottom: 2px solid var(--color-secondary);
+  padding: 2rem;
+  text-align: center;
+}
+
+.calendar-date {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+}
+
+/* カレンダーボディ */
+.calendar-body {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+
+/* ナビゲーションボタン */
+.calendar-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
   transition: var(--transition);
-  text-decoration: none;
 }
 
-.live-schedule-card:hover {
+.calendar-nav i {
+  font-size: 1.5rem;
+}
+
+.calendar-nav:hover {
+  background: rgba(139, 0, 0, 0.2);
   border-color: var(--color-secondary);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(139, 0, 0, 0.3);
+  color: var(--color-secondary);
 }
 
-.live-thumbnail-wrapper {
-  position: relative;
+/* 配信コンテンツエリア */
+.calendar-content {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 配信カード */
+.stream-card {
+  display: block;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 */
-  overflow: hidden;
-  background-color: #000;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
 }
 
-.live-thumbnail {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.stream-card:hover .stream-thumbnail-wrapper {
+  transform: scale(1.02);
 }
 
-.now-on-air-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.stream-time {
+  font-family: var(--font-secondary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  text-align: center;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.stream-time i {
+  font-size: 1.8rem;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: #ff0000;
   color: #fff;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
-  font-family: var(--font-secondary);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: 1rem;
   animation: pulse 2s infinite;
 }
 
@@ -1555,68 +1617,50 @@ footer {
   }
 }
 
-.live-info {
-  padding: 1.5rem;
+.stream-thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: var(--transition);
+  aspect-ratio: 16 / 9;
 }
 
-.live-title {
-  font-family: var(--font-secondary);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
+.stream-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.live-datetime {
+.stream-title {
   font-family: var(--font-secondary);
   font-size: 1.1rem;
-  color: var(--color-secondary);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 1rem;
 }
 
-.live-datetime i {
-  font-size: 1.2rem;
-}
-
-/* 配信予定なしの表示 */
-.no-schedule {
+/* 配信なし表示 */
+.no-stream {
   text-align: center;
   padding: 3rem 2rem;
-}
-
-.no-schedule-text {
-  font-family: var(--font-secondary);
-  font-size: 1.1rem;
   color: var(--color-text-secondary);
-  margin-bottom: 1.5rem;
 }
 
-.channel-link-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(26, 26, 26, 0.5);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  color: var(--color-text);
+.no-stream i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-stream p {
   font-family: var(--font-secondary);
-  font-size: 1rem;
-  transition: var(--transition);
-  text-decoration: none;
-}
-
-.channel-link-button:hover {
-  border-color: var(--color-secondary);
-  background-color: rgba(26, 26, 26, 0.8);
-  color: var(--color-secondary);
-}
-
-.channel-link-button i {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
 /* レスポンシブ対応 */
@@ -1625,36 +1669,47 @@ footer {
     padding: 3rem 1rem;
   }
 
-  .live-title {
+  .calendar-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .calendar-date {
+    font-size: 2rem;
+  }
+
+  .calendar-body {
+    grid-template-columns: 60px 1fr 60px;
+    padding: 1.5rem 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .calendar-nav {
+    font-size: 0.65rem;
+    padding: 0.75rem 0.25rem;
+  }
+
+  .calendar-nav i {
+    font-size: 1.2rem;
+  }
+
+  .stream-time {
+    font-size: 1.2rem;
+  }
+
+  .stream-time i {
+    font-size: 1.4rem;
+  }
+
+  .stream-title {
     font-size: 1rem;
   }
 
-  .live-datetime {
-    font-size: 0.95rem;
+  .no-stream i {
+    font-size: 3rem;
   }
 
-  .now-on-air-badge {
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-
-  .live-info {
-    padding: 1rem;
-  }
-
-  .no-schedule {
-    padding: 2rem 1rem;
-  }
-
-  .no-schedule-text {
-    font-size: 1rem;
-  }
-
-  .channel-link-button {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
+  .no-stream p {
+    font-size: 1.1rem;
   }
 }
 
