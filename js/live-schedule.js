@@ -6,11 +6,18 @@
 (function() {
   'use strict';
 
+  // 今日の日付（JST、初期表示用）
+  const today = new Date();
+  
   // 現在表示している日付（JST）
-  let currentDate = new Date();
+  let currentDate = new Date(today);
   
   // APIから取得した全配信データ（キャッシュ）
   let allStreams = [];
+  
+  // ページ送りの範囲（前日・当日・翌日の3日間のみ）
+  const MIN_OFFSET = -1; // 前日
+  const MAX_OFFSET = 1;  // 翌日
 
   /**
    * 日付をYYYY-MM-DD形式に変換（JST）
@@ -55,6 +62,26 @@
   }
 
   /**
+   * 現在の日付オフセットを計算（今日を基準に±日数）
+   * @returns {number} オフセット値
+   */
+  function getCurrentOffset() {
+    const todayKey = formatDateKey(today);
+    const currentKey = formatDateKey(currentDate);
+    
+    // 簡易的な日付差分計算（日付のみ比較）
+    const todayDate = new Date(today);
+    todayDate.setHours(0, 0, 0, 0);
+    const currentDateOnly = new Date(currentDate);
+    currentDateOnly.setHours(0, 0, 0, 0);
+    
+    const diffTime = currentDateOnly - todayDate;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays;
+  }
+
+  /**
    * カレンダーUIを描画
    */
   function renderCalendar() {
@@ -63,6 +90,11 @@
 
     const dateKey = formatDateKey(currentDate);
     const dateHeader = formatDateHeader(currentDate);
+    const offset = getCurrentOffset();
+    
+    // ナビゲーションボタンの表示制御
+    const showPrev = offset > MIN_OFFSET;
+    const showNext = offset < MAX_OFFSET;
     
     // 該当日の配信を検索
     const streamOfDay = allStreams.find(stream => {
@@ -74,15 +106,19 @@
       <div class="calendar-wrapper fade-in">
         <!-- ナビゲーション＋日付＋配信情報 -->
         <div class="calendar-header">
-          <button class="calendar-nav-arrow prev" aria-label="前日">
-            <i class="ri-arrow-left-s-line"></i>
-          </button>
+          ${showPrev ? `
+            <button class="calendar-nav-arrow prev" aria-label="前日">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+          ` : '<div class="calendar-nav-placeholder"></div>'}
           
           <div class="calendar-date">${dateHeader}</div>
           
-          <button class="calendar-nav-arrow next" aria-label="翌日">
-            <i class="ri-arrow-right-s-line"></i>
-          </button>
+          ${showNext ? `
+            <button class="calendar-nav-arrow next" aria-label="翌日">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          ` : '<div class="calendar-nav-placeholder"></div>'}
         </div>
         
         <div class="calendar-content">

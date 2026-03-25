@@ -1537,6 +1537,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 60px;
 }
 
 .calendar-nav-arrow:hover {
@@ -1546,6 +1547,11 @@ footer {
 
 .calendar-nav-arrow i {
   font-size: 2.5rem;
+}
+
+/* ナビゲーションプレースホルダー（ボタンがない場合の空白） */
+.calendar-nav-placeholder {
+  min-width: 60px;
 }
 
 /* 配信コンテンツエリア */
@@ -1680,10 +1686,15 @@ footer {
   .calendar-nav-arrow {
     font-size: 1.5rem;
     padding: 0.25rem;
+    min-width: 40px;
   }
 
   .calendar-nav-arrow i {
     font-size: 2rem;
+  }
+
+  .calendar-nav-placeholder {
+    min-width: 40px;
   }
 
   .calendar-content {
