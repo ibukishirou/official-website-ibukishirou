@@ -412,6 +412,12 @@ section {
   margin-top: 2rem;
 }
 
+/* Featured Works セクション */
+#featured-works {
+  position: relative;
+  z-index: 10;
+}
+
 /* Featured Works専用: 横スクロールレイアウト */
 #featured-works .card-grid {
   display: flex;
@@ -1483,6 +1489,8 @@ footer {
 #live-schedule {
   padding: 5rem 2rem;
   background-color: var(--color-bg);
+  position: relative;
+  z-index: 10;
 }
 
 #live-schedule-container {
