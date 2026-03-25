@@ -83,7 +83,9 @@
    */
   async function fetchSongs() {
     try {
+      console.log('Songs API呼び出し開始', API_CONFIG);
       const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PLAYLIST}/${API_CONFIG.PLAYLIST_ID}`;
+      console.log('API URL:', url);
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -91,10 +93,13 @@
       }
       
       const result = await response.json();
+      console.log('Songs API レスポンス:', result);
       
       if (result.data && result.data.length > 0) {
+        console.log(`${result.data.length}件の動画を取得しました`);
         renderSongs(result.data);
       } else {
+        console.warn('動画データが空です');
         renderError();
       }
       
