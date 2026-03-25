@@ -1,92 +1,205 @@
 /**
- * Live Schedule機能
- * YouTube Data API から次回配信情報を取得して表示
+ * Live Schedule機能（カレンダー形式）
+ * YouTube Data API から配信情報を取得してカレンダー形式で表示
  */
 
 (function() {
   'use strict';
 
+  // 今日の日付（JST、初期表示用）
+  const today = new Date();
+  
+  // 現在表示している日付（JST）
+  let currentDate = new Date(today);
+  
+  // APIから取得した全配信データ（キャッシュ）
+  let allStreams = [];
+  
+  // ページ送りの範囲（前日・当日・翌日の3日間のみ）
+  const MIN_OFFSET = -1; // 前日
+  const MAX_OFFSET = 1;  // 翌日
+
   /**
-   * 日時をJSTフォーマット（MM.DD HH:mm）に変換
-   * @param {string} isoDateString - ISO 8601形式の日時文字列
-   * @returns {string} フォーマット済みの日時文字列
+   * 日付をYYYY-MM-DD形式に変換（JST）
+   * @param {Date} date - 日付オブジェクト
+   * @returns {string} YYYY-MM-DD形式の文字列
    */
-  function formatToJST(isoDateString) {
+  function formatDateKey(date) {
+    const jstDate = new Date(date.toLocaleString('en-US', { timeZone: API_CONFIG.TIMEZONE }));
+    const year = jstDate.getFullYear();
+    const month = String(jstDate.getMonth() + 1).padStart(2, '0');
+    const day = String(jstDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  /**
+   * 日付をMM.DD形式に変換
+   * @param {Date} date - 日付オブジェクト
+   * @returns {string} MM.DD形式の文字列
+   */
+  function formatDateHeader(date) {
+    const jstDate = new Date(date.toLocaleString('en-US', { timeZone: API_CONFIG.TIMEZONE }));
+    const month = String(jstDate.getMonth() + 1).padStart(2, '0');
+    const day = String(jstDate.getDate()).padStart(2, '0');
+    return `${month}.${day}`;
+  }
+
+  /**
+   * 時刻をHH:mm形式に変換（JST）
+   * @param {string} isoDateString - ISO 8601形式の日時文字列
+   * @returns {string} HH:mm形式の時刻文字列
+   */
+  function formatTime(isoDateString) {
     if (!isoDateString) return '';
     
     const date = new Date(isoDateString);
-    
-    // JSTに変換（UTC+9）
     const jstDate = new Date(date.toLocaleString('en-US', { timeZone: API_CONFIG.TIMEZONE }));
     
-    const month = String(jstDate.getMonth() + 1).padStart(2, '0');
-    const day = String(jstDate.getDate()).padStart(2, '0');
     const hours = String(jstDate.getHours()).padStart(2, '0');
     const minutes = String(jstDate.getMinutes()).padStart(2, '0');
     
-    return `${month}.${day} ${hours}:${minutes}`;
+    return `${hours}:${minutes}`;
   }
 
   /**
-   * Live Scheduleセクションを描画
-   * @param {Object} stream - ライブ配信情報
+   * 現在の日付オフセットを計算（今日を基準に±日数）
+   * @returns {number} オフセット値
    */
-  function renderLiveSchedule(stream) {
+  function getCurrentOffset() {
+    const todayKey = formatDateKey(today);
+    const currentKey = formatDateKey(currentDate);
+    
+    // 簡易的な日付差分計算（日付のみ比較）
+    const todayDate = new Date(today);
+    todayDate.setHours(0, 0, 0, 0);
+    const currentDateOnly = new Date(currentDate);
+    currentDateOnly.setHours(0, 0, 0, 0);
+    
+    const diffTime = currentDateOnly - todayDate;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays;
+  }
+
+  /**
+   * カレンダーUIを描画
+   */
+  function renderCalendar() {
     const container = document.getElementById('live-schedule-container');
     if (!container) return;
 
-    const isLive = stream.liveStatus === 'live';
-    const scheduledTime = formatToJST(stream.scheduledStartTime);
-    const videoUrl = `https://www.youtube.com/watch?v=${stream.videoId}`;
+    const dateKey = formatDateKey(currentDate);
+    const dateHeader = formatDateHeader(currentDate);
+    const offset = getCurrentOffset();
     
-    // maxresdefault.jpg を使用（高解像度サムネイル）
-    const thumbnailUrl = `https://img.youtube.com/vi/${stream.videoId}/maxresdefault.jpg`;
+    // ナビゲーションボタンの表示制御
+    const showPrev = offset > MIN_OFFSET;
+    const showNext = offset < MAX_OFFSET;
     
-    container.innerHTML = `
-      <a href="${videoUrl}" target="_blank" class="live-schedule-card fade-in" rel="noopener noreferrer">
-        <div class="live-thumbnail-wrapper">
-          <img src="${thumbnailUrl}" alt="${stream.title}" class="live-thumbnail">
-          ${isLive ? '<div class="now-on-air-badge">NOW ON AIR</div>' : ''}
+    // 該当日の配信を検索
+    const streamOfDay = allStreams.find(stream => {
+      const streamDate = new Date(stream.scheduledStartTime);
+      return formatDateKey(streamDate) === dateKey;
+    });
+
+    const html = `
+      <div class="calendar-wrapper fade-in">
+        <!-- ナビゲーション＋日付＋配信情報 -->
+        <div class="calendar-header">
+          ${showPrev ? `
+            <button class="calendar-nav-arrow prev" aria-label="前日">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+          ` : '<div class="calendar-nav-placeholder"></div>'}
+          
+          <div class="calendar-date">${dateHeader}</div>
+          
+          ${showNext ? `
+            <button class="calendar-nav-arrow next" aria-label="翌日">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          ` : '<div class="calendar-nav-placeholder"></div>'}
         </div>
-        <div class="live-info">
-          <h3 class="live-title">${stream.title}</h3>
-          <p class="live-datetime">
-            <i class="ri-calendar-line"></i>
-            ${isLive ? '配信中' : scheduledTime}
-          </p>
+        
+        <div class="calendar-content">
+          ${streamOfDay ? renderStreamContent(streamOfDay) : renderNoStreamContent()}
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
+
+    // イベントリスナーを設定
+    setupEventListeners();
+
+    // フェードインアニメーションを発火
+    setTimeout(() => {
+      const calendar = container.querySelector('.calendar-wrapper');
+      if (calendar) calendar.classList.add('show');
+    }, 50);
+  }
+
+  /**
+   * 配信情報のHTML生成
+   * @param {Object} stream - 配信情報
+   * @returns {string} HTML文字列
+   */
+  function renderStreamContent(stream) {
+    const isLive = stream.liveStatus === 'live';
+    const time = formatTime(stream.scheduledStartTime);
+    const videoUrl = `https://www.youtube.com/watch?v=${stream.videoId}`;
+    const thumbnailUrl = `https://img.youtube.com/vi/${stream.videoId}/maxresdefault.jpg`;
+
+    return `
+      <a href="${videoUrl}" target="_blank" class="stream-card" rel="noopener noreferrer">
+        <div class="stream-thumbnail-wrapper">
+          ${isLive ? '<div class="live-badge">● NOW ON AIR</div>' : ''}
+          <img src="${thumbnailUrl}" alt="${stream.title}" class="stream-thumbnail" loading="lazy">
+        </div>
+        <div class="stream-info">
+          <div class="stream-time">
+            <i class="ri-play-circle-line"></i>
+            ${isLive ? '配信中' : time}
+          </div>
+          <div class="stream-title">${stream.title}</div>
         </div>
       </a>
     `;
-    
-    // フェードインアニメーションを発火
-    setTimeout(() => {
-      const card = container.querySelector('.live-schedule-card');
-      if (card) card.classList.add('show');
-    }, 50);
   }
 
   /**
-   * 配信予定なしの表示
+   * 配信なしのHTML生成
+   * @returns {string} HTML文字列
    */
-  function renderNoSchedule() {
-    const container = document.getElementById('live-schedule-container');
-    if (!container) return;
-
-    container.innerHTML = `
-      <div class="no-schedule fade-in">
-        <p class="no-schedule-text">配信予定が登録されていません</p>
-        <a href="${API_CONFIG.YOUTUBE_CHANNEL_URL}" target="_blank" class="channel-link-button" rel="noopener noreferrer">
-          <i class="ri-youtube-line"></i>
-          YouTubeチャンネルへ
-        </a>
+  function renderNoStreamContent() {
+    return `
+      <div class="no-stream">
+        <i class="ri-calendar-close-line"></i>
+        <p>配信お休み</p>
       </div>
     `;
-    
-    // フェードインアニメーションを発火
-    setTimeout(() => {
-      const noSchedule = container.querySelector('.no-schedule');
-      if (noSchedule) noSchedule.classList.add('show');
-    }, 50);
+  }
+
+  /**
+   * イベントリスナーを設定
+   */
+  function setupEventListeners() {
+    const prevBtn = document.querySelector('.calendar-nav-arrow.prev');
+    const nextBtn = document.querySelector('.calendar-nav-arrow.next');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() - 1);
+        renderCalendar();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() + 1);
+        renderCalendar();
+      });
+    }
   }
 
   /**
@@ -103,16 +216,20 @@
       
       const result = await response.json();
       
+      // データをキャッシュ
       if (result.data && result.data.length > 0) {
-        // 最も近い配信（配信中または次回予定）を表示
-        renderLiveSchedule(result.data[0]);
+        allStreams = result.data;
       } else {
-        renderNoSchedule();
+        allStreams = [];
       }
+      
+      // カレンダーを描画
+      renderCalendar();
       
     } catch (error) {
       console.error('Live Schedule取得エラー:', error);
-      renderNoSchedule();
+      allStreams = [];
+      renderCalendar();
     }
   }
 

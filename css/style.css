@@ -1494,50 +1494,117 @@ footer {
 }
 
 #live-schedule-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.live-schedule-card {
+/* カレンダーラッパー */
+.calendar-wrapper {
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ヘッダー（日付 + ナビゲーション） */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.15), rgba(26, 26, 26, 0.4));
+  border-bottom: 2px solid var(--color-border);
+}
+
+.calendar-date {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+  flex: 1;
+  text-align: center;
+}
+
+/* ナビゲーション矢印ボタン */
+.calendar-nav-arrow {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+}
+
+.calendar-nav-arrow:hover {
+  color: var(--color-secondary);
+  transform: scale(1.1);
+}
+
+.calendar-nav-arrow i {
+  font-size: 2.5rem;
+}
+
+/* ナビゲーションプレースホルダー（ボタンがない場合の空白） */
+.calendar-nav-placeholder {
+  min-width: 60px;
+}
+
+/* 配信コンテンツエリア */
+.calendar-content {
+  padding: 2rem;
+}
+
+/* 配信カード */
+.stream-card {
   display: block;
-  background: rgba(26, 26, 26, 0.5);
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.stream-card:hover {
+  transform: translateY(-4px);
+}
+
+.stream-card:hover .stream-thumbnail-wrapper {
+  border-color: var(--color-secondary);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
+}
+
+/* サムネイル */
+.stream-thumbnail-wrapper {
+  position: relative;
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
   transition: var(--transition);
-  text-decoration: none;
+  aspect-ratio: 16 / 9;
+  background: #000;
 }
 
-.live-schedule-card:hover {
-  border-color: var(--color-secondary);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(139, 0, 0, 0.3);
-}
-
-.live-thumbnail-wrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 */
-  overflow: hidden;
-  background-color: #000;
-}
-
-.live-thumbnail {
-  position: absolute;
-  top: 0;
-  left: 0;
+.stream-thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.now-on-air-badge {
+.live-badge {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: #ff0000;
   color: #fff;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   font-family: var(--font-secondary);
   font-size: 0.9rem;
@@ -1555,68 +1622,51 @@ footer {
   }
 }
 
-.live-info {
-  padding: 1.5rem;
+/* 配信情報 */
+.stream-info {
+  margin-top: 1rem;
 }
 
-.live-title {
-  font-family: var(--font-secondary);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-}
-
-.live-datetime {
+.stream-time {
   font-family: var(--font-secondary);
   font-size: 1.1rem;
+  font-weight: 500;
   color: var(--color-secondary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.live-datetime i {
-  font-size: 1.2rem;
+.stream-time i {
+  font-size: 1.3rem;
 }
 
-/* 配信予定なしの表示 */
-.no-schedule {
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.no-schedule-text {
-  font-family: var(--font-secondary);
-  font-size: 1.1rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-.channel-link-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(26, 26, 26, 0.5);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  color: var(--color-text);
+.stream-title {
   font-family: var(--font-secondary);
   font-size: 1rem;
-  transition: var(--transition);
-  text-decoration: none;
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.5;
 }
 
-.channel-link-button:hover {
-  border-color: var(--color-secondary);
-  background-color: rgba(26, 26, 26, 0.8);
-  color: var(--color-secondary);
+/* 配信なし表示 */
+.no-stream {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--color-text-secondary);
 }
 
-.channel-link-button i {
-  font-size: 1.2rem;
+.no-stream i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-stream p {
+  font-family: var(--font-secondary);
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
 /* レスポンシブ対応 */
@@ -1625,36 +1675,57 @@ footer {
     padding: 3rem 1rem;
   }
 
-  .live-title {
+  .calendar-header {
+    padding: 0rem;
+  }
+
+  .calendar-date {
+    font-size: 1.3rem;
+  }
+
+  .calendar-nav-arrow {
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    min-width: 40px;
+  }
+
+  .calendar-nav-arrow i {
+    font-size: 2rem;
+  }
+
+  .calendar-nav-placeholder {
+    min-width: 40px;
+  }
+
+  .calendar-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .stream-time {
     font-size: 1rem;
   }
 
-  .live-datetime {
+  .stream-time i {
+    font-size: 1.2rem;
+  }
+
+  .stream-title {
     font-size: 0.95rem;
   }
 
-  .now-on-air-badge {
+  .live-badge {
     top: 0.5rem;
     right: 0.5rem;
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
 
-  .live-info {
-    padding: 1rem;
+  .no-stream i {
+    font-size: 3rem;
   }
 
-  .no-schedule {
-    padding: 2rem 1rem;
-  }
-
-  .no-schedule-text {
-    font-size: 1rem;
-  }
-
-  .channel-link-button {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
+  .no-stream p {
+    font-size: 1.1rem;
   }
 }
 
