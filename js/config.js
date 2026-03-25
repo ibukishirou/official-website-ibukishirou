@@ -5,7 +5,7 @@
 
 const API_CONFIG = {
   // APIサーバーのベースURL
-  BASE_URL: 'https://youtube-server-891207244131.europe-west1.run.app',
+  BASE_URL: 'https://youtube-server-1030460309516.europe-west1.run.app',
   
   // YouTube チャンネルID
   CHANNEL_ID: 'UChP4FdJdy5tZrUkagu0G1Sw',
