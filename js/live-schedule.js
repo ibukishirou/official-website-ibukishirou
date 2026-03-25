@@ -72,26 +72,21 @@
 
     const html = `
       <div class="calendar-wrapper fade-in">
-        <!-- 日付ヘッダー -->
+        <!-- ナビゲーション＋日付＋配信情報 -->
         <div class="calendar-header">
-          <div class="calendar-date">${dateHeader}</div>
-        </div>
-        
-        <!-- ナビゲーション＋配信情報 -->
-        <div class="calendar-body">
-          <button class="calendar-nav prev" aria-label="前日">
+          <button class="calendar-nav-arrow prev" aria-label="前日">
             <i class="ri-arrow-left-s-line"></i>
-            PREV
           </button>
           
-          <div class="calendar-content">
-            ${streamOfDay ? renderStreamContent(streamOfDay) : renderNoStreamContent()}
-          </div>
+          <div class="calendar-date">${dateHeader}</div>
           
-          <button class="calendar-nav next" aria-label="翌日">
-            NEXT
+          <button class="calendar-nav-arrow next" aria-label="翌日">
             <i class="ri-arrow-right-s-line"></i>
           </button>
+        </div>
+        
+        <div class="calendar-content">
+          ${streamOfDay ? renderStreamContent(streamOfDay) : renderNoStreamContent()}
         </div>
       </div>
     `;
@@ -121,13 +116,17 @@
 
     return `
       <a href="${videoUrl}" target="_blank" class="stream-card" rel="noopener noreferrer">
-        <div class="stream-time">
-          ${isLive ? '<span class="live-badge">● 配信中</span>' : `<i class="ri-play-circle-line"></i> ${time}`}
-        </div>
         <div class="stream-thumbnail-wrapper">
+          ${isLive ? '<div class="live-badge">● NOW ON AIR</div>' : ''}
           <img src="${thumbnailUrl}" alt="${stream.title}" class="stream-thumbnail" loading="lazy">
         </div>
-        <div class="stream-title">${stream.title}</div>
+        <div class="stream-info">
+          <div class="stream-time">
+            <i class="ri-play-circle-line"></i>
+            ${isLive ? '配信中' : time}
+          </div>
+          <div class="stream-title">${stream.title}</div>
+        </div>
       </a>
     `;
   }
@@ -149,8 +148,8 @@
    * イベントリスナーを設定
    */
   function setupEventListeners() {
-    const prevBtn = document.querySelector('.calendar-nav.prev');
-    const nextBtn = document.querySelector('.calendar-nav.next');
+    const prevBtn = document.querySelector('.calendar-nav-arrow.prev');
+    const nextBtn = document.querySelector('.calendar-nav-arrow.next');
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
