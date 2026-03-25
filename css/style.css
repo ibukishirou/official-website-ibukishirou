@@ -419,12 +419,12 @@ section {
   grid-template-columns: unset;
   gap: 2rem;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
-  padding-bottom: 1rem;
+  padding: 1rem 0 2rem 0;
 }
 
 #featured-works .card-grid::-webkit-scrollbar {
@@ -598,6 +598,8 @@ section {
 .video-wrapper {
   position: relative;
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   padding-bottom: 56.25%; /* 16:9 アスペクト比 */
   overflow: hidden;
   background: #000;
@@ -1485,7 +1487,6 @@ footer {
 #live-schedule {
   padding: 5rem 2rem;
   background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
 }
 
 #live-schedule-container {
@@ -1651,4 +1652,30 @@ footer {
     font-size: 0.9rem;
     padding: 0.6rem 1.2rem;
   }
+}
+
+/* ============================================
+   フェードインアニメーション
+   ============================================ */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 各アイテムに遅延を追加する場合 */
+.featured-work-item.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.featured-work-item.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
 }

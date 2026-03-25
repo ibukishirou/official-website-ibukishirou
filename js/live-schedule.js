@@ -39,10 +39,13 @@
     const scheduledTime = formatToJST(stream.scheduledStartTime);
     const videoUrl = `https://www.youtube.com/watch?v=${stream.videoId}`;
     
+    // maxresdefault.jpg を使用（高解像度サムネイル）
+    const thumbnailUrl = `https://img.youtube.com/vi/${stream.videoId}/maxresdefault.jpg`;
+    
     container.innerHTML = `
-      <a href="${videoUrl}" target="_blank" class="live-schedule-card" rel="noopener noreferrer">
+      <a href="${videoUrl}" target="_blank" class="live-schedule-card fade-in" rel="noopener noreferrer">
         <div class="live-thumbnail-wrapper">
-          <img src="${stream.thumbnail}" alt="${stream.title}" class="live-thumbnail">
+          <img src="${thumbnailUrl}" alt="${stream.title}" class="live-thumbnail">
           ${isLive ? '<div class="now-on-air-badge">NOW ON AIR</div>' : ''}
         </div>
         <div class="live-info">
@@ -54,6 +57,12 @@
         </div>
       </a>
     `;
+    
+    // フェードインアニメーションを発火
+    setTimeout(() => {
+      const card = container.querySelector('.live-schedule-card');
+      if (card) card.classList.add('show');
+    }, 50);
   }
 
   /**
@@ -64,7 +73,7 @@
     if (!container) return;
 
     container.innerHTML = `
-      <div class="no-schedule">
+      <div class="no-schedule fade-in">
         <p class="no-schedule-text">配信予定が登録されていません</p>
         <a href="${API_CONFIG.YOUTUBE_CHANNEL_URL}" target="_blank" class="channel-link-button" rel="noopener noreferrer">
           <i class="ri-youtube-line"></i>
@@ -72,6 +81,12 @@
         </a>
       </div>
     `;
+    
+    // フェードインアニメーションを発火
+    setTimeout(() => {
+      const noSchedule = container.querySelector('.no-schedule');
+      if (noSchedule) noSchedule.classList.add('show');
+    }, 50);
   }
 
   /**

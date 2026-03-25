@@ -14,11 +14,14 @@
     const container = document.getElementById('featured-works-container');
     if (!container) return;
 
-    container.innerHTML = videos.map(video => {
+    // 逆順に並び替え（最新が先頭）
+    const reversedVideos = [...videos].reverse();
+
+    container.innerHTML = reversedVideos.map((video, index) => {
       const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
       
       return `
-        <a href="${videoUrl}" target="_blank" class="featured-work-item" rel="noopener noreferrer">
+        <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer">
           <div class="thumbnail-link">
             <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="lazy">
           </div>
@@ -29,8 +32,15 @@
       `;
     }).join('');
 
-    // 画像読み込み完了後、自動スクロール開始
+    // 画像読み込み完了後、フェードイン開始＆自動スクロール開始
     waitForImagesToLoad(container).then(() => {
+      // フェードインアニメーション発火
+      setTimeout(() => {
+        const items = container.querySelectorAll('.featured-work-item');
+        items.forEach(item => item.classList.add('show'));
+      }, 50);
+      
+      // 自動スクロール開始
       if (typeof window.initAutoScroll === 'function') {
         window.initAutoScroll();
       }
