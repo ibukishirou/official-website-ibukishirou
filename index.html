@@ -117,7 +117,7 @@
     <div class="hero-video-wrapper">
       <iframe 
         id="hero-video"
-        src="https://www.youtube.com/embed/H_hsFNOfKNI?autoplay=1&mute=1&loop=1&playlist=H_hsFNOfKNI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
+        src="https://www.youtube.com/embed/H_hsFNOfKNI?autoplay=1&mute=1&loop=1&playlist=H_hsFNOfKNI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&vq=hd1080&enablejsapi=1"
         width="1920"
         height="1080"
         frameborder="0"
@@ -188,95 +188,6 @@
   <script src="js/live-schedule.js"></script>
   <script src="js/main.js"></script>
   <script src="js/fetch-links.js"></script>
-  <script>
-    // Featured Worksのスクロール機能（スクロール→停止3秒→アニメーションで先頭に戻る→繰り返し）
-    window.initAutoScroll = function initAutoScroll() {
-      const container = document.getElementById('featured-works-container');
-      if (!container) {
-        console.error('❌ Container not found');
-        return;
-      }
-      
-      // DOM再描画を待つ
-      setTimeout(() => {
-        // 初期状態のログ
-        console.log('=== Auto-scroll initialization ===');
-        console.log('Container:', container);
-        console.log('Children count:', container.children.length);
-        console.log('scrollWidth:', container.scrollWidth);
-        console.log('clientWidth:', container.clientWidth);
-        console.log('maxScrollLeft:', container.scrollWidth - container.clientWidth);
-        
-        // コンテンツが存在しない場合は中止
-        if (container.scrollWidth <= container.clientWidth) {
-          console.warn('⚠️  No scrollable content. Retrying in 500ms...');
-          // リトライ
-          setTimeout(() => initAutoScroll(), 500);
-          return;
-        }
-        
-        console.log('✅ Starting auto-scroll with scrollable content');
-        
-        let isScrolling = true;
-        let isPausedByUser = false;
-        let isWaitingAtEnd = false;
-        let isReturningToStart = false;
-        const scrollSpeed = 0.5; // ピクセル/フレーム
-        const pauseDuration = 3000; // 停止時間: 3秒
-        const returnDuration = 800; // 先頭に戻るアニメーション時間: 0.8秒
-        
-        function scroll() {
-          if (!isScrolling) return;
-          
-          if (!isPausedByUser && !isWaitingAtEnd && !isReturningToStart) {
-            const maxScrollLeft = container.scrollWidth - container.clientWidth;
-            container.scrollLeft += scrollSpeed;
-            
-            // 最後まで到達したら停止
-            if (container.scrollLeft >= maxScrollLeft - 1) {
-              isWaitingAtEnd = true;
-              console.log('✓ Reached end. Waiting 3 seconds... (scrollLeft:', container.scrollLeft, ')');
-              
-              // 3秒後に先頭に戻るアニメーション開始
-              setTimeout(() => {
-                if (!isScrolling) return;
-                
-                isWaitingAtEnd = false;
-                isReturningToStart = true;
-                console.log('✓ Starting return animation');
-                
-                // スムーズスクロールで先頭に戻る
-                container.style.scrollBehavior = 'smooth';
-                container.scrollLeft = 0;
-                
-                // アニメーション完了後、スクロール再開
-                setTimeout(() => {
-                  container.style.scrollBehavior = 'auto';
-                  isReturningToStart = false;
-                  console.log('✓ Returned to start. Resuming scroll...');
-                }, returnDuration);
-                
-              }, pauseDuration);
-            }
-          }
-          
-          requestAnimationFrame(scroll);
-        }
-        
-        // ユーザーインタラクション
-        container.addEventListener('mousedown', () => { isPausedByUser = true; });
-        container.addEventListener('mouseup', () => { isPausedByUser = false; });
-        container.addEventListener('touchstart', () => { isPausedByUser = true; }, { passive: true });
-        container.addEventListener('touchend', () => { isPausedByUser = false; }, { passive: true });
-        container.addEventListener('touchcancel', () => { isPausedByUser = false; }, { passive: true });
-        container.addEventListener('mouseenter', () => { isPausedByUser = true; });
-        container.addEventListener('mouseleave', () => { isPausedByUser = false; });
-      
-        // スクロール開始
-        requestAnimationFrame(scroll);
-      }, 100); // 100msの遅延で初期化
-    };
-  </script>
   <script src="js/fetch-songs.js"></script>
   <script src="js/share.js"></script>
   <script src="js/sw-register.js"></script>

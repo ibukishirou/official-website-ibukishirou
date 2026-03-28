@@ -439,6 +439,20 @@ section {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
   padding: 1rem 0 2rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#featured-works .card-grid * {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;  /* 画像や要素のドラッグを無効化 */
+  pointer-events: none;     /* 子要素のイベントを無効化 */
+}
+
+/* カード自体はクリックできるようにする */
+#featured-works .card-grid .featured-work-item {
+  pointer-events: auto;
 }
 
 #featured-works .card-grid::-webkit-scrollbar {
