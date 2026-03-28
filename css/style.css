@@ -384,7 +384,6 @@ nav {
 
 section {
   padding: 6rem 2rem;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -424,6 +423,7 @@ section {
 #featured-works {
   position: relative;
   z-index: 10;
+  max-width: 100%;
 }
 
 /* Featured Works専用: 横スクロールレイアウト */
