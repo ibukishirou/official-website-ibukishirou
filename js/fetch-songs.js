@@ -21,8 +21,25 @@
     
     console.log('[renderSongs] コンテナ要素:', container);
 
+    // 非公開動画をスキップ
+    const filteredVideos = videos.filter(video => {
+      const isPrivate = video.title === 'Private video';
+      if (isPrivate) {
+        console.log('[renderSongs] 非公開動画をスキップ:', video.videoId);
+      }
+      return !isPrivate;
+    });
+    console.log('[renderSongs] フィルタリング後の動画数:', filteredVideos.length);
+
+    // フィルタリング後に動画が0件の場合はエラー表示
+    if (filteredVideos.length === 0) {
+      console.warn('[renderSongs] 表示できる動画が0件です');
+      renderError();
+      return;
+    }
+
     // 逆順に並び替え（最新が先頭）
-    const reversedVideos = [...videos].reverse();
+    const reversedVideos = [...filteredVideos].reverse();
     console.log('[renderSongs] 逆順ソート完了, reversedVideos.length:', reversedVideos.length);
 
     container.innerHTML = reversedVideos.map((video, index) => {
