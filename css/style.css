@@ -1528,8 +1528,6 @@ footer {
   margin: 0 auto;
 }
 
-/* PC用: 3日分表示は使用しない（モバイルと同じ単一表示） */
-
 /* スケジュールラッパー */
 .schedule-wrapper {
   background: rgba(26, 26, 26, 0.3);
@@ -1700,8 +1698,6 @@ footer {
   font-size: 1.3rem;
   font-weight: 500;
 }
-
-/* レスポンシブ対応 */
 
 @media (max-width: 768px) {
   #live-schedule {

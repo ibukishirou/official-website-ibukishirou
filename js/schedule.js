@@ -11,11 +11,6 @@ let maxDate = new Date();
 minDate.setMonth(currentDate.getMonth() - 6);
 maxDate.setMonth(currentDate.getMonth() + 6);
 
-// フィルター状態
-let filters = {
-  regular: false
-};
-
 // ============================================
 // スワイプ機能のための変数
 // ============================================
@@ -37,15 +32,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     scheduleData = await response.json();
     
     console.log('Schedule data loaded:', scheduleData);
-    
-    // フィルターイベントリスナー
-    const filterRegular = document.getElementById('filter-regular');
-    if (filterRegular) {
-      filterRegular.addEventListener('change', (e) => {
-        filters.regular = e.target.checked;
-        renderSchedule(currentDate);
-      });
-    }
     
     // ナビゲーションボタン
     document.getElementById('prev-month').addEventListener('click', () => {
@@ -673,12 +659,9 @@ function getColorFromTags(tags) {
   
   // タグごとの色マッピング（優先度順）
   const tagColorMap = {
-    '配信': '#FF4500',      // オレンジレッド
     '記念': '#dc143c',      // 深紅色
-    'メン限': '#FF0000',    // 赤色
-    '動画': '#3131cc',  // 青色
     'リアイベ': '#daa520',  // ゴールド
-    'グッズ': '#259925' // グリーン
+    'グッズ': '#FF4500'     // オレンジレッド
   };
   
   // 最初にマッチしたタグの色を返す
