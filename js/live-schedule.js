@@ -88,14 +88,8 @@
     const container = document.getElementById('live-schedule-container');
     if (!container) return;
 
-    // PC: 画面幅が960pxより大きい場合は3日分表示
-    const isPc = window.innerWidth > 960;
-
-    if (isPc) {
-      renderThreeDayView(container);
-    } else {
-      renderSingleDayView(container);
-    }
+    // PC・モバイル共に単一日表示
+    renderSingleDayView(container);
   }
 
   /**
