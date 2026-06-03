@@ -11,7 +11,7 @@
     '/': { title: 'Home', icon: '🏠' },
     '/index.html': { title: 'Home', icon: '🏠' },
     '/profile': { title: 'Profile', icon: '👤' },
-    '/calendar': { title: 'Calendar', icon: '📅' },
+    '/schedule': { title: 'Schedule', icon: '📅' },
     '/achievements': { title: 'Achievements', icon: '🏆' },
     '/goods': { title: 'Goods', icon: '🛍️' },
     '/guidelines': { title: 'Guidelines', icon: '📋' },

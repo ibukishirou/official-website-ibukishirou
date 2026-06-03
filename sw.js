@@ -2,7 +2,7 @@
 // Service Worker - 伊吹しろう Official Website
 // ============================================
 
-const CACHE_VERSION = 'v1.0.10';
+const CACHE_VERSION = 'v1.0.11';
 const CACHE_NAME = `ibukishirou-${CACHE_VERSION}`;
 
 // キャッシュするリソース
@@ -10,7 +10,7 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/profile.html',
-  '/calendar.html',
+  '/schedule.html',
   '/achievements.html',
   '/goods.html',
   '/contact.html',
@@ -19,13 +19,13 @@ const STATIC_ASSETS = [
   '/privacy.html',
   '/terms.html',
   '/css/style.css',
-  '/css/calendar.css',
+  '/css/schedule.css',
   '/css/loading.css',
   '/css/profile.css',
   '/css/achievements.css',
   '/js/main.js',
   '/js/components.js',
-  '/js/calendar.js',
+  '/js/schedule.js',
   '/js/loading.js',
   '/js/breadcrumb.js',
   '/js/share.js',

@@ -709,6 +709,14 @@ section {
   font-size: 2rem;
 }
 
+/* Wickなどカスタムテキストアイコン用 */
+.sns-icon-text {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: var(--color-secondary);
+}
+
 .sns-name {
   font-size: 0.85rem;
   font-family: var(--font-secondary);
@@ -1520,8 +1528,8 @@ footer {
   margin: 0 auto;
 }
 
-/* カレンダーラッパー */
-.calendar-wrapper {
+/* スケジュールラッパー */
+.schedule-wrapper {
   background: rgba(26, 26, 26, 0.3);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -1529,7 +1537,7 @@ footer {
 }
 
 /* ヘッダー（日付 + ナビゲーション） */
-.calendar-header {
+.schedule-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1537,7 +1545,7 @@ footer {
   border-bottom: 2px solid var(--color-border);
 }
 
-.calendar-date {
+.schedule-date {
   font-family: var(--font-primary);
   font-size: 1.5rem;
   font-weight: 700;
@@ -1548,7 +1556,7 @@ footer {
 }
 
 /* ナビゲーション矢印ボタン */
-.calendar-nav-arrow {
+.schedule-nav-arrow {
   background: transparent;
   border: none;
   color: var(--color-text-secondary);
@@ -1562,22 +1570,22 @@ footer {
   min-width: 60px;
 }
 
-.calendar-nav-arrow:hover {
+.schedule-nav-arrow:hover {
   color: var(--color-secondary);
   transform: scale(1.1);
 }
 
-.calendar-nav-arrow i {
+.schedule-nav-arrow i {
   font-size: 2.5rem;
 }
 
 /* ナビゲーションプレースホルダー（ボタンがない場合の空白） */
-.calendar-nav-placeholder {
+.schedule-nav-placeholder {
   min-width: 60px;
 }
 
 /* 配信コンテンツエリア */
-.calendar-content {
+.schedule-content {
   padding: 2rem;
 }
 
@@ -1691,35 +1699,34 @@ footer {
   font-weight: 500;
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
   #live-schedule {
     padding: 3rem 1rem;
   }
 
-  .calendar-header {
+  .schedule-header {
     padding: 0rem;
   }
 
-  .calendar-date {
+  .schedule-date {
     font-size: 1.3rem;
   }
 
-  .calendar-nav-arrow {
+  .schedule-nav-arrow {
     font-size: 1.5rem;
     padding: 0.25rem;
     min-width: 40px;
   }
 
-  .calendar-nav-arrow i {
+  .schedule-nav-arrow i {
     font-size: 2rem;
   }
 
-  .calendar-nav-placeholder {
+  .schedule-nav-placeholder {
     min-width: 40px;
   }
 
-  .calendar-content {
+  .schedule-content {
     padding: 1.5rem 1rem;
   }
 
