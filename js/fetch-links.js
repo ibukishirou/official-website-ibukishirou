@@ -28,13 +28,20 @@ function displaySNSLinks(links) {
   
   container.innerHTML = snsConfig.map(sns => {
     if (links[sns.key]) {
+      // PC/SPでURLを切り替え（Wickの場合）
+      let url = links[sns.key];
+      if (sns.key === 'wick' && typeof url === 'object' && url !== null) {
+        const isPc = window.innerWidth > 960;
+        url = isPc ? (url.pc || url.mobile) : (url.mobile || url.pc);
+      }
+      
       // Wickの場合はカスタムテキスト "W" を表示
       const iconContent = sns.customText 
         ? `<span class="sns-icon-text">${sns.customText}</span>`
         : `<i class="${sns.icon}"></i>`;
       
       return `
-        <a href="${links[sns.key]}" target="_blank" rel="noopener noreferrer" class="sns-link">
+        <a href="${url}" target="_blank" rel="noopener noreferrer" class="sns-link">
           <div class="sns-icon">${iconContent}</div>
           <div class="sns-name">${sns.name}</div>
         </a>

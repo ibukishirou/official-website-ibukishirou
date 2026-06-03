@@ -1,6 +1,9 @@
 {
   "youtube": "https://www.youtube.com/@ibukishirou?sub_confirmation=1",
-  "wick": "https://wick-share.com/sns/share/BjE4q9OM",
+  "wick": {
+    "pc": "https://wick-sns.com/sns/profile/8cd13e39-1db5-4a11-9958-adb5de15d58f",
+    "mobile": "https://wick-share.com/sns/share/BjE4q9OM"
+  },
   "x_main": "https://x.com/ibukishirou",
   "tiktok": "https://www.tiktok.com/@ibukishirou",
   "instagram": "https://www.instagram.com/ibukishirou.v/",
