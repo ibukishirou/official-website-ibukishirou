@@ -1533,7 +1533,6 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
   gap: 1.5rem;
-  align-items: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -1544,14 +1543,21 @@ footer {
   transform: translateY(0);
 }
 
-/* 昨日・明日（小）は上揃え */
+/* 昨日・明日（小）は上揃え、当日（大）は中央揃え */
 .day-schedule-small {
-  align-self: start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-/* 当日（大）は中央揃え */
 .day-schedule-large {
-  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-schedule .schedule-wrapper {
+  width: 100%;
 }
 
 .day-schedule-small .schedule-wrapper {
