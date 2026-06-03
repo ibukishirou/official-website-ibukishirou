@@ -305,7 +305,7 @@ function getEventsForDate(date) {
           start: event.start,
           end: event.end,
           link: event.link,
-          color: getColorFromTags(event.tags),
+          color: getColorFromTags(event.tags, event.title),
           tags: event.tags || [],
           isStart: dateStr === startDateStr,
           isEnd: dateStr === endDateStr,
@@ -660,9 +660,12 @@ const goodsColors = [
   '#8E24AA',  // 紫（見やすい明るい紫）
   '#757575'   // 灰色（見やすいミディアムグレー）
 ];
+
+// イベントタイトルごとにグッズ色を記憶するマップ
+const goodsColorMap = new Map();
 let goodsColorIndex = 0;
 
-function getColorFromTags(tags) {
+function getColorFromTags(tags, eventTitle) {
   if (!tags || tags.length === 0) {
     return '#FF8C00'; // デフォルト色（見やすいオレンジ）
   }
@@ -674,9 +677,12 @@ function getColorFromTags(tags) {
   
   // グッズタグが含まれている場合
   if (tags.includes('グッズ')) {
-    const color = goodsColors[goodsColorIndex];
-    goodsColorIndex = (goodsColorIndex + 1) % goodsColors.length;
-    return color;
+    // イベントタイトルごとに色を固定
+    if (!goodsColorMap.has(eventTitle)) {
+      goodsColorMap.set(eventTitle, goodsColors[goodsColorIndex]);
+      goodsColorIndex = (goodsColorIndex + 1) % goodsColors.length;
+    }
+    return goodsColorMap.get(eventTitle);
   }
   
   // 記念タグが含まれている場合
