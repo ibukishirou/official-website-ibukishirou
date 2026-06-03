@@ -652,27 +652,40 @@ function showEventModal(event) {
 // タグから色を取得
 // ============================================
 
+// グッズタグ用の色配列（赤、青、緑、紫、灰色をループ）
+const goodsColors = [
+  '#E53935',  // 赤（見やすい明るい赤）
+  '#1E88E5',  // 青（見やすい明るい青）
+  '#43A047',  // 緑（見やすい明るい緑）
+  '#8E24AA',  // 紫（見やすい明るい紫）
+  '#757575'   // 灰色（見やすいミディアムグレー）
+];
+let goodsColorIndex = 0;
+
 function getColorFromTags(tags) {
   if (!tags || tags.length === 0) {
-    return '#CD5C5C'; // デフォルト色
+    return '#FF8C00'; // デフォルト色（見やすいオレンジ）
   }
   
-  // タグごとの色マッピング（優先度順）
-  const tagColorMap = {
-    '記念': '#dc143c',      // 深紅色
-    'リアイベ': '#daa520',  // ゴールド
-    'グッズ': '#FF4500'     // オレンジレッド
-  };
+  // リアイベタグが含まれている場合
+  if (tags.includes('リアイベ')) {
+    return '#FFB300'; // 見やすい金色系（明るいアンバーゴールド）
+  }
   
-  // 最初にマッチしたタグの色を返す
-  for (const tag of tags) {
-    if (tagColorMap[tag]) {
-      return tagColorMap[tag];
-    }
+  // グッズタグが含まれている場合
+  if (tags.includes('グッズ')) {
+    const color = goodsColors[goodsColorIndex];
+    goodsColorIndex = (goodsColorIndex + 1) % goodsColors.length;
+    return color;
+  }
+  
+  // 記念タグが含まれている場合
+  if (tags.includes('記念')) {
+    return '#DC143C'; // 深紅色
   }
   
   // マッチしない場合はデフォルト色
-  return '#CD5C5C';
+  return '#FF8C00'; // 見やすいオレンジ
 }
 
 // ============================================
