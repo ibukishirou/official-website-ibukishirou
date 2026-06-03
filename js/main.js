@@ -167,94 +167,85 @@ window.initAutoScroll = function initAutoScroll() {
     const returnDuration = 800;
 
     // ============================================
-    // ドラッグ操作用オーバーレイを作成
+    // ドラッグ＆スクロール操作
     // ============================================
-    // 既存のオーバーレイがあれば削除（二重初期化防止）
-    const existingOverlay = container.querySelector('.drag-overlay');
-    if (existingOverlay) existingOverlay.remove();
-
-    const overlay = document.createElement('div');
-    overlay.className = 'drag-overlay';
-    overlay.style.cssText = `
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      cursor: grab;
-    `;
-
-    container.style.position = 'relative';
-    container.appendChild(overlay);
+    container.style.cursor = 'grab';
+    container.style.userSelect = 'none';
 
     let isDragging = false;
     let dragStartX = 0;
     let dragStartScrollLeft = 0;
-    let dragDistance = 0;
 
-    overlay.addEventListener('mousedown', (e) => {
+    // マウスドラッグ（PC用）
+    container.addEventListener('mousedown', (e) => {
+      // リンクやボタンをクリックした場合はドラッグを開始しない
+      if (e.target.closest('a, button')) return;
+      
       isDragging = true;
       isPausedByUser = true;
-      dragStartX = e.clientX;
+      dragStartX = e.pageX - container.offsetLeft;
       dragStartScrollLeft = container.scrollLeft;
-      dragDistance = 0;
-      overlay.style.cursor = 'grabbing';
+      container.style.cursor = 'grabbing';
       e.preventDefault();
-      console.log('🟢 dragstart', dragStartX);
     });
 
-    window.addEventListener('mousemove', (e) => {
+    container.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
-      const delta = e.clientX - dragStartX;
-      dragDistance = Math.abs(delta);
-      container.scrollLeft = dragStartScrollLeft - delta;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - dragStartX) * 2; // スクロール速度調整（2倍速）
+      container.scrollLeft = dragStartScrollLeft - walk;
     });
 
-    window.addEventListener('mouseup', (e) => {
+    container.addEventListener('mouseup', () => {
       if (!isDragging) return;
-
       isDragging = false;
-      overlay.style.cursor = 'grab';
-
-      // ドラッグ距離が5px未満はクリックとみなす
-      if (dragDistance < 5) {
-        overlay.style.pointerEvents = 'none';
-        const el = document.elementFromPoint(e.clientX, e.clientY);
-        overlay.style.pointerEvents = '';
-
-        if (el) {
-          const link = el.closest('a');
-          if (link && link.href) {
-            window.open(link.href, link.target || '_blank');
-          }
-        }
-      }
-
+      container.style.cursor = 'grab';
+      // 1.5秒後に自動スクロール再開
       setTimeout(() => {
         isPausedByUser = false;
       }, 1500);
     });
 
-    // ホバー中は自動スクロール停止
-    overlay.addEventListener('mouseenter', () => {
-      if (!isDragging) isPausedByUser = true;
-    });
-    overlay.addEventListener('mouseleave', () => {
-      if (!isDragging) isPausedByUser = false;
+    container.addEventListener('mouseleave', () => {
       if (isDragging) {
         isDragging = false;
-        overlay.style.cursor = 'grab';
+        container.style.cursor = 'grab';
+        setTimeout(() => {
+          isPausedByUser = false;
+        }, 1500);
       }
     });
 
+    // ホバー中は自動スクロール一時停止
+    container.addEventListener('mouseenter', () => {
+      if (!isDragging) isPausedByUser = true;
+    });
+    
+    container.addEventListener('mouseleave', () => {
+      if (!isDragging) isPausedByUser = false;
+    });
+
     // タッチ操作（スマホ用）
-    container.addEventListener('touchstart', () => {
+    let touchStartX = 0;
+    let touchStartScrollLeft = 0;
+    
+    container.addEventListener('touchstart', (e) => {
       isPausedByUser = true;
+      touchStartX = e.touches[0].pageX;
+      touchStartScrollLeft = container.scrollLeft;
     }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+      const x = e.touches[0].pageX;
+      const walk = (touchStartX - x) * 2;
+      container.scrollLeft = touchStartScrollLeft + walk;
+    }, { passive: true });
+
     container.addEventListener('touchend', () => {
       setTimeout(() => { isPausedByUser = false; }, 1500);
     }, { passive: true });
+
     container.addEventListener('touchcancel', () => {
       isPausedByUser = false;
     }, { passive: true });

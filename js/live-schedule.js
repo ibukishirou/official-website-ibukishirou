@@ -88,6 +88,97 @@
     const container = document.getElementById('live-schedule-container');
     if (!container) return;
 
+    // PC: 画面幅が960pxより大きい場合は3日分表示
+    const isPc = window.innerWidth > 960;
+
+    if (isPc) {
+      renderThreeDayView(container);
+    } else {
+      renderSingleDayView(container);
+    }
+  }
+
+  /**
+   * PC用: 3日分表示（前日・当日・翌日）
+   */
+  function renderThreeDayView(container) {
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const yesterdayKey = formatDateKey(yesterday);
+    const todayKey = formatDateKey(today);
+    const tomorrowKey = formatDateKey(tomorrow);
+
+    const yesterdayStream = allStreams.find(stream => {
+      const streamDate = new Date(stream.scheduledStartTime);
+      return formatDateKey(streamDate) === yesterdayKey;
+    });
+
+    const todayStream = allStreams.find(stream => {
+      const streamDate = new Date(stream.scheduledStartTime);
+      return formatDateKey(streamDate) === todayKey;
+    });
+
+    const tomorrowStream = allStreams.find(stream => {
+      const streamDate = new Date(stream.scheduledStartTime);
+      return formatDateKey(streamDate) === tomorrowKey;
+    });
+
+    const html = `
+      <div class="three-day-schedule fade-in">
+        <!-- 前日（小） -->
+        <div class="day-schedule day-schedule-small">
+          <div class="schedule-wrapper">
+            <div class="schedule-header">
+              <div class="schedule-date">${formatDateHeader(yesterday)}</div>
+            </div>
+            <div class="schedule-content">
+              ${yesterdayStream ? renderStreamContent(yesterdayStream) : renderNoStreamContent()}
+            </div>
+          </div>
+        </div>
+
+        <!-- 当日（大） -->
+        <div class="day-schedule day-schedule-large">
+          <div class="schedule-wrapper">
+            <div class="schedule-header">
+              <div class="schedule-date">${formatDateHeader(today)}</div>
+            </div>
+            <div class="schedule-content">
+              ${todayStream ? renderStreamContent(todayStream) : renderNoStreamContent()}
+            </div>
+          </div>
+        </div>
+
+        <!-- 翌日（小） -->
+        <div class="day-schedule day-schedule-small">
+          <div class="schedule-wrapper">
+            <div class="schedule-header">
+              <div class="schedule-date">${formatDateHeader(tomorrow)}</div>
+            </div>
+            <div class="schedule-content">
+              ${tomorrowStream ? renderStreamContent(tomorrowStream) : renderNoStreamContent()}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
+
+    // フェードインアニメーションを発火
+    setTimeout(() => {
+      const schedule = container.querySelector('.three-day-schedule');
+      if (schedule) schedule.classList.add('show');
+    }, 50);
+  }
+
+  /**
+   * モバイル用: 1日分表示 + ナビゲーション
+   */
+  function renderSingleDayView(container) {
     const dateKey = formatDateKey(currentDate);
     const dateHeader = formatDateHeader(currentDate);
     const offset = getCurrentOffset();
@@ -103,25 +194,25 @@
     });
 
     const html = `
-      <div class="calendar-wrapper fade-in">
+      <div class="schedule-wrapper fade-in">
         <!-- ナビゲーション＋日付＋配信情報 -->
-        <div class="calendar-header">
+        <div class="schedule-header">
           ${showPrev ? `
-            <button class="calendar-nav-arrow prev" aria-label="前日">
+            <button class="schedule-nav-arrow prev" aria-label="前日">
               <i class="ri-arrow-left-s-line"></i>
             </button>
-          ` : '<div class="calendar-nav-placeholder"></div>'}
+          ` : '<div class="schedule-nav-placeholder"></div>'}
           
-          <div class="calendar-date">${dateHeader}</div>
+          <div class="schedule-date">${dateHeader}</div>
           
           ${showNext ? `
-            <button class="calendar-nav-arrow next" aria-label="翌日">
+            <button class="schedule-nav-arrow next" aria-label="翌日">
               <i class="ri-arrow-right-s-line"></i>
             </button>
-          ` : '<div class="calendar-nav-placeholder"></div>'}
+          ` : '<div class="schedule-nav-placeholder"></div>'}
         </div>
         
-        <div class="calendar-content">
+        <div class="schedule-content">
           ${streamOfDay ? renderStreamContent(streamOfDay) : renderNoStreamContent()}
         </div>
       </div>
@@ -134,8 +225,8 @@
 
     // フェードインアニメーションを発火
     setTimeout(() => {
-      const calendar = container.querySelector('.calendar-wrapper');
-      if (calendar) calendar.classList.add('show');
+      const schedule = container.querySelector('.schedule-wrapper');
+      if (schedule) schedule.classList.add('show');
     }, 50);
   }
 
@@ -174,7 +265,7 @@
   function renderNoStreamContent() {
     return `
       <div class="no-stream">
-        <i class="ri-calendar-close-line"></i>
+        <i class="ri-schedule-close-line"></i>
         <p>配信お休み</p>
       </div>
     `;
@@ -184,8 +275,8 @@
    * イベントリスナーを設定
    */
   function setupEventListeners() {
-    const prevBtn = document.querySelector('.calendar-nav-arrow.prev');
-    const nextBtn = document.querySelector('.calendar-nav-arrow.next');
+    const prevBtn = document.querySelector('.schedule-nav-arrow.prev');
+    const nextBtn = document.querySelector('.schedule-nav-arrow.next');
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
@@ -232,6 +323,15 @@
       renderCalendar();
     }
   }
+
+  // ウィンドウリサイズ時に再描画
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderCalendar();
+    }, 250);
+  });
 
   // DOMContentLoaded後に実行
   if (document.readyState === 'loading') {

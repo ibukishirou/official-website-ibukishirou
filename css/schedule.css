@@ -2,7 +2,7 @@
    イベントカレンダー - 専用CSS
    ============================================ */
 
-#calendar-section {
+#schedule-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
@@ -29,7 +29,7 @@
    フィルター
    ============================================ */
 
-.calendar-filter {
+.schedule-filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +76,7 @@
    カレンダーナビゲーション
    ============================================ */
 
-.calendar-nav {
+.schedule-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -134,7 +134,7 @@
    カレンダーグリッド
    ============================================ */
 
-.calendar-container {
+.schedule-container {
   background-color: var(--color-dark);
   border: 1px solid var(--color-border);
   border-radius: 12px;
@@ -144,17 +144,17 @@
 }
 
 /* スワイプアニメーション */
-.calendar-container.swipe-left {
+.schedule-container.swipe-left {
   transform: translateX(-30px);
   opacity: 0.7;
 }
 
-.calendar-container.swipe-right {
+.schedule-container.swipe-right {
   transform: translateX(30px);
   opacity: 0.7;
 }
 
-.calendar-grid {
+.schedule-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(120px, 1fr));
   gap: 0;
@@ -162,7 +162,7 @@
 }
 
 /* 曜日ヘッダー */
-.calendar-weekday {
+.schedule-weekday {
   text-align: center;
   font-weight: 600;
   font-size: 0.95rem;
@@ -172,16 +172,16 @@
   font-family: var(--font-secondary);
 }
 
-.calendar-weekday.sunday {
+.schedule-weekday.sunday {
   color: var(--color-accent);
 }
 
-.calendar-weekday.saturday {
+.schedule-weekday.saturday {
   color: #5C9FD6;
 }
 
 /* 日付セル */
-.calendar-day {
+.schedule-day {
   min-height: 120px;
   padding: 0.5rem;
   border: 1px solid var(--color-border);
@@ -190,15 +190,15 @@
   transition: var(--transition);
 }
 
-.calendar-day:hover {
+.schedule-day:hover {
   background-color: rgba(139, 0, 0, 0.1);
 }
 
-.calendar-day.other-month {
+.schedule-day.other-month {
   opacity: 0.3;
 }
 
-.calendar-day.today {
+.schedule-day.today {
   background-color: rgba(139, 0, 0, 0.15);
   border: 2px solid var(--color-primary);
 }
@@ -211,15 +211,15 @@
   font-family: var(--font-secondary);
 }
 
-.calendar-day.sunday .day-number {
+.schedule-day.sunday .day-number {
   color: var(--color-accent);
 }
 
-.calendar-day.saturday .day-number {
+.schedule-day.saturday .day-number {
   color: #5C9FD6;
 }
 
-.calendar-day.other-month .day-number {
+.schedule-day.other-month .day-number {
   color: var(--color-text-secondary);
 }
 
@@ -450,20 +450,20 @@
 
 /* 960px～1090pxの範囲でカレンダーの幅を調整 */
 @media (min-width: 961px) and (max-width: 1090px) {
-  .calendar-container {
+  .schedule-container {
     padding: 1rem;
   }
 
-  .calendar-grid {
+  .schedule-grid {
     grid-template-columns: repeat(7, minmax(100px, 1fr));
   }
 
-  .calendar-weekday {
+  .schedule-weekday {
     font-size: 0.85rem;
     padding: 0.8rem 0.3rem;
   }
 
-  .calendar-day {
+  .schedule-day {
     min-height: 100px;
     padding: 0.4rem;
   }
@@ -492,7 +492,7 @@
 }
 
 @media (max-width: 960px) {
-  #calendar-section {
+  #schedule-section {
     padding: 1.5rem 0.25rem;
   }
 
@@ -501,7 +501,7 @@
     margin-bottom: 0.8rem;
   }
 
-  .calendar-filter {
+  .schedule-filter {
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
@@ -515,7 +515,7 @@
     font-size: 1.1rem;
   }
 
-  .calendar-container {
+  .schedule-container {
     padding: 0.25rem;
     overflow-x: hidden;
     overflow-y: visible;
@@ -523,18 +523,18 @@
     width: 100%;
   }
 
-  .calendar-grid {
+  .schedule-grid {
     min-width: unset;
     width: 100%;
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
-  .calendar-weekday {
+  .schedule-weekday {
     font-size: 0.7rem;
     padding: 0.4rem 0.1rem;
   }
 
-  .calendar-day {
+  .schedule-day {
     min-height: 80px;
     padding: 0.2rem;
     overflow: hidden;
@@ -608,7 +608,7 @@
 }
 
 @media (max-width: 480px) {
-  #calendar-section {
+  #schedule-section {
     padding: 1rem 0.15rem;
   }
 
@@ -617,7 +617,7 @@
     margin-bottom: 0.5rem;
   }
 
-  .calendar-filter {
+  .schedule-filter {
     margin-bottom: 1rem;
   }
 
@@ -625,7 +625,7 @@
     font-size: 0.85rem;
   }
 
-  .calendar-nav {
+  .schedule-nav {
     margin-bottom: 1rem;
     padding: 0 0.25rem;
   }
@@ -639,26 +639,26 @@
     font-size: 1rem;
   }
 
-  .calendar-container {
+  .schedule-container {
     padding: 0.2rem;
     border-radius: 6px;
     overflow-x: hidden;
     width: 100%;
   }
 
-  .calendar-grid {
+  .schedule-grid {
     min-width: unset;
     width: 100%;
     gap: 1px;
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
-  .calendar-weekday {
+  .schedule-weekday {
     font-size: 0.65rem;
     padding: 0.3rem 0.05rem;
   }
 
-  .calendar-day {
+  .schedule-day {
     min-height: 75px;
     padding: 0.15rem;
     overflow: hidden;
