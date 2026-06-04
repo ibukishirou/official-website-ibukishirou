@@ -88,6 +88,14 @@
     const container = document.getElementById('live-schedule-container');
     if (!container) return;
 
+    // PC・モバイル共に単一日表示
+    renderSingleDayView(container);
+  }
+
+  /**
+   * 単一日表示 + ナビゲーション
+   */
+  function renderSingleDayView(container) {
     const dateKey = formatDateKey(currentDate);
     const dateHeader = formatDateHeader(currentDate);
     const offset = getCurrentOffset();
@@ -103,25 +111,25 @@
     });
 
     const html = `
-      <div class="calendar-wrapper fade-in">
+      <div class="schedule-wrapper fade-in">
         <!-- ナビゲーション＋日付＋配信情報 -->
-        <div class="calendar-header">
+        <div class="schedule-header">
           ${showPrev ? `
-            <button class="calendar-nav-arrow prev" aria-label="前日">
+            <button class="schedule-nav-arrow prev" aria-label="前日">
               <i class="ri-arrow-left-s-line"></i>
             </button>
-          ` : '<div class="calendar-nav-placeholder"></div>'}
+          ` : '<div class="schedule-nav-placeholder"></div>'}
           
-          <div class="calendar-date">${dateHeader}</div>
+          <div class="schedule-date">${dateHeader}</div>
           
           ${showNext ? `
-            <button class="calendar-nav-arrow next" aria-label="翌日">
+            <button class="schedule-nav-arrow next" aria-label="翌日">
               <i class="ri-arrow-right-s-line"></i>
             </button>
-          ` : '<div class="calendar-nav-placeholder"></div>'}
+          ` : '<div class="schedule-nav-placeholder"></div>'}
         </div>
         
-        <div class="calendar-content">
+        <div class="schedule-content">
           ${streamOfDay ? renderStreamContent(streamOfDay) : renderNoStreamContent()}
         </div>
       </div>
@@ -134,8 +142,8 @@
 
     // フェードインアニメーションを発火
     setTimeout(() => {
-      const calendar = container.querySelector('.calendar-wrapper');
-      if (calendar) calendar.classList.add('show');
+      const schedule = container.querySelector('.schedule-wrapper');
+      if (schedule) schedule.classList.add('show');
     }, 50);
   }
 
@@ -174,7 +182,7 @@
   function renderNoStreamContent() {
     return `
       <div class="no-stream">
-        <i class="ri-calendar-close-line"></i>
+        <i class="ri-schedule-close-line"></i>
         <p>配信お休み</p>
       </div>
     `;
@@ -184,8 +192,8 @@
    * イベントリスナーを設定
    */
   function setupEventListeners() {
-    const prevBtn = document.querySelector('.calendar-nav-arrow.prev');
-    const nextBtn = document.querySelector('.calendar-nav-arrow.next');
+    const prevBtn = document.querySelector('.schedule-nav-arrow.prev');
+    const nextBtn = document.querySelector('.schedule-nav-arrow.next');
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
@@ -232,6 +240,15 @@
       renderCalendar();
     }
   }
+
+  // ウィンドウリサイズ時に再描画
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderCalendar();
+    }, 250);
+  });
 
   // DOMContentLoaded後に実行
   if (document.readyState === 'loading') {
