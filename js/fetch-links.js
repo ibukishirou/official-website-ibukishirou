@@ -19,7 +19,7 @@ function displaySNSLinks(links) {
   const snsConfig = [
     { key: 'youtube', name: 'YouTube', icon: 'ri-youtube-line' },
     { key: 'wick', name: 'Wick', icon: 'ri-terminal-window-line', customText: 'W' },
-    { key: 'x_main', name: 'X (Main)', icon: 'ri-twitter-x-line' },
+    { key: 'x_main', name: 'X', icon: 'ri-twitter-x-line' },
     { key: 'tiktok', name: 'TikTok', icon: 'ri-tiktok-line' },
     { key: 'instagram', name: 'Instagram', icon: 'ri-instagram-line' },
     { key: 'marshmallow', name: 'マシュマロ', icon: 'ri-mail-line' },
