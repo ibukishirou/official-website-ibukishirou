@@ -1,21 +1,57 @@
 [
   {
+    "name": "おでかけコンプリートセット",
+    "thumbnail": "assets/goods/20260624_01_fullset.webp",
+    "link": "https://ibukishirou.booth.pm/items/8534502",
+    "available": true
+  },
+  {
+    "name": "ミニアクリルスタンド",
+    "thumbnail": "assets/goods/20260624_05_stand.webp",
+    "link": "https://ibukishirou.booth.pm/items/8534369",
+    "available": true
+  },
+  {
+    "name": "アクリルロゴキーホルダー",
+    "thumbnail": "assets/goods/20260624_03_key.webp",
+    "link": "https://ibukishirou.booth.pm/items/8534440",
+    "available": true
+  },
+  {
+    "name": "SNS風クリアカード",
+    "thumbnail": "assets/goods/20260624_02_card.webp",
+    "link": "https://ibukishirou.booth.pm/items/8534479",
+    "available": true
+  },
+  {
+    "name": "トートバッグ",
+    "thumbnail": "assets/goods/20260624_04_bag.webp",
+    "link": "https://ibukishirou.booth.pm/items/8534495",
+    "available": true
+  },
+  {
     "name": "缶バッチ vol.2 全6種",
     "thumbnail": "assets/goods/20260201_kanba.webp",
     "link": "https://ibukishirou.booth.pm/items/7896055",
-    "available": true
+    "available": false
+  },
+  {
+    "name": "デビュー記念フルセット",
+    "thumbnail": "assets/goods/20250922_set.webp",
+    "link": "https://ibukishirou.booth.pm/items/7618604",
+    "available": false
   },
   {
     "name": "アクリルスタンド",
     "thumbnail": "assets/goods/20251118_akusuta.webp",
     "link": "https://ibukishirou.booth.pm/items/7625265",
-    "available": true
+    "available": false
   },
   {
     "name": "アクリルキーホルダー",
     "thumbnail": "assets/goods/20251118_akuki.webp",
     "link": "https://ibukishirou.booth.pm/items/7625274",
-    "available": true
+    "available": false
   },
   {
     "name": "ステッカー10枚セット",
@@ -33,12 +69,6 @@
     "name": "缶バッチ vol.1",
     "thumbnail": "assets/goods/20251118_kanbatti.webp",
     "link": "https://ibukishirou.booth.pm/items/7625284",
-    "available": false
-  },
-  {
-    "name": "デビュー記念フルセット",
-    "thumbnail": "assets/goods/20250922_set.webp",
-    "link": "https://ibukishirou.booth.pm/items/7618604",
     "available": false
   }
 ]
