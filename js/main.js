@@ -308,6 +308,7 @@ window.initAutoScroll = function initAutoScroll() {
     // ============================================
     let longPressTimer = null;
     let currentLongPressItem = null;
+    let isLongPressing = false; // 長押し中フラグ
 
     // PC: マウス長押し
     container.addEventListener('mousedown', (e) => {
@@ -320,7 +321,10 @@ window.initAutoScroll = function initAutoScroll() {
         }
         item.classList.add('long-press-active');
         currentLongPressItem = item;
+        isLongPressing = true;
+        isPausedByUser = true; // 自動スクロール停止
         console.log('🔍 Long press activated (PC):', item.dataset.title);
+        console.log('⏸️ Auto-scroll paused by long press');
       }, 500);
     });
 
@@ -333,6 +337,11 @@ window.initAutoScroll = function initAutoScroll() {
         currentLongPressItem.classList.remove('long-press-active');
         currentLongPressItem = null;
       }
+      if (isLongPressing) {
+        isLongPressing = false;
+        isPausedByUser = false; // 自動スクロール再開
+        console.log('▶️ Auto-scroll resumed after long press');
+      }
     });
 
     container.addEventListener('mouseleave', () => {
@@ -343,6 +352,11 @@ window.initAutoScroll = function initAutoScroll() {
       if (currentLongPressItem) {
         currentLongPressItem.classList.remove('long-press-active');
         currentLongPressItem = null;
+      }
+      if (isLongPressing) {
+        isLongPressing = false;
+        isPausedByUser = false; // 自動スクロール再開
+        console.log('▶️ Auto-scroll resumed after long press (mouse leave)');
       }
     });
 
@@ -357,7 +371,10 @@ window.initAutoScroll = function initAutoScroll() {
         }
         item.classList.add('long-press-active');
         currentLongPressItem = item;
+        isLongPressing = true;
+        isPausedByUser = true; // 自動スクロール停止
         console.log('🔍 Long press activated (SP):', item.dataset.title);
+        console.log('⏸️ Auto-scroll paused by long press');
       }, 500);
     }, { passive: true });
 
@@ -370,6 +387,11 @@ window.initAutoScroll = function initAutoScroll() {
         currentLongPressItem.classList.remove('long-press-active');
         currentLongPressItem = null;
       }
+      if (isLongPressing) {
+        isLongPressing = false;
+        isPausedByUser = false; // 自動スクロール再開
+        console.log('▶️ Auto-scroll resumed after long press');
+      }
     }, { passive: true });
 
     container.addEventListener('touchcancel', () => {
@@ -380,6 +402,11 @@ window.initAutoScroll = function initAutoScroll() {
       if (currentLongPressItem) {
         currentLongPressItem.classList.remove('long-press-active');
         currentLongPressItem = null;
+      }
+      if (isLongPressing) {
+        isLongPressing = false;
+        isPausedByUser = false; // 自動スクロール再開
+        console.log('▶️ Auto-scroll resumed after long press (touch cancel)');
       }
     }, { passive: true });
 
