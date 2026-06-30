@@ -150,64 +150,77 @@ window.initAutoScroll = function initAutoScroll() {
     return;
   }
 
+  console.log('🚀 initAutoScroll called');
+
+  // 少し待ってから初期化（画像読み込み完了を確実にする）
   setTimeout(() => {
+    console.log('📊 Container scroll info:', {
+      scrollWidth: container.scrollWidth,
+      clientWidth: container.clientWidth,
+      hasScroll: container.scrollWidth > container.clientWidth
+    });
+
     if (container.scrollWidth <= container.clientWidth) {
-      console.warn('⚠️  No scrollable content. Retrying in 500ms...');
+      console.warn('⚠️  No scrollable content yet. Retrying in 500ms...');
       setTimeout(() => initAutoScroll(), 500);
       return;
     }
 
-    console.log('✅ Starting auto-scroll');
+    console.log('✅ Starting auto-scroll initialization');
 
+    // スクロール状態管理
     let isPausedByUser = false;
-    let isWaitingAtEnd = false;
     let isReturningToStart = false;
-    const scrollSpeed = 0.5;
-    const pauseDuration = 3000;
-    const returnDuration = 800;
+    let animationFrameId = null;
+    
+    // スクロール設定
+    const scrollSpeed = 0.5; // ピクセル/フレーム
+    const returnAnimationDuration = 800; // ミリ秒
 
     // ============================================
-    // ドラッグ＆スクロール操作
+    // PCドラッグ操作
     // ============================================
-    container.style.cursor = 'grab';
-    container.style.userSelect = 'none';
-
     let isDragging = false;
-    let dragStartX = 0;
-    let dragStartScrollLeft = 0;
+    let startX = 0;
+    let scrollLeft = 0;
 
-    // マウスドラッグ（PC用）
-    container.addEventListener('mousedown', (e) => {
-      // リンクやボタンをクリックした場合はドラッグを開始しない
-      if (e.target.closest('a, button')) return;
+    container.style.cursor = 'grab';
+
+    const handleMouseDown = (e) => {
+      // リンクをクリックした場合はドラッグしない
+      if (e.target.closest('a')) return;
       
       isDragging = true;
       isPausedByUser = true;
-      dragStartX = e.pageX - container.offsetLeft;
-      dragStartScrollLeft = container.scrollLeft;
       container.style.cursor = 'grabbing';
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
       e.preventDefault();
-    });
+      console.log('🖱️ Drag started');
+    };
 
-    container.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e) => {
       if (!isDragging) return;
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
-      const walk = (x - dragStartX) * 2; // スクロール速度調整（2倍速）
-      container.scrollLeft = dragStartScrollLeft - walk;
-    });
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    };
 
-    container.addEventListener('mouseup', () => {
+    const handleMouseUp = () => {
       if (!isDragging) return;
       isDragging = false;
       container.style.cursor = 'grab';
+      console.log('🖱️ Drag ended, resuming in 1.5s');
+      
       // 1.5秒後に自動スクロール再開
       setTimeout(() => {
         isPausedByUser = false;
+        console.log('▶️ Auto-scroll resumed');
       }, 1500);
-    });
+    };
 
-    container.addEventListener('mouseleave', () => {
+    const handleMouseLeave = () => {
       if (isDragging) {
         isDragging = false;
         container.style.cursor = 'grab';
@@ -215,71 +228,62 @@ window.initAutoScroll = function initAutoScroll() {
           isPausedByUser = false;
         }, 1500);
       }
-    });
+    };
 
-    // ホバー中は自動スクロール一時停止
-    container.addEventListener('mouseenter', () => {
-      if (!isDragging) isPausedByUser = true;
-    });
-    
-    container.addEventListener('mouseleave', () => {
-      if (!isDragging) isPausedByUser = false;
-    });
-
-    // タッチ操作（スマホ用）
-    let touchStartX = 0;
-    let touchStartScrollLeft = 0;
-    
-    container.addEventListener('touchstart', (e) => {
-      isPausedByUser = true;
-      touchStartX = e.touches[0].pageX;
-      touchStartScrollLeft = container.scrollLeft;
-    }, { passive: true });
-
-    container.addEventListener('touchmove', (e) => {
-      const x = e.touches[0].pageX;
-      const walk = (touchStartX - x) * 2;
-      container.scrollLeft = touchStartScrollLeft + walk;
-    }, { passive: true });
-
-    container.addEventListener('touchend', () => {
-      setTimeout(() => { isPausedByUser = false; }, 1500);
-    }, { passive: true });
-
-    container.addEventListener('touchcancel', () => {
-      isPausedByUser = false;
-    }, { passive: true });
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mouseleave', handleMouseLeave);
 
     // ============================================
-    // 自動スクロール
+    // SPタッチ操作（ネイティブスクロール使用）
     // ============================================
-    function scroll() {
-      if (!isPausedByUser && !isWaitingAtEnd && !isReturningToStart) {
-        const maxScrollLeft = container.scrollWidth - container.clientWidth;
-        container.scrollLeft += scrollSpeed;
+    // タッチスクロールは一時停止不要（ページ遷移と競合するため）
+    // ネイティブの横スクロールをそのまま使用
 
-        if (container.scrollLeft >= maxScrollLeft - 1) {
-          isWaitingAtEnd = true;
+    // ============================================
+    // 自動スクロールループ
+    // ============================================
+    function autoScrollLoop() {
+      if (!isPausedByUser && !isReturningToStart) {
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const currentScroll = container.scrollLeft;
 
+        // 終端に到達したか確認
+        if (currentScroll >= maxScroll - 1) {
+          console.log('🔄 Reached end, returning to start');
+          isReturningToStart = true;
+
+          // smoothアニメーションで先頭に戻る
+          container.style.scrollBehavior = 'smooth';
+          container.scrollLeft = 0;
+
+          // アニメーション完了後にフラグをリセット
           setTimeout(() => {
-            isWaitingAtEnd = false;
-            isReturningToStart = true;
-
-            container.style.scrollBehavior = 'smooth';
-            container.scrollLeft = 0;
-
-            setTimeout(() => {
-              container.style.scrollBehavior = 'auto';
-              isReturningToStart = false;
-            }, returnDuration);
-
-          }, pauseDuration);
+            container.style.scrollBehavior = 'auto';
+            isReturningToStart = false;
+            console.log('✅ Returned to start');
+          }, returnAnimationDuration);
+        } else {
+          // 通常の自動スクロール
+          container.scrollLeft += scrollSpeed;
         }
       }
 
-      requestAnimationFrame(scroll);
+      animationFrameId = requestAnimationFrame(autoScrollLoop);
     }
 
-    requestAnimationFrame(scroll);
-  }, 100);
+    // 自動スクロール開始
+    console.log('▶️ Starting auto-scroll loop');
+    autoScrollLoop();
+
+    // クリーンアップ用（必要に応じて）
+    window.stopAutoScroll = () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        console.log('⏹️ Auto-scroll stopped');
+      }
+    };
+
+  }, 200);
 };

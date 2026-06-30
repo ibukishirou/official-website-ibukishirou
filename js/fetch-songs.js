@@ -72,8 +72,13 @@
       }, 50);
       
       // 自動スクロール開始
+      console.log('[renderSongs] initAutoScroll 呼び出し前チェック');
+      console.log('[renderSongs] typeof window.initAutoScroll:', typeof window.initAutoScroll);
       if (typeof window.initAutoScroll === 'function') {
+        console.log('[renderSongs] ✅ initAutoScroll を呼び出します');
         window.initAutoScroll();
+      } else {
+        console.error('[renderSongs] ❌ window.initAutoScroll が関数ではありません');
       }
     });
   }
