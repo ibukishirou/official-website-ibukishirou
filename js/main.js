@@ -299,6 +299,86 @@ window.initAutoScroll = function initAutoScroll() {
       }
     };
 
+    // ============================================
+    // 長押し検知（カード拡大＋曲名表示）
+    // ============================================
+    let longPressTimer = null;
+    let currentLongPressItem = null;
+
+    // PC: マウス長押し
+    container.addEventListener('mousedown', (e) => {
+      const item = e.target.closest('.featured-work-item');
+      if (!item) return;
+
+      longPressTimer = setTimeout(() => {
+        if (currentLongPressItem) {
+          currentLongPressItem.classList.remove('long-press-active');
+        }
+        item.classList.add('long-press-active');
+        currentLongPressItem = item;
+        console.log('🔍 Long press activated (PC):', item.dataset.title);
+      }, 500);
+    });
+
+    container.addEventListener('mouseup', () => {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      if (currentLongPressItem) {
+        currentLongPressItem.classList.remove('long-press-active');
+        currentLongPressItem = null;
+      }
+    });
+
+    container.addEventListener('mouseleave', () => {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      if (currentLongPressItem) {
+        currentLongPressItem.classList.remove('long-press-active');
+        currentLongPressItem = null;
+      }
+    });
+
+    // SP: タッチ長押し
+    container.addEventListener('touchstart', (e) => {
+      const item = e.target.closest('.featured-work-item');
+      if (!item) return;
+
+      longPressTimer = setTimeout(() => {
+        if (currentLongPressItem) {
+          currentLongPressItem.classList.remove('long-press-active');
+        }
+        item.classList.add('long-press-active');
+        currentLongPressItem = item;
+        console.log('🔍 Long press activated (SP):', item.dataset.title);
+      }, 500);
+    }, { passive: true });
+
+    container.addEventListener('touchend', () => {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      if (currentLongPressItem) {
+        currentLongPressItem.classList.remove('long-press-active');
+        currentLongPressItem = null;
+      }
+    }, { passive: true });
+
+    container.addEventListener('touchcancel', () => {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      if (currentLongPressItem) {
+        currentLongPressItem.classList.remove('long-press-active');
+        currentLongPressItem = null;
+      }
+    }, { passive: true });
+
   }, 200);
 };
 

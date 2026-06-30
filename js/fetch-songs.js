@@ -58,13 +58,11 @@
       const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
       
       return `
-        <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer">
+        <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer" data-title="${video.title}">
           <div class="thumbnail-link">
             <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="eager">
           </div>
-          <div class="card-content">
-            <h3 class="card-title">${video.title}</h3>
-          </div>
+          <div class="card-title-overlay">${video.title}</div>
         </a>
       `;
     }).join('');
