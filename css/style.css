@@ -443,15 +443,16 @@ section {
   -webkit-user-select: none;
 }
 
+/* カード内の要素のドラッグを無効化（選択を防ぐ） */
 #featured-works .card-grid * {
   user-select: none;
   -webkit-user-select: none;
-  -webkit-user-drag: none;  /* 画像や要素のドラッグを無効化 */
-  pointer-events: none;     /* 子要素のイベントを無効化 */
+  -webkit-user-drag: none;
 }
 
-/* カード自体はクリックできるようにする */
-#featured-works .card-grid .featured-work-item {
+/* すべての要素でクリック・ドラッグ可能にする */
+#featured-works .card-grid,
+#featured-works .card-grid * {
   pointer-events: auto;
 }
 

@@ -183,22 +183,20 @@ window.initAutoScroll = function initAutoScroll() {
     // PCドラッグ操作
     // ============================================
     let isDragging = false;
+    let hasMoved = false; // ドラッグで実際に移動したか
     let startX = 0;
     let scrollLeft = 0;
 
     container.style.cursor = 'grab';
 
     const handleMouseDown = (e) => {
-      // リンクをクリックした場合はドラッグしない
-      if (e.target.closest('a')) return;
-      
       isDragging = true;
+      hasMoved = false;
       isPausedByUser = true;
       container.style.cursor = 'grabbing';
       startX = e.pageX - container.offsetLeft;
       scrollLeft = container.scrollLeft;
-      e.preventDefault();
-      console.log('🖱️ Drag started');
+      console.log('🖱️ Mouse down');
     };
 
     const handleMouseMove = (e) => {
@@ -206,20 +204,34 @@ window.initAutoScroll = function initAutoScroll() {
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
       const walk = (x - startX) * 2;
-      container.scrollLeft = scrollLeft - walk;
+      
+      // 5px以上移動したらドラッグと判定
+      if (Math.abs(walk) > 5) {
+        hasMoved = true;
+        container.scrollLeft = scrollLeft - walk;
+      }
     };
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e) => {
       if (!isDragging) return;
       isDragging = false;
       container.style.cursor = 'grab';
-      console.log('🖱️ Drag ended, resuming in 1.5s');
       
-      // 1.5秒後に自動スクロール再開
-      setTimeout(() => {
+      // ドラッグで移動していない場合はクリックとして扱う（リンク遷移を許可）
+      if (hasMoved) {
+        console.log('🖱️ Drag ended, resuming in 1.5s');
+        e.preventDefault(); // リンク遷移を防ぐ
+        
+        // 1.5秒後に自動スクロール再開
+        setTimeout(() => {
+          isPausedByUser = false;
+          console.log('▶️ Auto-scroll resumed');
+        }, 1500);
+      } else {
+        console.log('🖱️ Click detected (no drag movement)');
+        // クリックの場合は即座に自動スクロール再開
         isPausedByUser = false;
-        console.log('▶️ Auto-scroll resumed');
-      }, 1500);
+      }
     };
 
     const handleMouseLeave = () => {

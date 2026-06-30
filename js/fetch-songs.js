@@ -42,13 +42,25 @@
     const reversedVideos = [...filteredVideos].reverse();
     console.log('[renderSongs] 逆順ソート完了, reversedVideos.length:', reversedVideos.length);
 
+    // サムネイル画像を事前読み込み（優先度高）
+    console.log('[renderSongs] サムネイル画像を事前読み込み開始');
+    reversedVideos.forEach((video, index) => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = video.thumbnail;
+      link.fetchpriority = index < 3 ? 'high' : 'low'; // 最初の3枚は高優先度
+      document.head.appendChild(link);
+    });
+    console.log('[renderSongs] サムネイル画像を事前読み込み完了');
+
     container.innerHTML = reversedVideos.map((video, index) => {
       const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
       
       return `
         <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer">
           <div class="thumbnail-link">
-            <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="lazy">
+            <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="eager">
           </div>
           <div class="card-content">
             <h3 class="card-title">${video.title}</h3>
@@ -121,11 +133,11 @@
           console.log(`[waitForImagesToLoad] 画像 ${index} 読み込みエラー（続行）`);
           resolve();
         };
-        // タイムアウト保険（5秒）
+        // タイムアウト保険（2秒）- 事前読み込みで高速化されるため短縮
         setTimeout(() => {
           console.log(`[waitForImagesToLoad] 画像 ${index} タイムアウト（続行）`);
           resolve();
-        }, 5000);
+        }, 2000);
       });
     });
     return Promise.all(promises);
