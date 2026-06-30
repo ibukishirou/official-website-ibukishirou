@@ -265,19 +265,23 @@ window.initAutoScroll = function initAutoScroll() {
 
         // 終端に到達したか確認
         if (currentScroll >= maxScroll - 1) {
-          console.log('🔄 Reached end, returning to start');
+          console.log('⏸️ Reached end, waiting 5 seconds...');
           isReturningToStart = true;
 
-          // smoothアニメーションで先頭に戻る
-          container.style.scrollBehavior = 'smooth';
-          container.scrollLeft = 0;
-
-          // アニメーション完了後にフラグをリセット
+          // 5秒待機してから先頭に戻る
           setTimeout(() => {
-            container.style.scrollBehavior = 'auto';
-            isReturningToStart = false;
-            console.log('✅ Returned to start');
-          }, returnAnimationDuration);
+            console.log('🔄 Returning to start');
+            // smoothアニメーションで先頭に戻る
+            container.style.scrollBehavior = 'smooth';
+            container.scrollLeft = 0;
+
+            // アニメーション完了後にフラグをリセット
+            setTimeout(() => {
+              container.style.scrollBehavior = 'auto';
+              isReturningToStart = false;
+              console.log('✅ Returned to start, resuming auto-scroll');
+            }, returnAnimationDuration);
+          }, 5000); // 5秒待機
         } else {
           // 通常の自動スクロール
           container.scrollLeft += scrollSpeed;

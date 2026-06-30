@@ -461,8 +461,8 @@ section {
 }
 
 #featured-works .featured-work-item {
-  flex: 0 0 350px;
-  min-width: 350px;
+  flex: 0 0 450px;
+  min-width: 450px;
   position: relative;
   transition: transform 0.3s ease, z-index 0s 0s;
   z-index: 1;
@@ -504,8 +504,8 @@ section {
 
 @media (max-width: 960px) {
   #featured-works .featured-work-item {
-    flex: 0 0 280px;
-    min-width: 280px;
+    flex: 0 0 320px;
+    min-width: 320px;
   }
   
   .card-title-overlay {
