@@ -2,6 +2,8 @@
 // VTuber 伊吹しろう 公式サイト - メインJS
 // ============================================
 
+console.log('[main.js] スクリプト読み込み開始');
+
 // ハンバーガーメニュー
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.querySelector('.hamburger');
@@ -287,3 +289,5 @@ window.initAutoScroll = function initAutoScroll() {
 
   }, 200);
 };
+
+console.log('[main.js] window.initAutoScroll 定義完了, typeof:', typeof window.initAutoScroll);
