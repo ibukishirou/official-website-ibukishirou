@@ -42,17 +42,27 @@
     const reversedVideos = [...filteredVideos].reverse();
     console.log('[renderSongs] 逆順ソート完了, reversedVideos.length:', reversedVideos.length);
 
+    // サムネイル画像を事前読み込み（優先度高）
+    console.log('[renderSongs] サムネイル画像を事前読み込み開始');
+    reversedVideos.forEach((video, index) => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = video.thumbnail;
+      link.fetchpriority = index < 3 ? 'high' : 'low'; // 最初の3枚は高優先度
+      document.head.appendChild(link);
+    });
+    console.log('[renderSongs] サムネイル画像を事前読み込み完了');
+
     container.innerHTML = reversedVideos.map((video, index) => {
       const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
       
       return `
-        <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer">
+        <a href="${videoUrl}" target="_blank" class="featured-work-item fade-in" style="animation-delay: ${index * 0.05}s" rel="noopener noreferrer" data-title="${video.title}">
           <div class="thumbnail-link">
-            <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="lazy">
+            <img src="${video.thumbnail}" alt="${video.title}" class="featured-thumbnail" loading="eager">
           </div>
-          <div class="card-content">
-            <h3 class="card-title">${video.title}</h3>
-          </div>
+          <div class="card-title-overlay">${video.title}</div>
         </a>
       `;
     }).join('');
@@ -61,21 +71,36 @@
     console.log('[renderSongs] 生成されたアイテム数:', container.querySelectorAll('.featured-work-item').length);
 
     // 画像読み込み完了後、フェードイン開始＆自動スクロール開始
-    waitForImagesToLoad(container).then(() => {
-      console.log('[renderSongs] 画像読み込み完了');
-      // フェードインアニメーション発火
-      setTimeout(() => {
-        const items = container.querySelectorAll('.featured-work-item');
-        console.log('[renderSongs] フェードイン開始, items.length:', items.length);
-        items.forEach(item => item.classList.add('show'));
-        console.log('[renderSongs] フェードイン完了');
-      }, 50);
-      
-      // 自動スクロール開始
-      if (typeof window.initAutoScroll === 'function') {
-        window.initAutoScroll();
-      }
-    });
+    console.log('[renderSongs] waitForImagesToLoad 開始');
+    waitForImagesToLoad(container)
+      .then(() => {
+        console.log('[renderSongs] ✅ 画像読み込み完了');
+        // フェードインアニメーション発火
+        setTimeout(() => {
+          const items = container.querySelectorAll('.featured-work-item');
+          console.log('[renderSongs] フェードイン開始, items.length:', items.length);
+          items.forEach(item => item.classList.add('show'));
+          console.log('[renderSongs] フェードイン完了');
+        }, 50);
+        
+        // 自動スクロール開始
+        console.log('[renderSongs] initAutoScroll 呼び出し前チェック');
+        console.log('[renderSongs] typeof window.initAutoScroll:', typeof window.initAutoScroll);
+        if (typeof window.initAutoScroll === 'function') {
+          console.log('[renderSongs] ✅ initAutoScroll を呼び出します');
+          window.initAutoScroll();
+        } else {
+          console.error('[renderSongs] ❌ window.initAutoScroll が関数ではありません');
+        }
+      })
+      .catch((error) => {
+        console.error('[renderSongs] ❌ waitForImagesToLoad でエラー:', error);
+        // エラーでも自動スクロールは起動する
+        if (typeof window.initAutoScroll === 'function') {
+          console.log('[renderSongs] エラー後も initAutoScroll を呼び出します');
+          window.initAutoScroll();
+        }
+      });
   }
 
   /**
@@ -85,11 +110,32 @@
    */
   function waitForImagesToLoad(container) {
     const images = container.querySelectorAll('img');
-    const promises = Array.from(images).map(img => {
-      if (img.complete) return Promise.resolve();
+    console.log('[waitForImagesToLoad] 画像数:', images.length);
+    
+    if (images.length === 0) {
+      console.log('[waitForImagesToLoad] 画像なし、即座に解決');
+      return Promise.resolve();
+    }
+    
+    const promises = Array.from(images).map((img, index) => {
+      if (img.complete) {
+        console.log(`[waitForImagesToLoad] 画像 ${index} は既に読み込み済み`);
+        return Promise.resolve();
+      }
       return new Promise(resolve => {
-        img.onload = resolve;
-        img.onerror = resolve;
+        img.onload = () => {
+          console.log(`[waitForImagesToLoad] 画像 ${index} 読み込み完了`);
+          resolve();
+        };
+        img.onerror = () => {
+          console.log(`[waitForImagesToLoad] 画像 ${index} 読み込みエラー（続行）`);
+          resolve();
+        };
+        // タイムアウト保険（2秒）- 事前読み込みで高速化されるため短縮
+        setTimeout(() => {
+          console.log(`[waitForImagesToLoad] 画像 ${index} タイムアウト（続行）`);
+          resolve();
+        }, 2000);
       });
     });
     return Promise.all(promises);
