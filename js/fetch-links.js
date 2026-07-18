@@ -22,8 +22,7 @@ function displaySNSLinks(links) {
     { key: 'x_main', name: 'X', icon: 'ri-twitter-x-line' },
     { key: 'tiktok', name: 'TikTok', icon: 'ri-tiktok-line' },
     { key: 'instagram', name: 'Instagram', icon: 'ri-instagram-line' },
-    { key: 'marshmallow', name: 'マシュマロ', icon: 'ri-mail-line' },
-    { key: 'booth', name: 'BOOTH', icon: 'ri-shopping-bag-line' }
+    { key: 'mond', name: 'mond', icon: 'ri-chat-smile-3-line' }
   ];
   
   container.innerHTML = snsConfig.map(sns => {
