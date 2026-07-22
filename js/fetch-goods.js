@@ -4,7 +4,14 @@ async function loadGoods() {
     const response = await fetch('/data/goods.json');
     const goodsData = await response.json();
     
-    displayGoods(goodsData);
+    // ソート: available=true を先頭に、false を後に配置
+    // それぞれのグループ内では元の順序を維持
+    const sortedGoods = [
+      ...goodsData.filter(item => item.available === true),
+      ...goodsData.filter(item => item.available === false)
+    ];
+    
+    displayGoods(sortedGoods);
   } catch (error) {
     console.error('グッズの読み込みに失敗しました:', error);
   }
