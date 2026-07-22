@@ -4,7 +4,14 @@ async function loadGoods() {
     const response = await fetch('/data/goods.json');
     const goodsData = await response.json();
     
-    displayGoods(goodsData);
+    // ソート: available=true を先頭に、false を後に配置
+    // それぞれのグループ内では元の順序を維持
+    const sortedGoods = [
+      ...goodsData.filter(item => item.available === true),
+      ...goodsData.filter(item => item.available === false)
+    ];
+    
+    displayGoods(sortedGoods);
   } catch (error) {
     console.error('グッズの読み込みに失敗しました:', error);
   }
@@ -23,6 +30,11 @@ function displayGoods(goodsArray) {
     const availableClass = item.available ? '' : 'sold-out';
     const soldOutOverlay = !item.available ? '<div class="sold-out-overlay">Sold Out</div>' : '';
     
+    // タグの表示HTML生成
+    const tagsHtml = item.tags && item.tags.length > 0
+      ? `<div class="goods-tags">${item.tags.map(tag => `<span class="goods-tag">${tag}</span>`).join('')}</div>`
+      : '';
+    
     // availableがfalseの場合はdivタグを使用（リンク無効化）
     if (!item.available) {
       return `
@@ -33,6 +45,7 @@ function displayGoods(goodsArray) {
           </div>
           <div class="card-content">
             <h3 class="card-title">${item.name}</h3>
+            ${tagsHtml}
           </div>
         </div>
       `;
@@ -47,6 +60,7 @@ function displayGoods(goodsArray) {
         </div>
         <div class="card-content">
           <h3 class="card-title">${item.name}</h3>
+          ${tagsHtml}
         </div>
       </a>
     `;

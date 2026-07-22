@@ -521,6 +521,8 @@ section {
   overflow: hidden;
   transition: var(--transition);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -591,12 +593,16 @@ section {
 
 .card-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .card-title {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: var(--color-text);
+  flex-grow: 1;
 }
 
 .card-description {
@@ -620,6 +626,39 @@ section {
   color: var(--color-secondary);
   border-radius: 20px;
   font-family: var(--font-secondary);
+}
+
+/* Goods専用タグスタイル */
+.goods-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.goods-tag {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  background: rgba(210, 105, 30, 0.2);
+  color: #D2691E;
+  border: 1px solid rgba(210, 105, 30, 0.4);
+  border-radius: 12px;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+/* Goodsカードホバー時のタグ */
+.goods-card:hover .goods-tag {
+  background: rgba(210, 105, 30, 0.3);
+  border-color: rgba(210, 105, 30, 0.6);
+  color: #FF8C00;
+}
+
+/* Sold Outカードのタグは控えめに */
+.goods-card.sold-out .goods-tag {
+  opacity: 0.5;
 }
 
 /* 動画埋め込み用スタイル */
