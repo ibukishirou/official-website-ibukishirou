@@ -23,6 +23,11 @@ function displayGoods(goodsArray) {
     const availableClass = item.available ? '' : 'sold-out';
     const soldOutOverlay = !item.available ? '<div class="sold-out-overlay">Sold Out</div>' : '';
     
+    // タグの表示HTML生成
+    const tagsHtml = item.tags && item.tags.length > 0
+      ? `<div class="goods-tags">${item.tags.map(tag => `<span class="goods-tag">${tag}</span>`).join('')}</div>`
+      : '';
+    
     // availableがfalseの場合はdivタグを使用（リンク無効化）
     if (!item.available) {
       return `
@@ -33,6 +38,7 @@ function displayGoods(goodsArray) {
           </div>
           <div class="card-content">
             <h3 class="card-title">${item.name}</h3>
+            ${tagsHtml}
           </div>
         </div>
       `;
@@ -47,6 +53,7 @@ function displayGoods(goodsArray) {
         </div>
         <div class="card-content">
           <h3 class="card-title">${item.name}</h3>
+          ${tagsHtml}
         </div>
       </a>
     `;
