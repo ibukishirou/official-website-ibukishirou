@@ -1,9 +1,16 @@
 [
   {
-    "title": "伊吹しろうおでかけグッズ 受注生産予約開始予定",
+    "title": "伊吹しろう缶バッチ 受注生産",
+    "start": "2026-07-27 10:00",
+    "end": "2026-08-09 23:59",
+    "link": "https://ibukishirou.booth.pm/items/7896055",
+    "tags": ["グッズ"]
+  },
+  {
+    "title": "伊吹しろうおでかけグッズ 受注生産",
     "start": "2026-06-24 00:00",
     "end": "2026-07-08 23:59",
-    "link": "https://ibukishirou.booth.pm/",
+    "link": "https://ibukishirou.booth.pm/items/8534502",
     "tags": ["グッズ"]
   },
   {
@@ -49,7 +56,7 @@
     "tags": ["リアイベ"]
   },
   {
-    "title": "缶バッチ 受注生産受付",
+    "title": "缶バッチ 受注生産",
     "start": "2026-01-25 00:00",
     "end": "2026-02-07 23:59",
     "link": "https://ibukishirou.booth.pm/",
