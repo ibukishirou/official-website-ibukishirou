@@ -11,28 +11,28 @@
     "thumbnail": "assets/goods/20260624_05_stand.webp",
     "link": "https://ibukishirou.booth.pm/items/8534369",
     "tags": ["おでかけグッズ"],
-    "available": false
+    "available": true
   },
   {
     "name": "アクリルロゴキーホルダー",
     "thumbnail": "assets/goods/20260624_03_key.webp",
     "link": "https://ibukishirou.booth.pm/items/8534440",
     "tags": ["おでかけグッズ"],
-    "available": false
+    "available": true
   },
   {
     "name": "SNS風クリアカード",
     "thumbnail": "assets/goods/20260624_02_card.webp",
     "link": "https://ibukishirou.booth.pm/items/8534479",
     "tags": ["おでかけグッズ"],
-    "available": false
+    "available": true
   },
   {
     "name": "トートバッグ",
     "thumbnail": "assets/goods/20260624_04_bag.webp",
     "link": "https://ibukishirou.booth.pm/items/8534495",
     "tags": ["おでかけグッズ"],
-    "available": false
+    "available": true
   },
   {
     "name": "缶バッチ vol.2 全6種",
