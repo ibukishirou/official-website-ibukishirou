@@ -288,6 +288,34 @@ function getEventsForDate(date) {
   
   if (!scheduleData) return events;
   
+  // 恒常的な記念日イベント（3/22誕生日、9/22デビュー記念日）
+  const month = date.getMonth() + 1; // 1-12
+  const day = date.getDate();
+  
+  if (month === 3 && day === 22) {
+    // 3/22 誕生日
+    events.push({
+      type: 'anniversary',
+      title: '🎂 誕生日',
+      color: '#DC143C', // 深紅色（赤系固定）
+      tags: ['記念日'],
+      sortTime: '00:00',
+      sortPriority: 1 // 最優先で表示
+    });
+  }
+  
+  if (month === 9 && day === 22) {
+    // 9/22 デビュー記念日
+    events.push({
+      type: 'anniversary',
+      title: '🎉 デビュー記念日',
+      color: '#DC143C', // 深紅色（赤系固定）
+      tags: ['記念日'],
+      sortTime: '00:00',
+      sortPriority: 1 // 最優先で表示
+    });
+  }
+  
   // schedule.json は単純な配列形式
   // 各イベントが { title, start, end, link, tags } の形式
   if (Array.isArray(scheduleData)) {
@@ -353,7 +381,44 @@ function isEventOnDate(event, date) {
 // ============================================
 
 function createEventElement(event) {
-  if (event.type === 'celebration') {
+  if (event.type === 'anniversary') {
+    // 記念日（誕生日・デビュー記念日）
+    const eventItem = document.createElement('div');
+    eventItem.className = 'event-item anniversary';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.color = '#ffffff';
+    eventItem.style.cursor = 'default';
+    
+    // タイトルとタグの行
+    const contentRow = document.createElement('div');
+    contentRow.className = 'event-content-row';
+    
+    // タイトル
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    contentRow.appendChild(titleDiv);
+    
+    // タグ表示
+    if (event.tags && event.tags.length > 0) {
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'event-tags';
+      event.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'event-tag';
+        tagSpan.textContent = tag;
+        tagsDiv.appendChild(tagSpan);
+      });
+      contentRow.appendChild(tagsDiv);
+    }
+    
+    eventItem.appendChild(contentRow);
+    
+    // クリックイベントなし（記念日は外部リンクがない）
+    
+    return eventItem;
+    
+  } else if (event.type === 'celebration') {
     // 記念日
     const eventItem = document.createElement('div');
     eventItem.className = 'event-item celebration';
