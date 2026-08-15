@@ -288,6 +288,34 @@ function getEventsForDate(date) {
   
   if (!scheduleData) return events;
   
+  // 恒常的な記念日イベント（3/22誕生日、9/22デビュー記念日）
+  const month = date.getMonth() + 1; // 1-12
+  const day = date.getDate();
+  
+  if (month === 3 && day === 22) {
+    // 3/22 誕生日
+    events.push({
+      type: 'anniversary',
+      title: '誕生日',
+      color: '#DC143C', // 深紅色（赤系固定）
+      tags: ['記念日'],
+      sortTime: '00:00',
+      sortPriority: 1 // 最優先で表示
+    });
+  }
+  
+  if (month === 9 && day === 22) {
+    // 9/22 デビュー記念日
+    events.push({
+      type: 'anniversary',
+      title: 'デビュー記念日',
+      color: '#DC143C', // 深紅色（赤系固定）
+      tags: ['記念日'],
+      sortTime: '00:00',
+      sortPriority: 1 // 最優先で表示
+    });
+  }
+  
   // schedule.json は単純な配列形式
   // 各イベントが { title, start, end, link, tags } の形式
   if (Array.isArray(scheduleData)) {
@@ -353,7 +381,50 @@ function isEventOnDate(event, date) {
 // ============================================
 
 function createEventElement(event) {
-  if (event.type === 'celebration') {
+  if (event.type === 'anniversary') {
+    // 記念日（誕生日・デビュー記念日）
+    const eventItem = document.createElement('div');
+    eventItem.className = 'event-item anniversary';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.color = '#ffffff';
+    eventItem.style.cursor = 'default';
+    
+    // タイトルとタグの行
+    const contentRow = document.createElement('div');
+    contentRow.className = 'event-content-row';
+    
+    // タイトル
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    contentRow.appendChild(titleDiv);
+    
+    // タグ表示
+    if (event.tags && event.tags.length > 0) {
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'event-tags';
+      event.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'event-tag';
+        tagSpan.textContent = tag;
+        tagsDiv.appendChild(tagSpan);
+      });
+      contentRow.appendChild(tagsDiv);
+    }
+    
+    eventItem.appendChild(contentRow);
+    
+    // クリックイベント（SPビューでモーダル表示）
+    eventItem.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        showEventModal(event);
+      }
+    });
+    
+    return eventItem;
+    
+  } else if (event.type === 'celebration') {
     // 記念日
     const eventItem = document.createElement('div');
     eventItem.className = 'event-item celebration';
@@ -571,7 +642,10 @@ function showEventModal(event) {
   const timeDiv = document.createElement('div');
   timeDiv.className = 'event-modal-time';
   
-  if (event.type === 'celebration') {
+  if (event.type === 'anniversary') {
+    // 記念日（誕生日・デビュー記念日）の場合は終日イベントとして表示
+    timeDiv.textContent = '終日';
+  } else if (event.type === 'celebration') {
     // 記念日の場合は終日イベントとして表示
     timeDiv.textContent = '終日';
   } else if (event.type === 'regular') {
@@ -618,18 +692,20 @@ function showEventModal(event) {
   
   modal.appendChild(contentRow);
   
-  // 詳細ボタン
-  const detailBtn = document.createElement('a');
-  detailBtn.className = 'event-modal-button';
-  detailBtn.textContent = '詳細を見る';
-  detailBtn.href = event.link;
-  detailBtn.target = '_blank';
-  detailBtn.rel = 'noopener noreferrer';
-  // 予定の色を背景色として適用
-  if (event.color) {
-    detailBtn.style.backgroundColor = event.color;
+  // 詳細ボタン（anniversaryタイプ以外のみ表示）
+  if (event.type !== 'anniversary') {
+    const detailBtn = document.createElement('a');
+    detailBtn.className = 'event-modal-button';
+    detailBtn.textContent = '詳細を見る';
+    detailBtn.href = event.link;
+    detailBtn.target = '_blank';
+    detailBtn.rel = 'noopener noreferrer';
+    // 予定の色を背景色として適用
+    if (event.color) {
+      detailBtn.style.backgroundColor = event.color;
+    }
+    modal.appendChild(detailBtn);
   }
-  modal.appendChild(detailBtn);
   
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
