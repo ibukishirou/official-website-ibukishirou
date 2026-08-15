@@ -296,7 +296,7 @@ function getEventsForDate(date) {
     // 3/22 誕生日
     events.push({
       type: 'anniversary',
-      title: '🎂 誕生日',
+      title: '誕生日',
       color: '#DC143C', // 深紅色（赤系固定）
       tags: ['記念日'],
       sortTime: '00:00',
@@ -308,7 +308,7 @@ function getEventsForDate(date) {
     // 9/22 デビュー記念日
     events.push({
       type: 'anniversary',
-      title: '🎉 デビュー記念日',
+      title: 'デビュー記念日',
       color: '#DC143C', // 深紅色（赤系固定）
       tags: ['記念日'],
       sortTime: '00:00',
