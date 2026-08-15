@@ -414,7 +414,13 @@ function createEventElement(event) {
     
     eventItem.appendChild(contentRow);
     
-    // クリックイベントなし（記念日は外部リンクがない）
+    // クリックイベント（SPビューでモーダル表示）
+    eventItem.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        showEventModal(event);
+      }
+    });
     
     return eventItem;
     
@@ -636,7 +642,10 @@ function showEventModal(event) {
   const timeDiv = document.createElement('div');
   timeDiv.className = 'event-modal-time';
   
-  if (event.type === 'celebration') {
+  if (event.type === 'anniversary') {
+    // 記念日（誕生日・デビュー記念日）の場合は終日イベントとして表示
+    timeDiv.textContent = '終日';
+  } else if (event.type === 'celebration') {
     // 記念日の場合は終日イベントとして表示
     timeDiv.textContent = '終日';
   } else if (event.type === 'regular') {
@@ -683,18 +692,20 @@ function showEventModal(event) {
   
   modal.appendChild(contentRow);
   
-  // 詳細ボタン
-  const detailBtn = document.createElement('a');
-  detailBtn.className = 'event-modal-button';
-  detailBtn.textContent = '詳細を見る';
-  detailBtn.href = event.link;
-  detailBtn.target = '_blank';
-  detailBtn.rel = 'noopener noreferrer';
-  // 予定の色を背景色として適用
-  if (event.color) {
-    detailBtn.style.backgroundColor = event.color;
+  // 詳細ボタン（anniversaryタイプ以外のみ表示）
+  if (event.type !== 'anniversary') {
+    const detailBtn = document.createElement('a');
+    detailBtn.className = 'event-modal-button';
+    detailBtn.textContent = '詳細を見る';
+    detailBtn.href = event.link;
+    detailBtn.target = '_blank';
+    detailBtn.rel = 'noopener noreferrer';
+    // 予定の色を背景色として適用
+    if (event.color) {
+      detailBtn.style.backgroundColor = event.color;
+    }
+    modal.appendChild(detailBtn);
   }
-  modal.appendChild(detailBtn);
   
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
