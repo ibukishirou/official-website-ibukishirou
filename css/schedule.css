@@ -220,6 +220,12 @@
   font-weight: 500;
 }
 
+.event-item.anniversary {
+  /* 誕生日・デビュー記念日用 */
+  border: 2px solid #ffffff;
+  font-weight: 600;
+}
+
 .event-time {
   font-size: 0.65rem;
   font-weight: 700;
