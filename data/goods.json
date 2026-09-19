@@ -1,5 +1,40 @@
 [
   {
+    "name": "1周年記念コンプリートセット",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849678/25348c89-3b06-4ccc-b9c6-644c85a89edd_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849678",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "ぬいぐるみ",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849659/c3dd8f8f-87e2-4cfc-901a-17529d050705_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849659",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "シンボルステッカー",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849639/7028c705-237f-41b0-8297-b6df26e77ea8_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849639",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "でかキャラステッカー",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849615/a06aba55-29ac-45cc-9476-b01099bb8af5_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849615",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "ちっちゃい鏡",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849596/8b81038a-e501-43f9-bf67-efdd8a829209_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849596",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
     "name": "おでかけコンプリートセット",
     "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534502/868cdb0f-220a-4909-89a0-540c93366850_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534502",
@@ -39,7 +74,7 @@
     "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7896055/8b2d1373-9bd6-4ba1-976c-57727c0a6638_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7896055",
     "tags": ["痛バを作ろう！"],
-    "available": false
+    "available": true
   },
   {
     "name": "デビュー記念フルセット",
@@ -53,7 +88,7 @@
     "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625265/a09cf44a-4ab3-4b84-93c7-1398ddeb947f_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625265",
     "tags": ["デビュー記念"],
-    "available": false
+    "available": true
   },
   {
     "name": "アクリルキーホルダー",
