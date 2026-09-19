@@ -1,84 +1,119 @@
 [
   {
+    "name": "1周年記念コンプリートセット",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849678/25348c89-3b06-4ccc-b9c6-644c85a89edd_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849678",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "ぬいぐるみ",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849659/c3dd8f8f-87e2-4cfc-901a-17529d050705_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849659",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "シンボルステッカー",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849639/7028c705-237f-41b0-8297-b6df26e77ea8_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849639",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "でかキャラステッカー",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849615/a06aba55-29ac-45cc-9476-b01099bb8af5_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849615",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
+    "name": "ちっちゃい鏡",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8849596/8b81038a-e501-43f9-bf67-efdd8a829209_base_resized.jpg",
+    "link": "https://ibukishirou.booth.pm/items/8849596",
+    "tags": ["一周年記念"],
+    "available": true
+  },
+  {
     "name": "おでかけコンプリートセット",
-    "thumbnail": "assets/goods/20260624_01_fullset.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534502/868cdb0f-220a-4909-89a0-540c93366850_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534502",
     "tags": ["おでかけグッズ"],
     "available": false
   },
   {
     "name": "ミニアクリルスタンド",
-    "thumbnail": "assets/goods/20260624_05_stand.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534369/5592612d-10f3-47ff-b522-8cceceb5a927_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534369",
     "tags": ["おでかけグッズ"],
     "available": false
   },
   {
     "name": "アクリルロゴキーホルダー",
-    "thumbnail": "assets/goods/20260624_03_key.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534440/ee6511ac-bd0b-4fdc-b864-67e7f8b17858_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534440",
     "tags": ["おでかけグッズ"],
     "available": true
   },
   {
     "name": "SNS風クリアカード",
-    "thumbnail": "assets/goods/20260624_02_card.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534479/5acb83d5-e86c-4922-b615-7e749fc67faa_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534479",
     "tags": ["おでかけグッズ"],
     "available": true
   },
   {
     "name": "トートバッグ",
-    "thumbnail": "assets/goods/20260624_04_bag.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/8534495/5eed9c3d-8549-4a9d-8bb8-9ab47d769c47_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/8534495",
     "tags": ["おでかけグッズ"],
     "available": false
   },
   {
     "name": "缶バッチ vol.2 全6種",
-    "thumbnail": "assets/goods/20260201_kanba.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7896055/8b2d1373-9bd6-4ba1-976c-57727c0a6638_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7896055",
     "tags": ["痛バを作ろう！"],
-    "available": false
+    "available": true
   },
   {
     "name": "デビュー記念フルセット",
-    "thumbnail": "assets/goods/20250922_set.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7618604/14829c4a-978c-4728-8321-5635b5f0d64c_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7618604",
     "tags": ["デビュー記念"],
     "available": false
   },
   {
     "name": "アクリルスタンド",
-    "thumbnail": "assets/goods/20251118_akusuta.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625265/a09cf44a-4ab3-4b84-93c7-1398ddeb947f_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625265",
     "tags": ["デビュー記念"],
-    "available": false
+    "available": true
   },
   {
     "name": "アクリルキーホルダー",
-    "thumbnail": "assets/goods/20251118_akuki.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625274/2921f968-ded1-47b5-99dd-25d5e2b357d0_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625274",
     "tags": ["デビュー記念"],
     "available": false
   },
   {
     "name": "ステッカー10枚セット",
-    "thumbnail": "assets/goods/20251118_sticker.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625278/6badbe61-e562-4c10-adfa-3b11ec2bccf3_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625278",
     "tags": ["デビュー記念"],
     "available": false
   },
   {
     "name": "三連アクリルキーホルダー",
-    "thumbnail": "assets/goods/20251118_3akuki.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625282/ae7b6d54-59a4-4da3-943e-c0c3753fda3e_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625282",
     "tags": ["デビュー記念"],
     "available": false
   },
   {
     "name": "缶バッチ vol.1",
-    "thumbnail": "assets/goods/20251118_kanbatti.webp",
+    "thumbnail": "https://booth.pximg.net/c/300x300_a2_g5/2d66ffeb-c1e9-40d3-9d8b-8df16129f39c/i/7625284/5346d71c-400b-4f38-9b7a-d41f30f83c3e_base_resized.jpg",
     "link": "https://ibukishirou.booth.pm/items/7625284",
     "tags": ["デビュー記念"],
     "available": false
